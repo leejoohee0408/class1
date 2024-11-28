@@ -190,10 +190,29 @@ public class OpExam {
 		double var3 =var1 / var2;
 		int var4 = (int) ((var3 * var1)/var2);
 		System.out.println(var4);
+		//다른 풀이
+		double var5 = 5;
+		double var6 = 2;
+		double var7 =var5 / var6;
+		double var8 =(var7*var6);
+		System.out.println(var8);
 		
 		//150쪽 6번문제
 		int value =356;
 		System.out.println(value-(value%300));
+		//다른풀이
+		int value1 =356;
+		System.out.println((value1/100) * 100);
+		
+		//깜짝퀴즈
+		//v1 /v2의 값을 소수점 3자리까지만 출력
+		double v1 = 1000;
+		double v2 = 457;
+		double v3 = (v1 / v2) * 1000;
+		int v4 = (int)v3;
+		double v5 =(double) v4/1000;
+		System.out.println(v1/v2);
+		System.out.println(v5);
 		
 		
 	}
