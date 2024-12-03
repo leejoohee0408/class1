@@ -420,9 +420,9 @@ public class ForExam {
 		 
 		 */
 		System.out.print("4단계");
-		for (int ii = 1; ii <= 6; ii++) {
-			System.out.print("-");
-           for (int i2 = 1; i2 < ii; i2++) {
+		System.out.println();
+		for (int ii = 1; ii <= 5; ii++) {
+           for (int i2 = 1; i2 <= ii; i2++) {
                System.out.print("+");
            }
         System.out.println();
@@ -441,7 +441,7 @@ public class ForExam {
 		for(int ii = 1; ii <=1; ii++) {
 			System.out.print("+");
 		for(int i2 = 1; i2 <=4; i2++) {	
-			System.out.print("-");
+			System.out.print("_");
 		}
 		}
 		System.out.println();
@@ -452,6 +452,7 @@ public class ForExam {
 		for(int ii = 1; ii <=3; ii++) {
 			System.out.print("+");
 		}
+		
 		System.out.println();
 		for(int ii = 1; ii <=4; ii++) {
 			System.out.print("+");
@@ -461,6 +462,9 @@ public class ForExam {
 			System.out.print("+");
 		}
 		System.out.println();
+		
+		
+		
 		
 		//6단계
 		/*
