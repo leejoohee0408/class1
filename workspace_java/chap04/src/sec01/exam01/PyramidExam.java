@@ -242,6 +242,8 @@ public class PyramidExam {
 		        System.out.println();
 		       }
 
+				
+				
 
 	}
 
