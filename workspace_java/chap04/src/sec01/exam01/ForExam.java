@@ -379,42 +379,56 @@ public class ForExam {
 			
 		}
 		System.out.println(" ");
-		//4단계
 		/*
+		 
+		 1
+		 22
+		 333
+		 4444
+		 55555
+		 
+		 */
+		System.out.println("3.5단계");
+		for(int ii = 1; ii <=1; ii++) {
+			System.out.print("1");
+		}
+		System.out.println();
+		for(int ii = 1; ii <=2; ii++) {
+			System.out.print("2");
+		}
+		System.out.println();
+		for(int ii = 1; ii <=3; ii++) {
+			System.out.print("3");
+		}
+		System.out.println();
+		for(int ii = 1; ii <=4; ii++) {
+			System.out.print("4");
+		}
+		System.out.println();
+		for(int ii = 1; ii <=5; ii++) {
+			System.out.print("5");
+		}
+		System.out.println();
+		// 4단계
+		/*
+		 
 		 +
 		 ++
 		 +++
 		 ++++
 		 +++++
+		 
 		 */
+		System.out.print("4단계");
+		for (int ii = 1; ii <= 6; ii++) {
+			System.out.print("-");
+           for (int i2 = 1; i2 < ii; i2++) {
+               System.out.print("+");
+           }
+        System.out.println();
+       }
 		
-		int a =1;
-		System.out.println("4단계");
-		for(int w =1; w<=a; w++) {
-			System.out.println("+");
-		
-		}
-		a++;
-		for(int w =1; w<=a; w++) {
-			System.out.println("+");
-		}
-		
-		a++;
-		for(int w =1; w<=a; w++) {
-			System.out.println("+");
-		}
-			
-		a++;
-		for(int w =1; w<=a; w++) {
-			System.out.println("+");
-		}
-		
-		
-			
-		
-		
-		
-		
+				
 		//5단계
 		/*
 		 +____
@@ -423,6 +437,30 @@ public class ForExam {
 		 ++++_
 		 +++++
 		 */
+		System.out.println("5단계");
+		for(int ii = 1; ii <=1; ii++) {
+			System.out.print("+");
+		for(int i2 = 1; i2 <=4; i2++) {	
+			System.out.print("-");
+		}
+		}
+		System.out.println();
+		for(int ii = 1; ii <=2; ii++) {
+			System.out.print("+");
+		}
+		System.out.println();
+		for(int ii = 1; ii <=3; ii++) {
+			System.out.print("+");
+		}
+		System.out.println();
+		for(int ii = 1; ii <=4; ii++) {
+			System.out.print("+");
+		}
+		System.out.println();
+		for(int ii = 1; ii <=5; ii++) {
+			System.out.print("+");
+		}
+		System.out.println();
 		
 		//6단계
 		/*
