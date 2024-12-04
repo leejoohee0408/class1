@@ -46,6 +46,9 @@ public class LottoExam {
 		int temp26 = (int)temp55; //0 ~ 44
 		int lottol6 = temp26 + 1; //1 ~ 45
 		System.out.println(lottol6);
+		
+		
+		
 	}
 
 }
