@@ -160,25 +160,7 @@ public class ArrayExam {
 		int[] b = new int[a.length];
 		b[0] = a[0];
 		   
-		/*
-		 *문제4. 두번째 큰 수 구하기
-		 *5번부터 [3,4,7,5,1,4,6] 하지않기
-		 *문제5. 배열을 하나씩 뒤(오른쪽)로 밀기
-		 *	5-1 : 0으로 채우기
-		 *	5-2 : 첫자리에 마지막 것 넣기
-		 *문제6. 임시비밀번호 8자리 만들기
-		 *	6-1 : 랜덤쓰기 숫자로
-		 *	6-2 : 소문자로
-		 *	*어려움6-3 :숫자2개이상, 대/소문자 조합 
-		 *문제7. 예약
-		 *	자리가 10개 있는 소극장 예약 시스템
-		 *	자리 번호는 1 ~ 10번까지 번호의 자리가 있음
-		 *	만약1 : 예약이 가능하다면 "n번자리 예약했습니다"
-		 *	만약2 : 예약이 불가능 하다면 "이미 예약 되어있습니다"
-		 *	메뉴 : "1.예약, 2.모든예약현황, 3.잔여좌석, 4.종료"
-		 *문제8. 로또 6개를 배열에 저장
-		 *	단, 중복 없이
-		 */
+		
 //		문제1. 홀수의 개수 구하기
 		System.out.println("---문제1---");
 		int[] sA = new int[] {3,4,7,5,1,4,6};
@@ -205,25 +187,160 @@ public class ArrayExam {
 		
 		
 //		  문제3. 최대값 구하기
+		// 앞에서 부터 하나씩
+		// 첫번째 것을 기준으로
+		// int 최소값을 기준으로
+		// 다음것과 비교해서 큰것을 따로 저장해놓고
+		// 저장한 것으로 그 다음것과 비교하는걸
+		// 끝까지 반복
 		System.out.println("---문제3---");
-		int max = 7*;
-		for(int w=1; w <= sA.length;w++) {
-			if(8>=sA[w]) {
-				
-			}else {
-				System.out.println(w);
+		//int max = Integer.MAX_VALUE;  이게 int 최대값 구하는법
+		int max = Integer.MIN_VALUE; // -2147483648 이게 int 최소값 구하는법
+		for(int w=0; w < sA.length;w++) {
+			if(max < sA[w]) {
+				max = sA[w];
 			}
-			
 		}
+		System.out.println("최대값 :"+max);	
+		
+		/*
+		 *문제4. 두번째 큰 수 구하기
+		 *5번부터 [3,4,7,5,1,4,6] 하지않기
+		 *문제5. 배열을 하나씩 뒤(오른쪽)로 밀기
+		 *	5-1 : 0으로 채우기
+		 *	5-2 : 첫자리에 마지막 것 넣기
+		 *문제6. 임시비밀번호 8자리 만들기
+		 *	6-1 : 랜덤쓰기 숫자로
+		 *	6-2 : 소문자로
+		 *	*어려움6-3 :숫자2개이상, 대/소문자 조합 
+		 *문제7. 예약
+		 *	자리가 10개 있는 소극장 예약 시스템
+		 *	자리 번호는 1 ~ 10번까지 번호의 자리가 있음
+		 *	만약1 : 예약이 가능하다면 "n번자리 예약했습니다"
+		 *	만약2 : 예약이 불가능 하다면 "이미 예약 되어있습니다"
+		 *	메뉴 : "1.예약, 2.모든예약현황, 3.잔여좌석, 4.종료"
+		 *문제8. 로또 6개를 배열에 저장
+		 *	단, 중복 없이
+		 */
+		//문제4. 두번째 큰 수 구하기
+		//최대값을 구한것에서
+		//최대값만 빼게하기
+		//한마디로 최대값이 아닌것을 하면 될듯?
+		System.out.println("---문제4---");
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		//첫 배열을 20으로 한 것
+		int[] class1 = new int[20];
+		int[] class2 = new int[20];
+		int[] class3 = new int[20];
+		int[] class4 = new int[20];
+		
+		//배열의 배열을 할거면 자식의 배열인 20도 입력해야한다
+		int[][]천안 = new int[4][20];
+		System.out.println("천안 : "+ 천안);
+		System.out.println("천안[0] : "+ 천안[0]);
+		System.out.println("천안[0][0] : "+ 천안[0][0]);
+
+		// 서로 다른 크기를 가지는 2차원 배열
+		int[][] test = { {1,2,3},{1,2,3,78}, {78} };
 			
 		
-//		System.out.println(3);
-//		System.out.println(4);
-//		System.out.println(7);
-//		System.out.println(5);
-//		System.out.println(1);
-//		System.out.println(4);
-//		System.out.println(6);
+		
+		//두번째에 배열에 마지막 것을 출력
+		System.out.println("두번째에 마지막 :"+test[1][3]);
+		
+		//(배열개수) 배열변수에는 .length를 한다
+		System.out.println("test.length :"+test.length);
+		System.out.println("test[0].length :"+test[0].length);
+		System.out.println("test[1].length :"+test[1].length);
+		System.out.println("test[2].length :"+test[2].length);
+		
+		
+		//3차원 배열
+		int[][] 수원 = new int[4][20];
+		int[][] 서울 = new int[4][20];
+		
+		int[][][] 휴먼 = new int[3][4][20]; 
+		
+		
+		// 가상의 달력
+		// 12개월이고 모든 달은 30일까지만 있는....
+		// 한달은 1~30
+		// 모든 날짜 채워 넣기
+		// 따로 모든(또는 11월) 출력하기
+		int[] tt = new int[30];	
+		for(int i=0; i<tt.length; i++) {
+			tt[i] = i+1;
+		}
+		for(int i=0; i<tt.length; i++) {
+			System.out.print(tt[i]+",");
+		}
+		
+		
+		
+		int[] tt2 = new int[30];	
+		for(int i=0; i<tt.length; i++) {
+			tt[i] = i+1;
+		}
+		
+		int[][] tt3 = new int[12][30];
+		for(int i=0; i<tt3[0].length; i++) {
+			tt3[0][i] = i+1;
+		}
+		for(int i=0; i<tt3[1].length; i++) {
+			tt3[1][i] = i+1;
+		}
+		
+		for(int j=0; j<tt3.length; j++) {
+			for(int i=0; i<tt3[j].length; i++) {
+				tt3[j][i] = i+1;
+			}
+		}
+		for(int j=0; j<tt3.length; j++) {
+			for(int i=0; i<tt3[j].length; i++) {
+				System.out.println("월:"+j+",i:"+i+",일"+tt3[j][i]);
+			}
+		}
+		
+		//
+		String[] name1 = {"김","이", "박", "최"};
+		//name1와 정확히 동일한 name2를 만드세요
+		String[] name2 = new String [name1.length];
+//		name2[0] = name1[0];
+		for(int i=0; i < name1.length; i++) {
+			name2[i] = name1[i];
+			System.out.print(name2[i]);
+		}
+		System.out.println();
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		
