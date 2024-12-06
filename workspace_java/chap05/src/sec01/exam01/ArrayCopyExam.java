@@ -109,18 +109,21 @@ public class ArrayCopyExam {
 		double d =0;
 		int sum = 0;
 		double avg = 0.0;
-		
+		int max = Integer.MIN_VALUE; 
 		//작성 위치
 		for(int i=0; i<array.length; i++) {
 			for(int a=0; a<array[i].length; a++) {
 				sum = sum + array[i][a];
 					d++;
+					if(max < array[i][a]) {
+						max = array[i][a];
+					}
 			}
 				avg = sum/d;
 		}
 		System.out.println("sum: "+ sum);
 		System.out.println("avg: "+ avg);
-		
+		System.out.println("max: "+ max);
 		
 		
 		
