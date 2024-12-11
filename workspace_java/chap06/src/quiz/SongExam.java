@@ -36,6 +36,7 @@ public class SongExam {
 		c3.setTitle("wh");
 		
 		//plus 메소드안에 있는것을 3.5, 7.5로 넣어서 a에 넣는다
+		// (1+5)+7
 		double a =c3.plus(3.5, 7.5);
 		//a에 넣은것을 출력
 		System.out.println(a);

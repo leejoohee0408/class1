@@ -33,7 +33,35 @@ public class Calc {
 	 *  
 	 */
 	
-	
+	double compute(double i, String s, double ii) {
+		 
+        if (s.equals("+")) {
+            return i + ii;
+        } else if (s.equals("-")) {
+            return i - ii;
+        } else if (s.equals("*")) {
+            return i * ii;
+        } else if (s.equals("/")) {
+            	return i / ii;  
+            }else if (s.equals("%")){
+            	 return i % ii;
+            }else {
+            	System.out.println("+ - * /를 써주세요");
+            	 return i + ii;
+            }
+       
+        
+      
+        
+        
+        
+        
+        
+        
+        
+        
+        
+	}
 	
 	
 	
