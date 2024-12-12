@@ -1,5 +1,7 @@
 package quiz;
 
+import java.util.Scanner;
+
 public class Warmer {
 
 	//생성자
@@ -109,7 +111,49 @@ public class Warmer {
 //		}
 	
 	
-	
+		// 전원 기능
+		String i2;
+		String i3;
+		
+		Scanner scanner = new Scanner(System.in);
+		int w = 0;
+		
+		void onoff() {
+			System.out.println(this.i2);
+		}
+		
+		
+		
+		void on() {
+			System.out.println("전원키기");
+			this.i2 = "켜기";
+		}
+		
+		void off() {
+			System.out.println("전원끄기");
+			this.i2 = "끄기";
+		}
+	    // 볼륨up/down (0~10 까지)
+		// 켠상태에서 
+		void bup() {
+			if(this.i2.equals("켜기") && w>=10 ) {
+					w++;
+					this.i3 = 
+			}
+			
+		}
+		
+	    // 채널up/down/직접입력
+	    // 현재 정보 보기
+
+	    /*
+	     
+	UP / DOWN 게임
+	생성시에 임의의 숫자 정하기 (1~10)
+	정답시도시 감이 오는 숫자 넣기
+	결과 : 정답, UP, DOWN
+	정답 맞출때 까지, 또는 기회 5번 안에 맞추기
+	몰래정답보기(힌트기능)*/
 	
 	
 	
