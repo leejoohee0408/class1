@@ -1,0 +1,73 @@
+body{
+    margin: 0;
+}
+
+/* margin: 0 auto;에 auto는 왼쪽 오른쪽만 되고*/
+/* margin: 0 auto;의 0은 위아래를 정한다 */
+.block{
+    border: 1px solid purple;
+    height: 50px;
+    width: 100px;
+    margin: 0 auto;
+}
+
+
+.inline{
+    border: 1px solid purple;
+    height: 50px;
+    width: 100px;
+    /* 좌우만 되고 위 아래 안됨  */
+    margin: 50px;
+    /* 좌우만 되고 위 아래 안됨 단, border는 밀어짐 */
+    padding: 30px;
+}
+
+.bg_blue{
+    background-color: blue;
+    color: #fff;
+   
+}
+
+.parent{
+    border:  1px dotted rgb(255, 0, 255);
+    width: 400px;
+    /* width: 100%; */
+}
+
+.parent > div{
+    border: 1px solid blue;
+
+    height: 50px;
+    width: 150px;
+
+    
+    display: inline-block;
+    /* vertical-align: top;은 세로방향 정렬로 맨위로 맞추어줬다 */
+    /* inline, inline-block에만 적용 됨 */
+    vertical-align: top;
+}
+/* none은 글씨를 가리는거임 그대신 코드는 나와있음 */
+.hide{
+    display: none;
+}
+/* 테이블을 디스플레이로 만듬 */
+.table{
+    display: table;
+}
+/* cell은 한칸이라는 말임 */
+/* display: table-cell;해야 vertical-align를 쓸수있다 */
+/* vertical-align: middle; 세로 중앙 */
+/* text-align: center; 가로 중앙 */
+.table .td{
+    border: 1px solid red;
+    display: table-cell;
+    width: 100px;
+    height: 100px;
+
+    vertical-align: middle;
+    text-align: center;
+}
+.fake_div{
+    border: 1px solid red;
+    display: inline;
+}

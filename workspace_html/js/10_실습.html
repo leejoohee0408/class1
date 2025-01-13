@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        window.addEventListener("load", inq);
+        
+        function inq(){
+        document.querySelector('#login')
+        .addEventListener("click", function(){
+           
+        const pw = document.querySelector('#pw');
+        console.log(pw, pw.value);
+        
+        const pw2 = document.querySelector('#pw2');
+        console.log(pw2, pw2.value);
+            
+            if (pw.value == ""){
+            console.log("pw 안썻음");
+            // 색깔입힘
+            document.querySelector('#login_msg').style.color = '#f00';
+            // 비밀번호를 입력안했을때 나오는 문자
+            document.querySelector('#login_msg').textContent = '비밀번호는 필수입니다'
+
+            // 비밀번호가 없을때
+        } else if (pw2.value == ""){
+            console.log("pw2 안썻음");
+            // 색깔입힘
+            document.querySelector('#login_msg').style.color = '#f00';
+            document.querySelector('#login_msg').textContent = '비밀번호확인는 필수입니다'
+
+            // 비밀번호 비밀번호 확인이 같으면
+        }else if(pw.value == pw2.value){
+            document.querySelector('#login_msg').textContent = '';
+            // 비밀번호 비밀번호 확인이 다르면 빨간색으로 확인부탁
+        }else if(pw.value != pw2.value){
+            document.querySelector('#login_msg').style.color = '#f00';
+            document.querySelector('#login_msg').textContent = "비밀번호 확인하세요";
+            
+        }
+
+        })
+        // 주문정보 이름
+        const Name1 = document.querySelector('#name1');
+        // 주문정보 주소
+        const Address1 = document.querySelector('#address1');
+        // 배송정보 이름
+        const Name2 = document.querySelector('#name2');
+        // 배송정보 주소
+        const Address2 = document.querySelector('#address2');
+        // 배송정보 체크버튼
+        const b = document.querySelector('#b');
+
+        b.addEventListener('change', function() {
+            // 만약 체크를 하면 주문정보의 이름과 주소를
+            // 배송정보에 똑같이 가져오는것
+            if (b.checked) {
+                Name2.value = Name1.value;
+                Address2.value = Address1.value;
+            // 아니면 안나오게 하는것
+            } else {
+                Name2.value = '';
+                Address2.value = '';
+            }
+        });
+
+        const Button = document.querySelector('#Button');
+            Button.addEventListener('click', function() {
+                // select안에있는 피자를 pizza로 변환
+                const pizza = document.querySelector('select').value;
+                // size안에있는 사이즈들을 size로 변환
+                const size = document.querySelector('[name=size]:checked').value;
+                const t = [];
+                // 만약 체크되면 추가
+                if (document.querySelector('#a').checked) t.push('페페로니추가');
+                // 만약 체크되면 추가
+                if (document.querySelector('#a2').checked) t.push('치즈추가');
+                // 요청사항 r로 변환
+                const r = document.querySelector('#text').value;
+                // 출력할것들
+                const order = `
+                    피자 종류: ${pizza}
+                    사이즈: ${size}size
+                    추가 토핑: ${t.join(', ')}
+                    요청사항: ${r}
+                `;
+                // 출력
+                document.querySelector('#order').textContent = order;
+            });
+    
+    }
+
+
+     </script>
+</head>
+<body>
+    <!-- 문제1
+     비밀번호
+     비밀번호 확인
+     로그인 버튼 클릭시 두개의 값이 다르면 빨간글씨로
+     "비밀번호 확인하세요" 글씨 출력
+     두개의 값이 같으면 : 확인문자 지우기-->
+     <div id="log"></div>
+     <fieldset>
+        <legend>로그인</legend>
+        비밀번호 : <input type="password" id="pw" ><br>
+        비밀번호확인 : <input type="password" id="pw2"><br>
+        <!-- 로그인 누르면 중간에 글씨가 나오게 하기위한 것 -->
+         <!-- 위치 선정 -->
+        <div id="login_msg"></div>
+        <br>
+        <input type="button" id="login" value="로그인">
+        <br>
+     </fieldset>
+
+    <!-- 문제2
+     배송정보의 checkbox 클릭시
+    주문정보의 내용을 배송정보에 복사
+    -->
+        <br>
+        <hr>
+        <br>
+    <fieldset>
+        <legend>주문 정보</legend>
+        이름: <input type="text" id="name1"><br>
+        주소: <input type="text" id="address1"><br>
+    </fieldset>
+    
+        <fieldset>
+    <legend>배송정보</legend>
+    <input type="checkbox" id="b">배송정보<br>
+    이름: <input type="text" id="name2"><br>
+    주소: <input type="text" id="address2"><br>       
+        </fieldset>
+    
+    <!-- 문제3
+     피자 주문 시스템
+     피자 종류 select
+     사이즈 radio
+     토핑 checkbox 
+     요청사항 input text
+     주문하기 버튼 클릭시
+     주문 내역 표시
+     (총 금액까지 표시)-->
+        <br>
+        <hr>
+        <br>
+     <div>
+        <fieldset>
+            <legend>주문</legend>
+            <select>
+                <option value="페페로니피자">페페로니피자</option>
+                <option value="치즈피자">치즈피자</option>
+                <option value="불고기피자">불고기피자</option>
+                <option value="소고기피자">소고기피자</option>
+            </select>
+            <br>
+            사이즈 :<input type="radio" name="size" value="15">15size
+            <input type="radio" name="size" value="16">16size<br>
+
+            추가 :<input type="checkbox" id="a">페페로니추가
+            <input type="checkbox" id="a2">치즈추가<br>
+
+            요청사항 : <input type="text" id="text"><br>
+
+            <input type="button" id="Button" value="주문하기">
+        </fieldset>
+    </div>
+
+    <fieldset><legend>주문내역</legend>
+        <div id="order"></div></fieldset>
+    
+</body>
+</html>

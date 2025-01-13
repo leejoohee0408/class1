@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .hide {
+
+       display: none;
+       width: 100%;
+       
+
+       }
+       #menu {
+           /* display: flex; */
+           /* border:  1px solid blue; */
+           
+       }
+
+       #menu div {
+           flex-grow: 1;
+           /* border: 1px solid red; */
+           
+          
+       }
+       #content{
+           /* border: 1px solid red; */
+       }
+       #content div{
+          height: 100px;
+       }
+       #ll{
+        position: relative;
+        top:500px
+       }
+       
+       
+   </style>
+</head>
+<body>
+    <div>
+        <div id="content">
+            <div id="content1" class="">
+                <img 
+                src="
+                https://thumbnail8.coupangcdn.com/thumbnails/remote/492x492ex/image/vendor_inventory/c2e9/d62a7e7640e74b8ac61a8b12f6dd6aa49a46bb2d02ae4a86e0ea3376585e.jpg">
+            </div>
+            <div id="content2" class="hide">
+                <img 
+                src="
+                https://thumbnail10.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/114881920222184-00ea9d8e-9e26-4ca5-8274-7e03ebdc4bf2.png">
+            </div>
+            <div id="content3" class="hide">
+                <img 
+                src="
+                https://thumbnail8.coupangcdn.com/thumbnails/remote/492x492ex/image/vendor_inventory/c2e9/d62a7e7640e74b8ac61a8b12f6dd6aa49a46bb2d02ae4a86e0ea3376585e.jpg">
+            </div>
+        </div>
+
+        <div id="menu">
+            <div>
+                <img  data-view="content1" id="ll"
+                src=" https://thumbnail8.coupangcdn.com/thumbnails/remote/48x48ex/image/vendor_inventory/c2e9/d62a7e7640e74b8ac61a8b12f6dd6aa49a46bb2d02ae4a86e0ea3376585e.jpg">
+            </div>
+            <div>
+                <img data-view="content2" id="ll"
+                src="https://thumbnail9.coupangcdn.com/thumbnails/remote/48x48ex/image/retail/images/114881919374050-97316b1e-29b4-4cff-81d5-bc20f833d055.png">
+            </div>
+            <div>
+                <img data-view="content3" id="ll"
+                src="https://thumbnail8.coupangcdn.com/thumbnails/remote/48x48ex/image/vendor_inventory/c2e9/d62a7e7640e74b8ac61a8b12f6dd6aa49a46bb2d02ae4a86e0ea3376585e.jpg">
+            </div>
+        </div>
+    </div>
+    <script>
+        document.querySelector('#menu')
+            .addEventListener('click', function (evt) {
+                console.log(evt.target.textContent);
+                console.log(evt.target.getAttribute('data-tipping'))
+                console.log(evt.target.getAttribute('data-view'))
+
+                let id = evt.target.getAttribute('data-view')
+                console.log(document.querySelector("#"+ id))
+
+                // id="content1"
+                // [id^=content]:not(#content)는 id에서content들어가는거 찾는데 #content만 빼고 찾는다
+               const contents =  document.querySelectorAll("[id^=content]:not(#content)")
+
+                for(let i=0; i<contents.length; i++){
+                    contents[i].classList.add('hide');
+                }
+                document.querySelector("#"+ id).classList.remove('hide');
+
+            })
+
+            </script>
+            <!-- <hr> -->
+            <!-- <style>
+                #char{
+                    border: 1px solid black;
+                    width: 200px;
+
+                    position: relative;
+                    top:0;
+                    left:0px;
+                }
+            </style>
+            <img id="char" src="https://thumbnail8.coupangcdn.com/thumbnails/remote/492x492ex/image/vendor_inventory/c2e9/d62a7e7640e74b8ac61a8b12f6dd6aa49a46bb2d02ae4a86e0ea3376585e.jpg">
+
+            <script>
+                let left2 = 10;
+                document.querySelector("#char").style.left = left2+"px";
+                addEventListener('keydown',function(event){
+                    console.log(event.keyCode)
+                    // 오른쪽 방향키
+                    if(event.keyCode == 39){
+                     console.log( document.querySelector('#char').style.left )  
+
+
+
+                     left +=10
+                     document.querySelector("#char").style.left = left2+"px";
+                    }
+                })
+            </script> -->
+
+        </body>
+</html>

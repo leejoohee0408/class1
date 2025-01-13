@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* .article{
+            border: 1px solid red;
+        } */
+        .box{
+            border: 1px solid red;
+            width: 100px;
+            height: 100px;
+            margin: 10px;
+        }
+        .box.left{
+            /* float은 사진이랑 글을 했으면 사진을 피해서 글자가 나오게 할수 있다 */
+            float: left;
+            border: 1px solid blue;
+        }
+        .box.right{
+            /* float은 사진이랑 글을 했으면 사진을 피해서 글자가 나오게 할수 있다 */
+            float: right;
+            border: 1px solid red;
+        }
+        /* 요소를 inline-block로 취급한다
+
+float 전용 layer에 표시한다
+
+들어갈 공간이 없다면 inline처럼 다음줄에 표시된다
+
+아래에 원래 있던 글씨는 float요소를 피해서 표시됨 */
+/* clear: both의 상위 버전 */
+.clearfix::after{
+    content: "";
+    display: block;
+    clear: both;
+   
+}
+
+.homepage{
+    border: 1px solid red;
+    margin: 10px;
+    text-align: center;
+}
+.homepage .menu{
+    border: 1px solid blue;
+    width: 100px;
+    float: left;
+}
+.homepage .mypage{
+    border: 1px solid blue;
+    width: 200px;
+    float: right;
+}
+.homepage .logo{
+    display: inline-block;
+    border: 1px solid green;
+}
+
+
+    </style>
+</head>
+<body>
+
+    <!-- <div class="article">
+        <img class="box left" src="https://image.utoimage.com/preview/cp872722/2022/12/202212008462_500.jpg">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores obcaecati quo est dolore fugiat provident ipsam, iusto incidunt accusamus earum rem odio minus laboriosam optio laborum inventore cupiditate sapiente cum!
+    </div> -->
+
+    <div class="clearfix">
+        <div class="box left">1</div>
+        <div class="box left">2</div>
+        <div class="box right">3</div>
+        <div class="box right">4</div>
+    </div>
+    <div>글씨 몇개</div>
+
+    <div>
+        <div class="box left">1</div>
+        <div class="box left">2</div>
+        <div class="box right">3</div>
+        <div class="box right">4</div>
+        <!-- style="clear: both"는 -->
+        <!-- 위에 완성품을 해주는 것으로 다음에 글씨를 사용할때 빈곳으로 안들어온다 -->
+        <div style="clear: both"></div>
+    </div>
+    <div>글씨 몇개</div>
+
+
+
+    <div class="homepage">
+        <div class="menu">왼쪽</div>
+        <div class="logo">가운데</div>
+        <div class="mypage">오른쪽</div>
+    </div>
+
+</body>
+</html>

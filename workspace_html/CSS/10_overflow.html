@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .p{
+            border: 1px solid red;
+            width: 200px;
+            height: 200px;
+            margin: 10px;
+
+        }
+        .p.hidden{
+            overflow: hidden;
+        }
+        .p.scroll{
+            overflow: scroll;
+        }
+        .p.auto{
+            overflow: auto;
+        }
+        .nowrap{
+            border: 1px solid red;
+            width: 300px;
+            white-space: nowrap;
+            overflow: auto;
+        }
+        .nowrap div{
+            border: 1px solid red;
+            width: 100px;
+            display: inline-block;
+            margin: 5px;
+        } 
+    </style>
+</head>
+<body>
+    <!--  hidden는 border칸안에 까지만 보여주고 밖에 나가는것은 안보이게 한다 -->
+    <div class="p hidden">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas beatae molestiae hic consequatur nesciunt eveniet delectus, corporis ipsam nisi soluta quod labore, iure harum nulla quasi officia sint sapiente doloremque.
+    </div>
+    <!-- scroll는 스크롤을 만들어준다 세로 가로 다 -->
+    <div class="p scroll">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas beatae molestiae hic consequatur nesciunt eveniet delectus, corporis ipsam nisi soluta quod labore, iure harum nulla quasi officia sint sapiente doloremque.
+    </div>
+    <!-- auto는 스크롤을 만들어주는데 가로 세로에 스크롤이 필요가 없으면 안해준다 -->
+    <div class="p auto">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas beatae molestiae hic consequatur nesciunt eveniet delectus, corporis ipsam nisi soluta quod labore, iure harum nulla quasi officia sint sapiente doloremque.
+    </div>
+
+    <div class="nowrap">
+        <div>항목1</div>
+        <div>항목2</div>
+        <div>항목3</div>
+        <div>항목4</div>
+        <div>항목5</div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        // 네이버 화면 열기 근데 부모가 다 조작가능해서 왠만하면 쓰지말자
+       let win = window.open("http://naver.com","새창변수", "wider = 500 higth = 500")
+        // 네이버 화면 바로 닫침
+        win.close();
+        
+        // console.log('location.url',location.url) 이거 안됨
+        // location.href 내가 읽는 주소값을 읽어옴
+        console.log('location.href',location.href)
+        // location.href = "http://naver.com";
+        
+        // go(-2)는 브라우저 뒤로가기/go(2)앞으로 가기
+        // history.go(-2)
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        // 배열
+        // 중복 없이 로또 번호를 뽑고 오름차순으로 정렬해서 출력한다
+        // sort은 배열을 정렬해 준다 단 오름차순만 지원
+        // arr.sort();
+        // 1~45
+        // parseInt(Math.random()*45)+1
+        // 중복이 없어진다
+        let arr = [];
+        for (let i = 0; i < 6; i++) {
+            let q = parseInt(Math.random() * 45) + 1;
+            console.log(q);
+        }
+
+
+        // 스트링1
+        // arr = "abcde@abc.com";
+        // let s =arr.replace("cde", "***")
+        // console.log(arr)
+        // console.log(s)
+        const mail1 = "todair@naver.com";
+        const arr_mail1 = mail1.split("@")
+        let id1 = arr_mail1[0];
+        console.log(id1);
+
+        const idxAt = mail1.indexOf("@");
+        console.log(idxAt);
+        let id2 = mail1.substring(0, idxAt);
+        let id3 = mail1.substr(0, idxAt);
+        console.log(id2, id3);
+
+        const left2 = id1.substring(0, 2);
+        const star_length = id1.length - 2;
+        let star ="";
+        for(let i=0; i<star_length; i++){
+            star +="*";
+
+        }
+        console.log( left2+star+"@"+arr_mail1[0]);
+       
+        // 스트링2
+        // arr2 = "cafe.naver.com";
+        // console.log(arr2)
+        // 
+        // let arr3 = arr2.substring(arr2.indexOf(' ')+6 );
+        // let arr3 = arr2.substring(arr2.indexOf('.')+1 );
+        // console.log(arr3)
+        // arr3.reverse();
+        // console.log(arr3);
+        // naver.com까지 했고 이제 뒤에있는 점을 기준으로 없어지게한다
+        // arr = ["cafe", "naver", "com"];
+        // console.log(arr[1]);
+        const domain = "cafe.naver.com";
+        let idx = domain.indexOf(".");
+        console.log(idx);
+        const domain2 = domain.substr(idx+1);
+        console.log(domain2);
+        idx = domain.indexOf(".");
+        const domain3 = domain2.substr(0, idx);
+        console.log(domain3);
+
+    </script>
+</head>
+
+<body>
+    <!-- 중복 없이 로또 번호를 뽑고 오름차순으로 정렬해서 출력한다 -->
+
+
+
+</body>
+
+</html>

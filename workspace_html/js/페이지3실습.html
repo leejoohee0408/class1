@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+         .hide {
+
+        display: none;
+        width: 100%;
+
+        }
+        #menu {
+            display: flex;
+            border:  1px solid blue;
+        }
+
+        #menu div {
+            flex-grow: 1;
+            border: 1px solid red;
+        }
+        #content{
+            border: 1px solid red;
+        }
+        #content div{
+           height: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <div id="content">
+            <div id="content1" class="">adout내용</div>
+            <div id="content2" class="hide">products내용</div>
+            <div id="content3" class="hide">technology내용</div>
+            <div id="content4" class="hide">Dovnloads내용</div>
+        </div>
+        <div id="menu">
+            <div data-tipping="생크림" data-view="content1">adout</div>
+            <div data-view="content2">products</div>
+            <div data-view="content3">technology</div>
+            <div data-view="content4">Dovnloads</div>
+        </div>
+    </div>
+    <script>
+        document.querySelector('#menu')
+            .addEventListener('click', function (evt) {
+                console.log(evt.target.textContent);
+                console.log(evt.target.getAttribute('data-tipping'))
+                console.log(evt.target.getAttribute('data-view'))
+
+                let id = evt.target.getAttribute('data-view')
+                console.log(document.querySelector("#"+ id))
+
+                // id="content1"
+                // [id^=content]:not(#content)는 id에서content들어가는거 찾는데 #content만 빼고 찾는다
+               const contents =  document.querySelectorAll("[id^=content]:not(#content)")
+
+                for(let i=0; i<contents.length; i++){
+                    contents[i].classList.add('hide');
+                }
+                document.querySelector("#"+ id).classList.remove('hide');
+
+            })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* px으로 늘리는 방법 */
+        /* border: 1px solid red;  width : 100px; 이거때문에 테두리가 만들어짐*/
+        /* <!-- px : 화면의 점 하나의 크기 --> */
+        #pixel .box1{
+            font-size: 16px;
+
+            border: 1px solid red;
+            width : 100px;
+
+            background: #ff0000;
+        }
+         #pixel .box1 .box2{
+            font-size: 30px;
+
+            border: 1px solid red;
+            width : 100px;
+
+            background: #0f0; /* #0f0 = 축약형*/
+        }
+        #pixel .box1 .box2 .box3{
+            font-size: 50px;
+
+            border: 1px solid red;
+            width : 100px;
+
+            
+        } 
+        /* %으로 늘리는방법 */
+        /* border: 1px solid red; width : 50%; 이거때문에 테두리를 만드는데 화면줄이면 줄어들고 키우면 커진다*/
+        /* <!-- % : 상대적인 크기 --> */
+        #percent .box1{
+            font-size: 150%;
+
+            border: 1px solid red;
+            width : 50%;
+
+            background: rgba(255, 0, 0, 0.3);/* 투명도 */
+        }
+        #percent .box1 .box2{
+            font-size: 150%;
+
+            border: 1px solid red;
+            width : 50%;
+
+            background: rgba(0, 0, 255, 0.3);/* 투명도 */
+        }
+        #percent .box1 .box2 .box3{
+            font-size: 150%;
+
+            border: 1px solid red;
+            width : 50%;
+
+            background: rgb( 0, 255, 0);/* 투명도 */
+        }
+         /* em은 %와 같음 대신 100% == 1em */
+         /* border: 1px solid red; width : 50em; em에서는 쓰지말자 이상하게 나온다 */
+         /* em : 상대적인 크기(글씨 크기 기준) */
+        #em .box1{
+            font-size: 1.5em;
+        }
+        
+        #em .box1 .box2{
+            font-size: 1.5em;
+        }
+        /* rem :  root em */
+        #em .box1 .box2 .box3{
+            font-size: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+    abc
+    <!-- px으로 늘리는 방법  -->
+    <!-- px : 화면의 점 하나의 크기 -->
+    <div id="pixel">
+        <div class="box1">
+            abc 16
+            <div class="box2">
+                abc 30
+                <div class="box3">
+                    50
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<hr>
+ <!-- %으로 늘리는방법  -->
+ <!-- % : 상대적인 크기 -->
+<div id="percent">
+    <div class="box1">
+         150%
+        <div class="box2">
+             150%
+            <div class="box3">
+                150%
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+<!-- em으로 늘리는방법 -->
+<!-- em : 상대적인 크기(글씨 크기 기준) -->
+<div id="em">
+    <div class="box1">
+         1.5
+        <div class="box2">
+            1.5
+            <div class="box3">
+                1.5
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

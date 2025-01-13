@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <h1>댓글쓰거라</h1>
+
+        <div class="todo">
+            <input type="text" id="text1"><!-- 글씨를 입력할 수 있는 창 -->
+            <input type="submit" value="쓰기" id="submit1"> <!-- 입력한것을 추가 할수 있는 버튼 -->
+            <input type="button" value="별점" id="star"><!-- 별점 버튼 생성 -->
+        </div>
+        <div class="list" id="list1"><br></div> <!-- 할 일 목록을 표시할 div -->
+    </div>
+
+    <script>
+
+
+
+        document.getElementById('submit1').onclick = function () {
+            const inputField = document.getElementById('text1'); // 글씨를 입력할 수 있는 창  inputField 옳기기
+            const todoText = inputField.value.trim(); // 입력된 텍스트를 가져오고 공백 제거
+            const list = document.getElementById('list1'); //할 일 목록을 표시할 div를 list로 옳기기
+
+            if (todoText === '') { // 입력이 비어있으면 추가하지 않음
+                return;
+            }
+
+            const div1 = document.createElement('div'); // 새로운 div 생성
+            const checkbox = document.createElement('input'); // 새로운 input 생성
+            checkbox.type = 'checkbox'; // 체크박스 타입 설정
+
+
+
+            // 삭제 버튼 생성
+            const Button = document.createElement('button'); // 새로운 button 생성
+            Button.textContent = '삭제'; // 버튼 텍스트 설정
+            Button.onclick = function () {
+                div1.remove(); // 해당 div1을 목록에서 제거
+
+
+            };
+
+            // createTextNode 이 메서드는 주어진 문자열을 포함하는 새로운 텍스트 노드를 생성하여 반환합니다.
+            div1.appendChild(document.createTextNode(todoText)); // 입력된 텍스트를 div1에 추가
+
+
+            div1.appendChild(Button); // 삭제 버튼을 div1에 추가
+
+            list.appendChild(div1); // 목록에 추가
+
+            inputField.value = ''; // 입력 필드 비우기
+
+
+
+            const starContainer = document.createElement('div'); // 별점 컨테이너
+            starContainer.style.marginLeft = '10px'; // 댓글과 별점 간격 조정
+
+            // 5개의 별 생성
+            for (let i = 1; i <= 5; i++) {
+                const star = document.createElement('span');
+                star.textContent = '★'; // 별 문자
+                star.style.cursor = 'pointer';
+                star.style.color = '#ccc'; // 기본 별 색상
+
+                // 별 선택 시 색상 변경 및 표시
+                star.onclick = function () {
+                    const stars = starContainer.querySelectorAll('span');
+                    stars.forEach((s, index) => {
+                        s.style.color = index < i ? 'gold' : '#ccc'; // 클릭된 별까지 금색으로 표시
+                    });
+                    div1.querySelector('.rating')?.remove(); // 기존 별점 삭제
+                    const ratingText = document.createElement('span');
+                    ratingText.className = 'rating';
+                    ratingText.style.marginLeft = '10px';
+                    div1.appendChild(ratingText); // 별점 표시
+                };
+
+                starContainer.appendChild(star);
+            }
+
+            div1.appendChild(starContainer); // 댓글에 별점 컨테이너 추가
+        };
+    </script>
+
+</body>
+
+</html>

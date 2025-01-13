@@ -1,0 +1,49 @@
+.a1{
+    border: 1px solid green;
+    width: 200px;
+}
+.a{
+    border: 1px solid red;
+    width: 200px;
+    height: 50px;
+    background-color: gray;
+    text-align: center;
+    line-height: 50px;
+    
+}
+.b{
+    border: 1px solid red;
+    width: 150px;
+    height: 50px;
+    background-color: green;
+    text-align: center;
+    line-height: 50px;
+    position: relative;
+    bottom: 20px ;
+}
+.c{
+    border: 1px solid yellow;
+    width: 150px;
+    height: 50px;
+    background-color: green;
+    text-align: center;
+    line-height: 50px;
+    position: relative;
+    bottom: 20px ;
+    
+}
+.d{
+    border: 1px solid blue;
+    width: 150px;
+    height: 50px;
+    background-color: green;
+    text-align: center;
+    line-height: 50px;
+    position: relative;
+    bottom: 20px ;
+    
+    
+}
+.dd:hover{
+    display: block;
+}

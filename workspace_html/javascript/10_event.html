@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            height: 2000px;
+        }
+
+        #console {
+            position: sticky;
+            top: 0;
+        }
+
+        #cursor {
+            width: 50px;
+            height: 50px;
+
+            position: absolute;
+            top: -10000px;
+            left: -10000px;
+        }
+
+        ol {
+            list-style: none;
+            padding: 0;
+        }
+
+        .bold {
+
+            display: none;
+        }
+    </style>
+
+    <script>
+        //  이건 여러개가 있으면 여러개가 출력된다
+        window.addEventListener("load", init);
+        window.addEventListener("load", inz);
+        // 이건 여러개가 있어도 하나밖에 출력이 안된다
+        // window.onload = function(){
+        //     init();
+        // }
+        function inz() {
+            document.querySelector('#login')
+                .addEventListener("click", function () {
+                    const id = document.querySelector('#id').value
+                    const pw = document.querySelector('#pw').value
+
+                    document.querySelector("#log").innerHTML = id + "," + pw;
+                })
+
+        }
+
+        function init() {
+            const btn2 = document.querySelector("#btn2")
+            console.log("btn2 :", btn2);
+            btn2.onclick = function () {
+                document.querySelector("#console").innerHTML += "<br>버튼2 클릭";
+
+            }
+            //  onclick : 변수이므로 마지막 값만 저장된다
+            btn2.onclick = function () {
+                document.querySelector("#console").innerHTML += "<br>버튼2-1 클릭";
+
+            }
+
+            const btn3 = document.querySelector("#btn3");
+            // addEventListener를 해서 onclick와 다르게 두개다 나온다
+            btn3.addEventListener("click", function () {
+                document.querySelector("#console").innerHTML += "<br>버튼3 클릭";
+                document.documentElement.scrollTop = 1000;
+            })
+            // addEventListener : 함수를 추가하는 것이므로 두개 이상 출력가능
+            btn3.addEventListener("click", function () {
+                document.querySelector("#console").innerHTML += "<br>버튼3-1 클릭";
+            })
+
+            const btn4 = document.querySelector('#btn4');
+            btn4.addEventListener("click", btn1click);
+            btn4.addEventListener("click", btn4click);
+            // removeaddEventListener : 해당 이벤트 콜백 제거
+            // 단, 익명함수는 불가능
+            // 마치 함수마다 고유한 id같은게 있는데
+            // 익명함수는 선언될때마다 VM이라는 공간에
+            // 신규 ID를 발급받기 떄문에 지울때 사용하지 못함
+            btn4.removeEventListener("click", btn4click);
+
+
+            window.addEventListener("scroll", function () {
+                const scrollTop =
+                    document.documentElement.scrollTop;
+                document.querySelector("#console").innerHTML = scrollTop;
+            })
+            document.querySelector("#login")
+                .addEventListener("click", function () {
+                    const id = document.querySelector("#id").value;
+                    const pw = document.querySelector("#pw").value;
+                    if (id.trim().length == 0) {
+                        document.querySelector("#console").innerHTML = '아이는 필수입니다'
+                    } else {
+
+                        document.querySelector("#console").innerHTML = "<br>" + id + "," + pw;
+                    }
+                })
+            const id = document.querySelector("#id");
+            // id.addEventListener("keyup",function(){
+            //     console.log('keydown')
+            // })
+            // 엔터하면 비밀번호로 넘어감
+            id.addEventListener('keyup', function (evnet) {
+                console.log(event.keyCode)
+                if (event.keyCode == 13) {
+                    document.querySelector("#pw").focus();
+                }
+            })
+            // 엔터하면 로그인으로 넘어감
+            document.querySelector("#pw")
+                .addEventListener("keyup", function (event) {
+                    if (event.keyCode == 13) {
+                        document.querySelector("#login").focus();
+                    }
+                })
+            // 빨간 상자에 마우스올리면 자바스크립트에 마우스 들어옴이라고뜸
+            document.querySelector("#area")
+                .addEventListener("mouseover", function (event) {
+                    console.log(event)
+                    console.log("마우스 들어옴")
+                })
+            // 빨간 상자에 마우스내리면 자바스크립트에 마우스 나감이라고뜸
+            document.querySelector("#area")
+                .addEventListener("mouseout", function () {
+                    console.log("마우스 나감")
+                })
+            // 앞에 아무것도 안쓰면 브라우저 전체에 적용되는 이벤트
+            addEventListener('mousemove', function (event) {
+                // 마우스 움직임을 전체적으로 알려줌
+                // console.log("마우스 움직임")
+
+                // 마우스 위치 X,Y축을 알수있음
+                // html에 사진을 받아서 css에 크기를 조정하고 자바스크립트로 마우스 옆에 고정해놈
+                // console.log("event.pageX :", event.pageX, "event.pageY :", event.pageY)
+                // const cursor = document.querySelector("#cursor")
+                // cursor.style.top = event.pageY + 20 + "px";
+                // cursor.style.left = event.pageX + 20 + "px";
+
+                // pageX/Y : 스크록에 관계 없이 문서 좌상단 기준
+                // clientX/Y : 지금 보이는 화면 좌상단 기준
+                // offsetX/Y : 대산 기준으로 좌상단 기준
+            })
+            id.addEventListener('focus', function () {
+                id.style.background = 'yellow';
+            })
+            id.addEventListener('blur', function () {
+                id.style.background = '';
+            })
+
+            document.querySelector("#form")
+                .addEventListener('submit', function (event) {
+
+                    // 원래 html의 기본(고유) 기능을 막아줌
+                    // 여기서는 submit 기능 막음
+                    event.preventDefault();
+                    console.log("서밋 이벤트");
+
+                    // 검색어가 1글자 이하면 alert 출력
+                    // 2글자 이상이면 console로 "검색" 출력
+                    let q = document.querySelector("#search");
+                    if (q.value.length < 2) {
+                        alert('검색어는 두글자')
+                    } else {
+                        console.log("검색")
+                        // 위에서preventDefault막았지만 밑에서 이걸해서 다시 검색할수 있음
+                        document.querySelector("#form").submit()
+                    }
+
+
+
+                })
+            // addEventListener('selectstart', function(event){
+            //     event.preventDefault();
+
+            // })
+
+            // 클래스가 chk인 모든 요소를 가져와서
+            // 모든 value, 체크 여부를 console로 출력하시오
+            // 체크된 것은 value에 !!! 붙여서 출력
+            let w = document.querySelectorAll(".chk");
+            const b = document.querySelector('#b');
+            console.log(w)
+            for (let i = 0; i < w.length; i++) {
+                console.log(w[i].value, w[i].checked)
+
+                if (w[i].checked) {
+                    console.log("!!!", w[i].value)
+                }
+            }
+            w[0].checked = true;
+            w[3].checked = false;
+
+            //   전체선택 시 전체 선택되게하기
+            //   전체선택관련 dom 확보
+            //   전체선택 클릭했을때
+            //   체크 되어 있으면
+            //   모든 chk가 체크되게
+            //   체크 풀려 있으면 모든 chk가 체크해제
+
+            b.addEventListener('click', function () {
+                for (let i = 0; i < w.length; i++) {
+                    // if (b.checked) {
+                    //     w[i].checked = true
+                    // } else {
+                    //     w[i].checked = false
+                    // }
+
+                    // 이건 위에있는  if꺼를 간단히 해준것이다
+                    w[i].checked = b.checked
+                }
+
+            });
+
+            // 자식 checkbox들이 모두 체크되어 있으면 전체선택 체크
+            // 자식 checkbox중에서 하나라도 풀려있으면 전체선택 체크 해제
+            for (let a of w) {
+                // 각각 클릭 이벤트 주기
+                a.addEventListener('click', function () {
+                    let flag = true;
+                    // 하나라도 해제된게 있으면
+                    // for( let i in w){    // entries라는게 i로 들어가는게 있어서 실패
+                    for (let i of w) {
+                        if (!i.checked) {
+                            flag = false;
+                            break;
+                        }
+                    }
+                    if (!flag) {
+                        document.querySelector('#b').checked = false;
+                    } else {
+                        document.querySelector('#b').checked = true;
+                    }
+                })
+            }
+            // this : window 객체를 가지고 있다
+            console.log(this)
+            // 콜백을 arrow함수로 하면 this는 window로 유지됨
+            document.querySelector("#parent")
+                .addEventListener('click', function (event) {
+
+                    // event.target : 이벤트가 발생한  DOM
+                    console.log("event.target :", event.target)
+
+                    // event.currentTarget : 이벤트가 적용된 DOM
+                    console.log("event.currentTarget :", event.currentTarget)
+
+                    // this는 더이상 window가 아님
+                    // 이렇게 내용이 바뀔 수 있기 때문에
+                    // js에서 this는 알고 있는 것만 사용한다
+                    console.log('this :', this)
+                    console.log(this === event.currentTarget);
+                }/*, true*//*부모가 먼저나오게 하기위해 true를 썻다*/)
+
+            document.querySelector("#child1")
+                .addEventListener('click', function (event) {
+                    // 전파 방지
+                    // 부모로 전달되는 이벤트를 중지
+                    event.stopPropagation();
+                    console.log('자식1 클릭')
+
+                    document.querySelector("#parent").innerHTML += ""
+                })
+
+
+
+            //     const a = document.querySelector('#li_1');
+            //     console.log("a",a)
+            //     a.addEventListener('click', function (event) {
+            //         console.log("1번")
+            //         console.log(li_1)
+            //         console.log(event.target)
+            //         console.log(li_1 === event.target)
+            //         console.log(event.currentTarget)
+            //         console.log(li_1 === event.currentTarget)
+
+
+            //     })
+            //    const a2 = document.querySelector("#li_2")
+            //    a2.addEventListener('click', function(){
+            //     console.log("2번")
+            //    })
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+        function btn1click() {
+            console.log("버튼1 클릭")
+            // 버튼1을 클릭하면 버튼1 클릭이 화면에 써진다
+            document.querySelector("#console").innerHTML += "<br>버튼1 클릭";
+        }
+        function btn4click() {
+            console.log("버튼4 클릭")
+            document.querySelector("#console").innerHTML += "<br>버튼4 클릭";
+        }
+        // const btn4click = function(){
+        //     document.querySelector("#console").innerHTML += "<br>버튼4 클릭";
+        // }
+
+
+    </script>
+</head>
+<!-- <body onload="javascript:init()"> -->
+
+<body>
+    <div id="console"></div>
+    <button type="button" id="btn1" onclick="btn1click();alert(1);">버튼1</button><br>
+    <button type="button" id="btn2">버튼2</button><br>
+    <button type="button" id="btn3">버튼3</button><br>
+    <button type="button" id="btn4">버튼4</button><br>
+
+    <div id="log">
+    </div>
+    아이디 : <input type="text" id="id"><br>
+    비밀번호 : <input type="password" id="pw"><br>
+    <br>
+    <input type="button" id="login" value="로그인">
+
+    <div id="area" style="width: 100px; height: 100px; background-color: red;">
+
+    </div>
+
+    <img id="cursor"
+        src="https://png.pngtree.com/png-vector/20230522/ourmid/pngtree-kawaii-brown-white-cat-jumping-happily-vector-png-image_7105169.png">
+
+    <form id="form" method="get" action="https://search.naver.com/search.naver">
+        네이버 검색: <input type="text" name="query" id="search">
+        <input type="submit" value="검색">
+    </form>
+
+    떡볶이 토핑 :<input type="checkbox" id="b"> 전체선택<br>
+    <input type="checkbox" class="chk" value="분모자">분모자
+    <input type="checkbox" class="chk" value="비엔나">비엔나
+    <input type="checkbox" class="chk" value="우삼겹">우삼겹
+    <input type="checkbox" class="chk" value="치즈" checked="checked">치즈
+    <input type="checkbox" class="chk" value="라면">라면
+
+    <div id="parent">부모
+        <div id="child1">자식1</div>
+        <div id="child2">자식2</div>
+    </div>
+
+    <hr>
+    <ol id="ol">
+        <li id="ol_li_1" class="">첫번째
+        <li>1</li>
+        </li>
+        <li id="ol_li_2" class="">두번째
+        <li>2</li>
+        </li>
+        <li id="ol_li_2" class="">셋번째
+        <li>3</li>
+        </li>
+        <li id="ol_li_2" class="">넷번째
+        <li>4</li>
+        </li>
+        <li id="ol_li_2" class="">다섯번째
+        <li>5</li>
+        </li>
+    </ol>
+
+    <script>
+        // #oi을 클릭하면
+        // event.target, event.currentTarget 출력
+        // 전체의 id인 ol을 쿼리셀렉트로 해서 q라는 곳에 담았다
+        const q = document.querySelector("#ol")
+        // 잘 담았는지 확인
+        console.log(q)
+        // 이제 q에 담은것을 이용해서 addEventListener에 해서 체크가 되게 했다 
+        q.addEventListener('click', function (event) {
+            // console.log("event.target",event.target)
+            // console.log("event.target",event.currentTarget)
+
+            // document.querySelector("#ol_li_1").classList.remove("bold")
+            // document.querySelector("#ol_li_2").classList.remove("bold")
+
+            // 그리고 전체인 ol안에 있는 li를 lis에 담았다
+            const lis = document.querySelectorAll("#ol li")
+            // 그담은 것을 이용해서 for문으로 이용한다
+            for (let i = 0; i < lis.length; i++) {
+
+                // classList.remove을 이용해서 bold를 제거
+                lis[i].classList.remove("bold")
+            }
+            // event.target.style.color = "red";
+
+            //  event.target는 클릭하는 요소이고 classList.add("bold")는 추가한다라는 것이다
+            // 그래서 이걸 이어서 하면 클릭하는 요소를 bold를 추가한다라는 것임
+            event.target.classList.add("bold")
+
+
+
+
+        })
+    </script>
+
+    
+
+</body>
+
+</html>

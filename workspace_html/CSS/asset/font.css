@@ -1,0 +1,112 @@
+/* 아래 font-family 적힌 값을 사용 가능*/
+@font-face {
+    font-family: 'EF_jejudoldam';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-EF@1.0/EF_jejudoldam.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
+
+#p1 {
+    color: red;
+    /* text-decoration: underline; */
+    /* text-decoration: line-through하면 글씨를 취소한것처럼 선이 생긴다 */
+    text-decoration: line-through;
+    font-family: 'EF_jejudoldam';
+}
+
+input[type=checkbox]:checked+span {
+    text-decoration: line-through;
+    color: gray;
+}
+
+.size {
+    /* font-size: 32px; */
+    /* font-size: 200%; */
+    /* font-size: larger; */
+    /* font-size: small; */
+    font-size: 2em;
+}
+/* 코가 삐뚤어지게 마시자고 */
+/* italic는 글씨가 비뚤어진다 */
+.style{
+    font-style: italic;
+}
+/* normal는 제대로 세워준다 */
+em{
+    font-style: normal;
+}
+
+.fw-100{
+    font-weight: 100;
+}
+.fw-500{
+    font-weight: 500;
+}
+/* 100 ~ 1000을 넘어서면 기본 두께 */
+.fw-900{
+    font-weight: 1000;
+}
+.fw-2000{
+    font-weight: 2000;
+}
+/* bold가 두껍게 나오게 한다 */
+.fw-bold{
+    font-weight: bold;
+}
+/* right는 글씨를 오른쪽으로 만들어준다 */
+.align-right{
+    text-align: right;
+}
+/* center는 글씨를 가운데로 만들어준다  */
+.align-center{
+    text-align: center;
+}
+.align-justify{
+    text-align: justify;
+}
+/* letter-spacing는 글자 중간중간에 빈곳의 크기를 조절해준다 */
+.spaing{
+    letter-spacing: 0.2em;
+}
+/* line-height는 글자의 위와 아래의 공간을 키울수있다 */
+.lh{
+    line-height: 200%;
+}
+/* line-height: 100px;로 글자를 키워서 글자를 왼쪽중앙으로 만들고  */
+/*  text-align: center;로 글자를 가운데 정렬로 만들었다 */
+.middle{
+    border: 1px solid purple;
+    height: 100px;
+    line-height: 100px;
+    text-align: center;
+}
+/*  nowrap은 감싸주지 않는다라는뜻임  */
+     /*   nowrap은 엄청긴 글씨도 한줄로 만들어준다  */
+    /*  반대인 wrap은 감싸준다는 뜻임  */
+    /* overflow: hidden;는 내가 칸을 만든데 까지 글씨를 해주고 */
+    /* text-overflow: ellipsis;는 뒤에 가려진것을 ...으로 대체해준다 */
+    /*  title은 마우스 올려놓고 있으면 표시해준다  */
+.nowrap{
+    border: 1px solid purple;
+    width: 50vw;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/*  word-wrap : break-word;는 넘어가는 글씨를 잘라서 칸안에 넣어준다 */
+.text{
+    border: 1px solid purple;
+    width: 50vw;
+}
+.word-wrap{
+  word-wrap : break-word;
+}
+
+/* word-break: break-all;은 칸안에 빈칸이 웬만해선 없게 만들어줌 */
+.word-break{
+    word-break: break-all;
+}

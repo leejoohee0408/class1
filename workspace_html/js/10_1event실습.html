@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="event로그인실습.js"></script>
+    <script>
+        window.addEventListener("load", inz);
+        window.addEventListener("load", function(){
+           const b = document.querySelector("#btn1")
+           b.addEventListener("click", id)
+           
+            // if 조건문
+            // 선택한 것에 따라 다르게 #view에 출력
+            // 다시말해
+            // 확인버튼#btn1을 누르면
+            // 선택된 값을 읽어서
+            // select의 선택된  option의 value을 읽어서
+            // 값에 따라
+            // 다르게 #view에 출력한다
+        })
+
+        
+        // 조건문2
+        // 로그인버튼을 눌렀을때
+        // 아이디 또는 비밀번호에 쓴 글이 없다면
+        // 비번 아래에 로그인버튼 위에 
+        // 빨간색으로 "아이디는 필수입니다", "비번은 필수입니다" 출력
+        function inz(){
+        document.querySelector('#login')
+        .addEventListener("click", function(){
+            const id = document.querySelector('#id').value
+            const pw = document.querySelector('#pw').value
+            
+            // document.querySelector("#log").innerHTML = id+","+pw;
+            if(id){
+             document.querySelector("#log").innerHTML = "비밀번호는 필수입니다"
+            }else if(pw){
+                document.querySelector("#log").innerHTML = "아이디는 필수입니다"
+            }else if(id+pw){
+                document.querySelector("#log").innerHTML = id+","+pw;
+            }
+        })
+        }
+        function id (){
+            if(q.value == 1){
+                document.querySelector('#view').innerHTML = "놀기<br>" + q.value + "번"
+            }else if (q.value == 2){
+                document.querySelector('#view').innerHTML = "놀기1<br>" + q.value + "번"
+                
+            }else{
+                
+                document.querySelector('#view').innerHTML = "놀기2<br>" + q.value + "번"
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="view"> </div>
+        <select id="q">
+            <option value="1" >놀기</option>
+            <option value="2" >놀기1</option>
+            <option value="3" >놀기2</option>
+        </select>
+        <button type="button" id="btn1">확인</button>
+        <hr>
+
+       
+
+   
+    <!-- if 조건문
+    select로 오늘 저녁에 뭐할지 두개 이상 표시 -->
+    
+
+     <!-- 조건문2
+         로그인 ui -->
+    <div id="log"></div>
+        아이디 : <input type="text" id="id" value="admin"><br>
+        비밀번호 : <input type="password" id="pw"><br>
+        <!-- 로그인 누르면 중간에 글씨가 나오게 하기위한 것 -->
+         <!-- 위치 선정 -->
+        <div id="login_msg"></div>
+        <br>
+        <input type="button" id="login" value="로그인">
+    
+
+    <div id="id1">
+        <!-- 시:분:초 를 300ms 마다 갱신 -->
+        10:12:34
+    </div>
+
+
+
+</body>
+</html>

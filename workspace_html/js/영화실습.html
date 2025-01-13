@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .a1 {
+            /* border: 1px solid red; */
+        }
+
+        .a1 img {
+            /* border: 1px solid red; */
+            width: 50px;
+            /* 가로 크기 */
+            height: auto;
+            /* 세로 비율 유지 */
+        }
+
+        .qwer {
+            /* border: 1px solid red; */
+            display: block;
+            /* 인라인 요소 대신 블록 요소로 변경 */
+            margin: auto;
+            /* 자동 여백으로 수평 가운데 정렬 */
+            width: 150px;
+            /* 가로 크기 조정 */
+            height: auto;
+            /* 세로 비율 유지 */
+
+        }
+
+        .hide {
+
+            display: none;
+            width: 100%;
+
+        }
+
+        #q {
+            display: flex;
+
+            /* border: 1px solid blue; */
+        }
+
+        #q div {
+            flex-grow: 1;
+            /* border: 1px solid red; */
+        }
+
+        .detail {
+            position: absolute;
+            left: 10px;
+            top: 290px;
+        }
+
+        .빈칸 {
+            width: 500px;
+            height: 310px;
+            /* border: 1px solid red; */
+        }
+    </style>
+</head>
+<!-- 영화 상제정보 보기  해결-->
+<!-- 댓글 창 만들기 해결-->
+<!-- 쓰기버튼 만들기 해결-->
+<!-- 댓글을 받을 창 만들기 해결-->
+<!-- 댓글쓴거 오른쪽에 삭제버튼 만들기 해결-->
+<!-- 삭제 옆에 수정 만들기 -->
+<!-- 별점 버튼 만들기 -->
+
+<body>
+    <!-- 로고 만들기 -->
+    <div class="a1">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR23lYXAdOYfakGz59FyUHfnAjkcMGtXIof6Q&s">
+    </div>
+
+    <div id="q">
+        <div>
+            <div class="detail hide">
+                장르 : 데스 게임, 스릴러, 액션, 미스터리, 서스펜스, 범죄, 드라마, 블랙 코미디, 서바이벌, 군상극, 사회고발<br>
+                공개일 : 2024년 12월 26일<br>
+                공개 회차 : 7부작<br>
+                러닝 타임 : 427분 (7시간 7분)<br>
+                제작사 : ㈜퍼스트맨스튜디오<br>
+                제작비 : 약 1,000억 원[2]<br>
+                제작진 및 연출 : 황동혁
+            </div>
+            <!-- 영화 만들기 -->
+            <div id="a1" class="title">
+                <img class="qwer" src="https://img.sbs.co.kr/newsnet/etv/upload/2024/11/01/30000957191_500.jpg">
+            </div>
+        </div>
+
+        <div>
+            <div class="detail hide">
+                장르 : 시대극, 드라마, 멜로, 로맨스, 복수, 정치, 밀리터리, 전쟁<br>
+                방송 시간 : 토· 일 / 오후 09:00 ~<br>
+                방송 기간 : 2018년 7월 7일 ~ 2018년 9월 30일<br>
+                방송 횟수 : 24부작<br>
+                제작 : 화앤담픽쳐스<br>
+                채널 : tvN<br>
+                기획 : 스튜디오드래곤<br>
+                제작 : 윤하림<br>
+                연출 : 이응복, 장영우, 정지현<br>
+                극본 : 김은숙<br>
+                음악 : 남혜승<br>
+                제작비 : 430억 원<br>
+                출연 : 이병헌, 김태리, 유연석, 김민정, 변요한 外
+            </div>
+            <div id="a2" class="title">
+                <img class="qwer"
+                    src="https://i.namu.wiki/i/cFOK7jxWuR9su4dA-VC-TeTqcnNhXUwZf-CTvNa0PLPfNxnu-xMq6P5aq_Rl6z1YarYqssnQznQtF9rwvFAIZg.webp">
+            </div>
+        </div>
+        <div>
+            <div class="detail hide">
+                장르 : 로맨틱 코미디, 오피스, 휴먼, 가족<br>
+                방송 시간 : 토 · 일 / 오후 09:10 ~<br>
+                방송 기간 : 2024년 3월 9일 ~ 2024년 4월 28일<br>
+                방송 횟수 : 16부작 + 스페셜 2부작[SP]<br>
+                기획 : 스튜디오드래곤 (by CJ ENM)<br>
+                제작사 : 스튜디오드래곤, 문화창고, 쇼러너스<br>
+                채널 : tvN<br>
+                추가 채널 : tvN DRAMA, tvN STORY<br>
+                연출 : 장영우, 김희원<br>
+                극본 : 박지은<br>
+                출연 : 김수현, 김지원, 박성훈, 곽동연, 이주빈 外<br>
+                제작비 : 560억원<br>
+                촬영 기간 : 2023년 4월 3일 ~ 2024년 2월 27일 (사전제작)
+            </div>
+            <div id="a2" class="title">
+                <img class="qwer"
+                    src="https://i.namu.wiki/i/SzsdS9TJ8OX3-GLs06G9VJHEKRhMfsR5iys01B_wC3rR6pJSQ-rPrEPqNAvU4lW3gtzpwAAmcBdAY1SCRCZG-w.webp">
+            </div>
+        </div>
+        <div>
+            <div class="detail hide">
+                장르 : 로맨틱 코미디<br>
+                방송 시간 : 토 · 일 / 오후 09:10 ~ 오후 10:40[분량]<br>
+                방송 기간 : 2019년 12월 14일 ~ 2020년 2월 16일<br>
+                방송 횟수 : 16부작 + 스페셜 3부작<br>
+                기획 : 스튜디오드래곤<br>
+                제작 : 문화창고, 스튜디오드래곤<br>
+                채널 : tvN<br>
+                제작 : 김선정, 박지영<br>
+                연출 : 이정효, 김희원, 김나영[2]<br>
+                극본 : 박지은<br>
+                촬영 : 박성용, 최병훈, 정재은, 정재아, 김동혁<br>
+                미술 : 김소연, 김주형<br>
+                음악 : 남혜승<br>
+                출연 : 현빈, 손예진, 서지혜, 김정현 外<br>
+                차량 협찬 : 재규어 랜드로버<br>
+            </div>
+            <div id="a2" class="title">
+                <img class="qwer"
+                    src="https://i.namu.wiki/i/Fp5kuW4Y2CLdNn0dkXt7yTkIl7J61e0Qo7-wNniiPE_uDKaVITwBLmacm8NNi3qqAfXdB8SKOKi_b8Fes1k4iw.webp">
+            </div>
+        </div>
+    </div>
+    <div class="빈칸"></div>
+    <script>
+        const titles = document.querySelectorAll(".title");
+        for (let i = 0; i < titles.length; i++) {
+            titles[i].addEventListener('click', function (event) {
+                // 부모 요소인 .title에서 .detail을 찾는다.
+                let p = event.currentTarget.parentNode;
+                let detail = p.querySelector(".detail");
+
+                // 모든 .detail에 hide를 추가하여 숨김
+                const details = document.querySelectorAll(".detail");
+                details.forEach((d) => d.classList.add("hide"));
+
+                // 현재 클릭된 요소의 .detail에서 hide 제거
+                if (detail) {
+                    detail.classList.remove("hide");
+                }
+            });
+        }
+
+    </script>
+
+    <hr>
+
+    <div>
+        <h1>댓글쓰거라</h1>
+
+        <div class="todo">
+            <input type="text" id="text1"><!-- 글씨를 입력할 수 있는 창 -->
+            <input type="button" value="☆☆☆☆☆" id="star"><!-- 별점 버튼 생성 -->
+            <input type="submit" value="쓰기" id="submit1"> <!-- 입력한것을 추가 할수 있는 버튼 -->
+        </div>
+        <div class="list" id="list1"><br></div> <!-- 할 일 목록을 표시할 div -->
+    </div>
+
+
+
+
+
+    <script>
+
+
+
+        document.getElementById('submit1').onclick = function () {
+            const inputField = document.getElementById('text1'); // 글씨를 입력할 수 있는 창  inputField 옳기기
+            const todoText = inputField.value.trim(); // 입력된 텍스트를 가져오고 공백 제거
+            const list = document.getElementById('list1'); //할 일 목록을 표시할 div를 list로 옳기기
+
+            if (todoText === '') { // 입력이 비어있으면 추가하지 않음
+                return;
+            }
+
+            const div1 = document.createElement('div'); // 새로운 div 생성
+            const checkbox = document.createElement('input'); // 새로운 input 생성
+            checkbox.type = 'checkbox'; // 체크박스 타입 설정
+
+
+
+
+            // 삭제 버튼 생성
+            const Button = document.createElement('button'); // 새로운 button 생성
+            Button.textContent = '삭제'; // 버튼 텍스트 설정
+            Button.onclick = function () {
+                div1.remove(); // 해당 div1을 목록에서 제거
+
+
+            };
+
+
+            // 수정 버튼 생성
+            const suButton = document.createElement('button'); // 새로운 subutton 생성
+            suButton.textContent = '수정'; // 수정 버튼 텍스트 설정
+            suButton.onclick = function () {
+                div1.contentEditable = true; // div1을 수정 가능하게 만듬
+                // 텍스트 노드만 추출하여 저장
+                let textNodes = div1.childNodes;
+                let originalText = '';
+                for (let i = 0; i < textNodes.length; i++) {
+                    if (textNodes[i].nodeType === Node.TEXT_NODE) {
+                        originalText += textNodes[i].textContent;
+                    }
+                }
+                div1.dataset.originalText = originalText;
+
+            };
+
+            // let re = div1.textContent; // div1의 초기 텍스트를 저장
+            // 수정 취소 버튼 생성
+            const suButton2 = document.createElement('button'); // 새로운 subutton2 생성
+            suButton2.textContent = '수정취소'; // 수정 취소 버튼 텍스트 설정
+            suButton2.onclick = function () {
+                div1.contentEditable = false; // div1을 수정취소 가능하게 만듬
+                // div1.textContent = re; // 저장된 내용 복원
+
+                div1.textContent = div1.dataset.originalText;
+                
+
+
+            };
+
+
+
+
+            // createTextNode 이 메서드는 주어진 문자열을 포함하는 새로운 텍스트 노드를 생성하여 반환합니다.
+            div1.appendChild(document.createTextNode(todoText)); // 입력된 텍스트를 div1에 추가
+
+            div1.appendChild(Button); // 삭제 버튼을 div1에 추가
+
+            div1.appendChild(suButton); // 수정 버튼을 div1에 추가
+
+            div1.appendChild(suButton2); // 수정 취소 버튼을 div1에 추가
+
+            list.appendChild(div1); // 목록에 추가
+
+            inputField.value = ''; // 입력 필드 비우기
+
+            if (div1.dataset.originalText) {
+                Button.remove()
+                suButton.remove()
+                suButton2.remove()
+            } else {
+                Button.block()
+                suButton.block()
+                suButton2.block()
+            }
+
+
+        };
+    </script>
+
+</body>
+
+</html>
