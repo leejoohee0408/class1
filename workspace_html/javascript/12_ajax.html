@@ -18,6 +18,7 @@
                     xhr.open('get', 'https://jsonplaceholder.typicode.com/users')
                     // 보내기
                     xhr.send();
+
                     // 다녀온 뒤 (call back)
                     xhr.onload = function () {
                         console.log('다녀왔습니다');
@@ -68,9 +69,9 @@
                     url += '&'
                     url += 'dataType=' + 'JSON'
                     url += '&'
-                    url += 'base_date=' + '20250113'
+                    url += 'base_date=' + '20250114'
                     url += '&'
-                    url += 'base_time=' + '1600'
+                    url += 'base_time=' + '0933'
                     url += '&'
                     url += 'nx=' + '63'
                     url += '&'
@@ -89,16 +90,152 @@
 
                         let data = JSON.parse(xhr.responseText)
                         console.log(data)
+                        // console.log(data.response.body.items.item[0].category)
+                        // console.log(data.response.body.items.item[0].fcstTime)
+                        // console.log(data.response.body.items.item[0].fcstValue)
+                        // console.log(data.response.body.items.item[1].category)
+                        // console.log(data.response.body.items.item[1].fcstTime)
+                        // console.log(data.response.body.items.item[1].fcstValue)
+                        // console.log(data.response.body.items.item[2].category)
+                        // console.log(data.response.body.items.item[2].fcstTime)
+                        // console.log(data.response.body.items.item[2].fcstValue)
+                        let item = data.response.body.items.item
+                        for (let i = 0; i < item.length; i++) {
+                            if (item[i].category == 'T1H') {
+                                console.log(`
+                                category:${item[i].category},
+                                fcstDate:${item[i].fcstDate},
+                                fcstTime:${item[i].fcstTime},
+                                fcstValue:${item[i].fcstValue}
+                                `)
+                            }
+                        }
+                        // 원하는 배열만 출력
+                        // 배열방법으로 푸는것
+                        let item2 = item.filter(function (obj) {
+                            if (obj.category == 'T1H'
+                                || obj.category == 'RN1'
+                                || obj.category == 'REH'
+                            ) {
+                                return true
 
-                        // 3시간 분량의 
-                        // 시간, 기온, 강수량, 습도
-                        //       T1H,   RN1,  REH
+                            }
+                            return false
+                        })
+                        console.log(item2)
 
-                        // form으로 먼저 실습
+                        // fcstTime정렬
+                        let item3 = item2.sort(function (a, b) {
+                            return a.fcstTime - b.fcstTime
+
+                        })
+                        console.log(item3)
+
+                        // json을 사용해보잣!
+                        let result = {}
+                        /*
+                            result = {
+                                1100 : {
+                                    T1H : 3,
+                                    RN1 : 강수없음,
+                                    REH : 30
+                                },
+                                1200 : {
+                                    T1H : 4,
+                                    RN1 : 강수없음,
+                                    REH : 40
+                                }
+                            }
+
+                            result['1900'] = {}
+                            result['1900']['T1H'] = 3
+                        */
+                        for (let i = 0; i < item.length; i++) {
+                            item[i].category
+                            if (item[i].category == 'T1H') {
+                                if (result[item[i].fcstTime]) {
+                                    result[item[i].fcstTime] = {}
+                                }
+                                result[item[i].fcstTime][item[i].category] = item[i].fcstValue
+
+
+                            } else if (item[i].category == 'RN1') {
+                                if (!result[item[i].fcstTime]) {
+                                    result[item[i].fcstTime] = {}
+                                }
+                                result[item[i].fcstTime][item[i].category] = item[i].fcstValue
+                            } else if (item[i].category == 'REH') {
+                                if (!result[item[i].fcstTime]) {
+                                    result[item[i].fcstTime] = {}
+                                }
+                                result[item[i].fcstTime][item[i].category] = item[i].fcstValue
+                            }
+                        }
+
+                        console.log('result', result)
+                    }
+                })
+
+
+            document.querySelector('#btn4')
+                .addEventListener('click', function () {
+                    const url = 'https://jsonplaceholder.typicode.com/users'
+                    let option = {
+                        method: 'get',
+                        headers: {
+                            'key': 'value'
+                        },
+                        // body: '{a:123}'
                     }
 
+
+                    fetch(url, option/*option의{}는 생략이 가능한데 그냥 보여줌*/)
+                        //then은 거쳐서 온다 
+                        .then(function (response) {
+                            // response : fetch가 돌려준 응답 객체
+                            return response.json()
+
+                        }).then(function (data) {
+                            console.log(data)
+                        // catch는 바로온다
+                        }).catch(function (error) {
+                            console.log(error)
+                        })
+
                 })
+
+
         })
+
+        // 이렇게 하면 1에 것을 2로 덮어쓴다
+        //     let j = {};
+        //     j.열시 = 1
+        //     /*
+        //         {
+        //             열시 : 1
+        //         }
+        //     */
+        //     j.열시 = 2
+        //     /*
+        //         {
+        //             열시 : 2
+        //         }
+        //     */
+        //    j['1100'] = {
+        //     온도: value,
+        //     습도: value
+        //    }
+        //    console.log(j)
+
+        // 3시간 분량의
+        // 시간, 기온, 강수량, 습도
+        //       T1H,   RN1,  REH
+
+        // form으로 먼저 실습
+
+
+
+
     </script>
 </head>
 
@@ -106,6 +243,7 @@
     <button type="button" id="btn1">ajax 실행</button>
     <button type="button" id="btn2">lg 디스플레이 실시간 주가</button>
     <button type="button" id="btn3">날씨</button>
+    <button type="button" id="btn4">fetch</button>
 </body>
 
 </html>
