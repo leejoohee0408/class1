@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        const xhr = new XMLHttpRequest()
+        xhr.open('get', 'emp.json')
+        xhr.send()
+        xhr.onload = function () {
+            console.log(xhr.responseText)
+            const data = JSON.parse(xhr.responseText)
+            console.log(data)
+            // if(data[0]){
+            //     alert('환영합니다 누구님') 
+            // }else{
+            //     alert('회원이 아닙니다')
+            // }
+            document.querySelector('#입력')
+                .addEventListener('click', function () {
+                    const empno1 = document.querySelector('#empno')
+                    // console.log(empno1)
+                    const ename1 = document.querySelector('#ename')
+                    // if(data[0].empno == empno1.value && data[0].ename == ename1.value){
+                    //     alert('환영합니다 누구님') 
+                    // }else{
+                    //     alert('회원이 아닙니다')
+                    // }
+
+                    // 반복하면서
+                    // 아뒤 비번이 동일한 사람 찾기
+                    // 찾으면 "환영"
+                    // 없으면 "회원가입"
+                    // 문제 : 계속 alert 동작
+                    let flag = false //이걸 생성해서 먼저 false로 해놓고
+                    for (j = 0; j < data.length; j++) {
+                        if (data[j].empno == empno1.value && data[j].ename == ename1.value) {
+                            flag = true  //맞으면 true로 해놓고                         
+                        } 
+                    }
+                    if (flag = true) { //만약 true가 되면 환영합니다가 나오게한다
+                            alert('환영합니다'+ename1.value+'님')
+
+                        } else {
+                            alert('회원이 아닙니다')
+                        }
+                        
+                })
+
+        }
+    </script>
+</head>
+
+<body>
+    <!-- 
+    사원번호empno, 이름ename을 입력하고
+    로그인 버튼을 누르면 
+    emp.json안에 있는 회원인지 검사하고
+    회원이 맞으면 alert('환영합니다 누구님') 
+    회원이 아니면 alert('회원이 아닙니다') -->
+
+    <!-- 사원번호empno, 이름ename을 입력하는 칸을 만든다 -->
+    <!-- 로그인 버튼을 만든다 -->
+    <!-- emp.json안에 있는 사원번호1인 a분과
+    사번호2인 b분인지 확인하는 코드를 만든다-->
+    <!-- 확인해서 맞으면 alert('환영합니다 누구님')이 나오게 하고 -->
+    <!-- 아니면 alert('회원이 아닙니다')라고 나오게 한다 -->
+    <div>
+        사원번호(empno): <input type="text" id="empno"><br>
+        이름(ename): <input type="text" id="ename">
+        <input type="button" value="로그인" id="입력">
+    </div>
+</body>
+
+</html>
