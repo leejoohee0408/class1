@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #mm {
+            width: 10%;
+            /* border: 1px solid red; */
+            position: absolute;
+            z-index: 1;
+
+        }
+
+        .bs1 {
+            /* border: 1px solid red; */
+            height: 20%;
+            width: 100%;
+            padding-top: 40px;
+            background-color: slateblue;
+            
+
+        }
+
+        .bs2 {
+            /* border: 1px solid red; */
+            height: 20%;
+            width: 100%;
+            padding-top: 40px;
+            background-color: skyblue;
+            
+
+        }
+
+        #p {
+            width: 100%;
+        }
+
+        #z {
+            border: 1px solid red;
+
+        }
+
+        #zz {
+            display: flex;
+            border: 1px solid blue;
+            width: 100%;
+        }
+    </style>
+    <script>
+        window.addEventListener("load", init);
+        function init() {
+            let Button1 = document.querySelector("#btn1"); // "장바구니 담기" 버튼
+            let Button2 = document.querySelector("#btn2"); // "결제" 버튼
+            Button1.addEventListener("click", function () {
+                let checked = document.querySelectorAll(".chk:checked"); // 체크된 체크박스 가져오기
+                let cart = document.querySelector("#cart"); // 장바구니 컨테이너
+               
+                // 기존 장바구니 내용 초기화
+                cart.innerHTML = "";
+
+                // 체크된 항목들을 장바구니에 추가
+                checked.forEach(item => {
+                    let imgSrc = item.nextElementSibling.src; // 체크박스 옆 이미지의 src 가져오기
+                    let name = item.dataset.name; // 체크박스의 데이터 속성에서 이름 가져오기
+                    let money = item.dataset.money; // 체크박스의 데이터 속성에서 가격 가져오기
+
+
+                    let div = document.createElement("div"); //div 생성
+                    div.classList.add("cart-item"); // cart-item 클래스 추가
+                    div.dataset.money = money; // money 값을 데이터 속성으로 저장
+
+                    // 출력할것들 사진이 커서 50px로 만듬
+                    div.innerHTML = `
+                    <img src="${imgSrc}" alt="${name}" style="width: 50px;">
+                    <p>이름: ${name}</p>
+                    <p>가격: ${money}원</p>
+                    <button class="btn1">삭제</button>
+                    <button class="btn11">따로결제</button>
+                `;
+                    cart.appendChild(div);
+
+
+                });
+
+                // 삭제 버튼 클릭 추가
+                let Buttons1 = document.querySelectorAll(".btn1");
+                Buttons1.forEach(button => {
+                    button.addEventListener("click", function () {
+                        // 삭제 버튼의 부모 요소 (cart-item)를 삭제
+                        this.parentElement.remove();
+                    });
+                });
+
+            });
+
+            // 결제 버튼 클릭 이벤트 추가
+            Button2.addEventListener("click", function () {
+                let cartItems = document.querySelectorAll(".cart-item"); // 모든 장바구니 항목 가져오기
+                let money2 = 0;
+
+                // 모든 바구니안에 있는 money 합산
+                cartItems.forEach(item => {
+                    money2 += Number(item.dataset.money); // money 값을 숫자로 변환 후 더하기
+                });
+
+                // 합계 출력
+                if (money2 > 0) {
+                    alert(`총 결제 금액은 ${money2}원입니다.`);
+                } else {
+                    alert("장바구니가 비어 있습니다.");
+                }
+            });
+
+            // 따로결제 클릭 추가
+            let Buttons11 = document.querySelectorAll(".btn11");
+            Buttons11.forEach(button => {
+                button.addEventListener("click", function () {
+                    cartItems.forEach(item => {
+                        money11 = Number(item.dataset.money); // money 값을 숫자로 변환 후 더하기
+                    });
+                    if (money11) {
+                        alert(`총 결제 금액은 ${money11}원입니다.`);
+                    } else {
+                        alert("장바구니가 비어 있습니다.");
+                    }
+                });
+            });
+
+        }
+    </script>
+</head>
+
+<body>
+    <!-- 장바구니 담기, 삭제 , 결제 버튼만들기 -->
+    <!-- 상품인 사진과 체크박스 9개 만들기 -->
+    <!-- 체크된 상품 장바구니 담기 버튼을 누르면 담기가 되게 연결하기 -->
+
+    <!-- 장바구니 확인용에 가져온것 옆에 삭제버튼을 만들기 -->
+    <!-- 삭제버튼을 누르면 삭제되게 하기 -->
+
+    <!-- 결제 버튼을 삭제버튼 옆에 만들기 -->
+    <!-- 결제 버튼을 누르면 money에 있는것을 합계를 만들기 -->
+    <!-- 합계한것을 alert로 창에 보여주기 -->
+
+    <!-- --------------------------------------------------- -->
+
+    <img id="mm"
+        src="https://img.freepik.com/premium-vector/shopping-malls-retail-outline-web-icon-collection_624457-697.jpg"><br>
+    <div class="bs1"></div>
+    <div class="bs2"></div>
+    <input type="button" class="btn" id="btn1" value="장바구니 담기">
+    <input type="button" class="btn" id="btn2" value="결제">
+
+    <!-- 사진 및 체크박스 및 이름 및 가격 -->
+    <div id="zz">
+        <div id="z">
+            <div>상품1:오리 1000원</div>
+            <input type="checkbox" class="chk" value="그림1" data-name="오리" data-money="1000">
+            <img id="p"
+                src="https://item.kakaocdn.net/do/172e317de5420a65269e6c58868117778f324a0b9c48f77dbce3a43bd11ce785">
+        </div>
+        <div id="z">
+            <div>상품2:오리 2000원</div>
+            <input type="checkbox" class="chk" value="그림2" data-name="강아지" data-money="2000">
+            <img id="p"
+                src="https://item.kakaocdn.net/do/172e317de5420a65269e6c58868117778f324a0b9c48f77dbce3a43bd11ce785">
+        </div>
+        <div id="z">
+            <div>상품3:오리 3000원</div>
+            <input type="checkbox" class="chk" value="그림3" data-name="괴물" data-money="3000">
+            <img id="p"
+                src="https://item.kakaocdn.net/do/172e317de5420a65269e6c58868117778f324a0b9c48f77dbce3a43bd11ce785">
+        </div>
+        <div id="z">
+            <div>상품4:오리 4000원</div>
+            <input type="checkbox" class="chk" value="그림4" data-name="괴물" data-money="4000">
+            <img id="p"
+                src="https://item.kakaocdn.net/do/172e317de5420a65269e6c58868117778f324a0b9c48f77dbce3a43bd11ce785">
+        </div>
+        <div id="z">
+            <div>상품5:오리 5000원</div>
+            <input type="checkbox" class="chk" value="그림5" data-name="괴물" data-money="5000">
+            <img id="p"
+                src="https://item.kakaocdn.net/do/172e317de5420a65269e6c58868117778f324a0b9c48f77dbce3a43bd11ce785">
+        </div>
+        <div id="z">
+            <div>상품6:오리 6000원</div>
+            <input type="checkbox" class="chk" value="그림6" data-name="괴물" data-money="6000">
+            <img id="p"
+                src="https://item.kakaocdn.net/do/172e317de5420a65269e6c58868117778f324a0b9c48f77dbce3a43bd11ce785">
+        </div>
+        <div id="z">
+            <div>상품7:오리 7000원</div>
+            <input type="checkbox" class="chk" value="그림7" data-name="괴물" data-money="7000">
+            <img id="p"
+                src="https://item.kakaocdn.net/do/172e317de5420a65269e6c58868117778f324a0b9c48f77dbce3a43bd11ce785">
+        </div>
+        <div id="z">
+            <div>상품8:오리 8000원</div>
+            <input type="checkbox" class="chk" value="그림8" data-name="괴물" data-money="8000">
+            <img id="p"
+                src="https://item.kakaocdn.net/do/172e317de5420a65269e6c58868117778f324a0b9c48f77dbce3a43bd11ce785">
+        </div>
+        <div id="z">
+            <div>상품9:오리 9000원</div>
+            <input type="checkbox" class="chk" value="그림9" data-name="괴물" data-money="9000">
+            <img id="p"
+                src="https://item.kakaocdn.net/do/172e317de5420a65269e6c58868117778f324a0b9c48f77dbce3a43bd11ce785">
+        </div>
+    </div>
+    <h2>-----장바구니 확인용-----</h2>
+    <div id="cart">
+        <!-- 체크된 이미지와 이름, 가격이 여기에 추가됨 -->
+    </div>
+
+</body>
+
+</html>

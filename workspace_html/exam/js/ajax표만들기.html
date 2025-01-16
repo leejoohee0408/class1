@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+   
+    <script>
+        window.addEventListener('load', function () {
+            document.querySelector('#btn1')
+                .addEventListener('click', function () {
+
+                    // ajax 객체 생성
+                    const xhr = new XMLHttpRequest();
+                    
+                    xhr.open('get', 'https://jsonplaceholder.typicode.com/users')
+                    // 보내기
+                    xhr.send();
+
+                    // 다녀온 뒤 (call back)
+                    xhr.onload = function () {
+                        console.log('다녀왔습니다');
+                        // 연결되어있는 코드를 텍스트로 가져오기
+                        console.log(xhr.responseText);
+
+                        // string을 배열로 변경
+                        const data = JSON.parse(xhr.responseText)
+                        console.log(data)
+
+                        for (j = 0; j < data.length; j++) {
+                            if (data[j].id) {
+                                console.log(data[j].id)
+                            } if (data[j].name) {
+                                console.log(data[j].name)
+                            } if (data[j].address.zipcode) {
+                                console.log(data[j].address.zipcode)
+                            } if (data[j].company.name) {
+                                console.log(data[j].company.name)
+                            }
+                        }
+
+                    }
+
+                })
+        })
+    </script>
+</head>
+
+<body>
+    
+        <button type="button" id="btn1">ajax 실행</button>
+    
+
+</body>
+
+</html>

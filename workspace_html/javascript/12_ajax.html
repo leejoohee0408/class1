@@ -10,13 +10,14 @@
         window.addEventListener('load', function () {
             document.querySelector('#btn1')
                 .addEventListener('click', function () {
-
+                    // debugger  // 이건  클릭할시 멈춤 f12꼭보기
                     // ajax 객체 생성
                     const xhr = new XMLHttpRequest();
                     // 보낼 준비
                     // xhr.open('get', 'http://daum.net')
                     // xhr.open('get','http://127.0.0.1:5500/javascript/11_json.html')
                     xhr.open('get', 'https://jsonplaceholder.typicode.com/users')
+                    
                     // 보내기
                     xhr.send();
 
@@ -248,7 +249,22 @@
                 })
             })
 
+            const xhr = new XMLHttpRequest();
+            xhr.open('post', 'https://discord.com/api/webhooks/1329358044529688648/iVjrerCbeh85ltCZa1LTsr8T1VbMStWfOQy51eU7TLvsh1lgst6tS9ZpyzNaGvacsPkk')
 
+            xhr.setRequestHeader('Content-Type', 'application/json')
+            let param = {
+                username: 'webHook', // 1~80자
+                content : '게임안함?',   // 2000자
+                tts : true
+            }
+            xhr.send(JSON.stringify(param));
+
+            xhr.onload = function(){
+                console.log('다녀왔습니다')
+                console.log(xhr.responseText)
+            }
+                    
         })
 
         // 이렇게 하면 1에 것을 2로 덮어쓴다
@@ -290,6 +306,7 @@
     <button type="button" id="btn4">fetch</button>
     <button type="button" id="btn5">jQuery ajax 1</button>
     <button type="button" id="btn6">jQuery ajax 2</button>
+    <button type="button" id="btn7">디스코드</button>
 </body>
 
 </html>
