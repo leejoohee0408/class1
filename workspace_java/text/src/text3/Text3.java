@@ -23,10 +23,16 @@ public class Text3 {
 				
 			}
 		}
+		System.out.println();
 		
 		
-		
-		
+		for(int q=2; q<=9; q++) {
+//			System.out.println("2"+"x"+q+"="+(q*2));
+			System.out.println(q+"단");
+			for(int qq=1; qq<=9; qq++) {
+				System.out.println(q+"x"+qq+"="+(qq*q));
+			}
+		}
 		
 		
 		

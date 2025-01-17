@@ -189,10 +189,10 @@
             return a;
         }
         // 익명함수일 경우 화살표 함수로 변경할 수 있다
-        let test1 = (a, b) => {
-            console.log(a, b);
-            return a;
-        }
+        // let test1 = (a, b) => {
+        //     console.log(a, b);
+        //     return a;
+        // }
 
         // 전달인자가 하나일때만
         // 괄호를 생략할 수 있다
@@ -220,6 +220,31 @@
         test6(3);//9
         // customTimeout(a => a*3, 1000);
 
+        console,log('---------------------------')
+        // 여기가 함수의 최 상단이라고 하자
+        // scope : 범위 : 변수를 참조할 수 있는 범위
+        // console,log(z)
+        let z = 10
+        function test(){
+            let z =20
+            console.log(z)
+        }
+        // test()
+        console.log(z)
+        // console.log(y)
+
+        let x1 = 10
+        function test11(){
+            console.log('x1',x1)
+            let x2 = 20
+            test12();
+        }
+        function test12(){
+            console.log('x1',x1)
+            console.log('x2',x2)
+            
+        }
+        test11()
     </script>
 </head>
 
