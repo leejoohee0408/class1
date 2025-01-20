@@ -1,26 +1,39 @@
 package quiz;
 
+import java.util.ArrayList;
+
 public class PokemonExamLesgue {
 
-	public static void main(String[] args) {
-		//포켓몬, 추가, 포켓몬리그 라는 페이지를 만든다
-		//포켓몬페이지에 배열로 포켓몬이랑 타입을 만든다
-		//		
-		//포켓몬페이지를 추가페이지에 삽입
-		//추가페이지를 포켓몬 페이지에 삽입
-		
-//		포켓몬 포켓몬리그 포켓몬Exam
-//		포켓몬에는 이름과 타입만 저장
-//		포켓몬리그에는 포켓몬들을 저장하는 arrayList
-//		포켓몬추가메소드 전달인자로 포켓몬을 받는다
-//		포켓몬 보기메소드는 저장되어있던 이름과 타입의 정보를 모두 보여준다
-//		포켓몬 메인에서 
-//		일단 포켓몬 리그 생성
-//		포켓몬 생성하고 이름과 타입 지정
-//		포켓몬 리그에 추가
-//		포켓몬 보기메소드를 실행해서 내가 추가한거 다보기		
-		
-
+	// name에 null넣음	
+	String name = null;
+	//ArrayList라는 정해지지 않은 배열을 list에 줬다	
+	ArrayList list = new ArrayList();
+	//Pokemon이라는 메소드에 10개의 정해진 배열을 생성	
+	Pokemon[] arrPokemon = new Pokemon[10];
+	
+	//지금의 메소드에 name을 String을 줘서 문자가 나오게 가능	
+	PokemonExamLesgue(String name){
+//		System.out.println(arrPokemon[0]);
+		System.out.println("name :"+ name);
+		this.name = name;
+	}
+	
+	//이건 list에 추가할것	
+	void add(Pokemon z) {
+		this.list.add(z);
+	}
+	
+	void print() {
+		for(int i=0; i<list.size(); i++) {
+			Pokemon p =	(Pokemon)list.get(i);
+//			System.out.println(p);
+			System.out.println("이름: "+p.name);
+			System.out.println("타입: "+p.type);
+			System.out.println();
+		}
+	}
+	Pokemon[] getArray(){
+		return arrPokemon;
 	}
 
 }
