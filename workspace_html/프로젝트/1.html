@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 입력 필드 -->
+    <input type="text" id="작업절차">
+    <input type="text" id="작업방법">
+    <input type="text" id="작업조건">
+    <input type="text" id="작업장비사용법">
+    <input type="text" id="검사및품질확인">
+    <input type="text" id="안전지침">
+    <input type="text" id="작업시간">
+    <input type="text" id="작업물처리방식">
+    <input type="text" id="비고사항">
+
+    <!-- 등록 버튼 -->
+    <button id="registerBtn">등록</button>
+
+    <!-- 테이블 -->
+    <table>
+        <thead>
+            <tr>
+                <th>작업절차</th>
+                <th>작업방법</th>
+                <th>작업조건</th>
+                <th>작업장비사용법</th>
+                <th>검사 및 품질확인</th>
+                <th>안전지침</th>
+                <th>작업시간</th>
+                <th>작업물 처리방식</th>
+                <th>비고사항</th>
+            </tr>
+        </thead>
+        <tbody id="dataTableBody">
+            <!-- 여기에 데이터 추가 -->
+        </tbody>
+    </table>
+    <script>
+        document.getElementById("registerBtn").addEventListener("click", function () {
+            // 입력 필드 값 가져오기
+            const 작업절차 = document.getElementById("작업절차").value;
+            const 작업방법 = document.getElementById("작업방법").value;
+            const 작업조건 = document.getElementById("작업조건").value;
+            const 작업장비사용법 = document.getElementById("작업장비사용법").value;
+            const 검사및품질확인 = document.getElementById("검사및품질확인").value;
+            const 안전지침 = document.getElementById("안전지침").value;
+            const 작업시간 = document.getElementById("작업시간").value;
+            const 작업물처리방식 = document.getElementById("작업물처리방식").value;
+            const 비고사항 = document.getElementById("비고사항").value;
+
+            // 테이블에 새 행 추가
+            const tableBody = document.getElementById("dataTableBody"); // tbody의 id
+            const newRow = document.createElement("tr");
+
+            newRow.innerHTML = `
+        <td>${작업절차}</td>
+        <td>${작업방법}</td>
+        <td>${작업조건}</td>
+        <td>${작업장비사용법}</td>
+        <td>${검사및품질확인}</td>
+        <td>${안전지침}</td>
+        <td>${작업시간}</td>
+        <td>${작업물처리방식}</td>
+        <td>${비고사항}</td>
+    `;
+
+            tableBody.appendChild(newRow);
+
+            // 입력 필드 초기화
+            document.getElementById("작업절차").value = "";
+            document.getElementById("작업방법").value = "";
+            document.getElementById("작업조건").value = "";
+            document.getElementById("작업장비사용법").value = "";
+            document.getElementById("검사및품질확인").value = "";
+            document.getElementById("안전지침").value = "";
+            document.getElementById("작업시간").value = "";
+            document.getElementById("작업물처리방식").value = "";
+            document.getElementById("비고사항").value = "";
+        });
+    </script>
+</body>
+
+</html>
