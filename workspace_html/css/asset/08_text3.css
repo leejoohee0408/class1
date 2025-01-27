@@ -1,0 +1,75 @@
+body{
+margin: 0;
+}
+.a{
+    /* border: 1px solid red; */
+    height: calc(100vh - 20px);
+    width: calc(100vw - 20px);
+
+    
+    
+}
+.a1{
+    /* border: 1px solid red; */
+    width: calc((100vw - 20px) * 0.4);
+    position: absolute;
+    top: calc((100vh - 20px) * 0.19);       
+    left: calc((100vw - 20px) * 0.2);          
+    z-index: 2;
+}
+.a .a2{
+    /* border: 1px solid red; */
+    width: 60%; 
+    height: 100%;
+    position: absolute;
+    left: calc((100vw - 20px) * 0.40); 
+    background-color: rgb(110, 82, 199);
+    
+}
+.a3{
+    /* border: 1px solid red; */
+    background-color: white;
+    width: calc((100vw - 20px) * 0.2);  
+    height: calc((100vh - 20px) * 0.4);
+    position: relative;
+    top: calc((100vh - 20px) * 0.27);
+    left: calc((100vh - 20px) * 0.2);
+    color: rgb(110, 82, 199);
+    z-index: 3;
+    text-align: right;
+    
+    
+    
+}
+.m{
+    
+    font-size: calc(0.3vh + 1vw);
+    line-height: calc(9vh);
+    margin-right: calc(2vw);
+    height: 5vh;
+    
+    /* border: 1px solid red; */
+}
+.m1{
+    font-size: calc(5vh + 1vw);
+    line-height: calc(8vh);
+    margin-right: calc(2vw);
+    /* border: 1px solid red; */
+
+}
+.m2{
+    font-size: calc(0.1vh + 1vw);
+    line-height: calc(8vh);
+    margin-right: calc(2vw);
+    /* border: 1px solid red; */
+
+}
+
+
+.m3{
+    font-size: calc(0.4vh + 1vw);
+    line-height: calc(5vh);
+    text-decoration: underline;
+    /* border: 1px solid red; */
+}
+    

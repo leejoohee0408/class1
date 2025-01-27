@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method="get" >
+        <!-- text를 하면 보이면서 아이디를 칠수있다 -->
+        text(기본값) : <input type="text"><br>
+        <!-- type에 value 값을 넣으면 미리 표기함-->
+        text(value) : <input type="value"value="아무거나"><br>
+       <!--입력된 글씨가 없을때 표시되는 글씨-->
+        text(placeholder) : <input type="text" placeholder=" 아무것도 안치면 보임"><br>
+        <!--readonly는 읽을수만 있고 그다음꺼를 적거나 지울수 없다  -->
+        text(value) : <input type="value" value="아무거나" placeholder=" 아무것도 안치면 보임" readonly="readonly"><br>
+        <!--password에  text를 입력하면 안보이게 한것을 볼수 있다 -->
+        password : <input type="password" placeholder=" 비밀번호 적어라 이놈아"><br>
+
+        <!-- name이 같아야 내가 아는 남자누르면 남자만 클릭되고 여자누르면 여자가 클릭되면서 남자체크는 지워진다 -->
+        <!-- radio는 클릭을 가능하게 하는 것을 만들어줌 -->
+        <!-- checked는 미리 시작하기전에 체크를 하고싶을때 쓴다 -->
+         <!-- radio는 동그란 체크 -->
+        radio :
+        <input type="radio" name="gender"  value="male" checked="checked">남자
+        <input type="radio" name="gender"  value="female" >여자
+        <input type="radio" name="gender"  value="" >비공개
+        <br>
+        <!-- checkbox는 진정한 체크를 할수 있다 난 이거 쓸듯 -->
+         <!-- checkbox는 네모난 체크 -->
+          <!-- disabled 연해지면서 고정하고 싶으면 쓰는거임 -->
+        checkbox :
+        <input type="checkbox">페페로니
+        <input type="checkbox" checked="checked" disabled="disabled">치즈
+        <input type="checkbox">올리브
+        <br>
+
+        <!-- file는 파일선택이라는 것을 만들때 쓰인다-->
+         <!-- value으로 이름을 못바꿔준다 -->
+        file : 
+        <input type="file">
+        <br>
+        <!-- reset는 모든것을 초기화 하고 싶을때 쓰인다 -->
+         <!-- value으로 이름을 바꿔줄수 있다 -->
+        reset :
+        <input type="reset" value="reset">
+        <br>
+        <!-- <form method="get" action="주소">에서 action="주소"를 없애야 검색한거를 할수 있다-->
+        검색 :
+        <input type="text" name="search" >
+        <br>
+        <!-- submit은 검색한거를 전송할 수 있다 -->
+        submit
+        <input type="submit" value="전송">
+        <br>
+        <!-- hidden는 브라우저에는 보이지 않고 서버로는 name과 value를 전달 할 수 있음 -->
+        hidden : <input type="hidden" name="secret" value="1234">
+        <br>
+        <!-- 별로 그렇게 중요하지 않음 -->
+         date 날짜선택 : <input type="date" value="2024-12-03">
+         <br>
+         color 색깔 : <input type="color">
+         <br>
+         <!-- 숫자는 되는데 한글은 한개밖에 안되고 영어는 아예 안됨 -->
+         number : <input type="number">
+         <br>
+         <!-- range은 볼륨조절처럼 이용가능 -->
+         range : <input type="range" name="ran" min="10" max="100" step="10">
+         <br>
+         <!-- 버튼만 만드는것 따른 기능은 없음-->
+         input button : <input type="button" name="btn" value="버튼">
+         <br>
+         <button typt="button">button tag</button>
+         <br>
+         <!-- button양식 :<button type=”button”>버튼명</button>기본 type이 submit인 것에 주의 -->
+         <a href="http://naver.com" target="_blank">
+            <button type="button">네이버 가기</button>
+         </a>
+         <br>
+         <!-- textarea 텍스트 입력 요소 -->
+          <!-- rows="10" cols="100"크기 정하는것 -->
+         <textarea rows="10" cols="100" name="">
+            1줄
+            2줄
+         </textarea>
+         <br>
+        <!-- select로 목록안에 목록을 볼수 있게 한다 -->
+         <!-- multiple은 아예열려있고 시프트 누르고 드래그해서 선택 -->
+          <!--  size를 이용해서 크기조정해라  -->
+         <select name="lunch" multiple="multiple" size="3">
+            <option value="1">한식</option>
+            <option value="2">양식</option>
+            <option value="3" selected="selected">중식</option>
+            <option value="4">분식</option>
+            <option value="5">분식1</option>
+            <option value="6">분식2</option>
+            <option value="7">분식3</option>
+            <option value="8">분식4</option>
+         </select>
+         <br>
+         <!-- label기능은 선택을 하는데 글씨까지 클릭이 가능하도록 해준다 -->
+         <input type="checkbox" id="chk"><label for="chk">선택</label>
+         <br>
+         <!-- 위에꺼랑 똑같다 -->
+         <label for="chk2">
+            <input type="checkbox" id="chk2">선택2
+         </label>
+         <br>
+         <!--fieldset에서 legend하면 테두리에 제목을 할수 있다-->
+         <!-- fieldset안에  legend밖에 글씨를 하면 테두리안에 글씨를 쓸수있다 -->
+         <fieldset>
+            <legend>제목</legend>
+        글씨들 
+        </fieldset>
+        <br>
+    </form>
+    <!-- 새로운 get로 해서 action로 네이버 주소를 받아서 네이버꺼롤 검색할 수 있게 했다 -->
+    <form method="get" action="https://search.naver.com/search.naver">
+        네이버 검색 : <input type="text" name="query" placeholder="검색어를 입력하세요">
+        <input type="submit" value="네이버 검색">
+    </form>
+
+    <form method="get" action="https://www.google.com/search">
+        구글 검색 : <input type="text" name="q" placeholder="검색어를 입력하세요">
+        <input type="submit" value="구글 검색">
+    </form>
+
+    <form method="get" action="https://search.daum.net/search">
+        다음 검색 : <input type="text" name="w" placeholder="검색어를 입력하세요">
+        <input type="submit" value="다음 검색">
+    </form>
+</body>
+</html>

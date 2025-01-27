@@ -1,0 +1,87 @@
+/*  메인 박스  가로를 1000px를 주고  margin을 auto로 해놓고 뒤에 있는 배경을 검정으로 줬다*/
+.c{
+    /* border: 1px solid red; */
+    width: 1000px;
+    margin: 0 auto;
+    background-color: black;
+
+}
+/* 클래스a 글자랑 이어지는 Freepik를 핑크로 색을 입힘 */
+.aa{
+    color: rgb(252, 66, 97);
+}
+/* 클래스a1 안에있는 a와 aa와 a2를 가로를 850px를 주고 인라인 박스를 주웠다다 */
+.a1{
+    /* border: 1px solid black; */
+    width: 850px;
+    display: inline-block;
+   
+}
+/* a클래스에 인라인 박스를 주고 가로크기를 49%로 주고위치를 top으로 줘서 위로 딱맞게 하고 사이즈를 30px를 주고 글자색깔을 화이트로 주고 text-align:center로 중앙 정렬했다 */
+.a{
+    /* border: 1px solid blue; */
+    width: 49%;
+    display: inline-block;
+    vertical-align: top;
+    font-size: 30px;
+    color: white;
+    text-align:center ;
+    
+    
+}
+/* 가로를 a클래스와 같게 주고 인라인 박스주고 위치를 top로 줘서 위로 딱맞게 주고 사이즈를 30px로 주고 글자색깔 화이트로 주고 text-align: left로 글자를 왼쪽으로 붙게 해놨다*/
+.a2{
+    /* border: 1px solid blue;s */
+    width: 49%;
+    display: inline-block;
+    vertical-align: top;
+    font-size: 30px;
+    color: white;
+    text-align: left;
+    
+    
+}
+/* 가로를 100px를 주고 인라인 박스를 주고 위치를 top로 줘서 위로 딱맞게 주고  margin-left: 40px로 왼쪽을 채우고 margin-top: 28px로 위를 채워서 가운데로 맞춤*/
+.b1{
+    /* border: 1px solid purple; */
+    width: 100px;
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 40px;
+    margin-top: 28px;
+    
+}
+/* 테두리 색깔을 그린으로 주고 배경은 블루로 줬다  그리고 line-height:50px를 줘서 가운데를 해놨고 글자 색깔은 화이트로 해놨다*/
+.b{
+    border: 1px solid green;
+    background-color: blue;
+    line-height:50px;
+    color: white;
+    
+    
+}
+/* 테두리 색깔을 그린으로 주고 배경은 분홍색으로 줬다  그리고 line-height:50px를 줘서 가운데를 해놨고 글자 색깔은 화이트로 해놨다*/
+.b2{
+    border: 1px solid green;
+    background-color: rgb(240, 65, 94);
+    line-height:50px;
+    color: white;
+    
+    
+}
+/* 테두리 색깔을 검정색으로 해놨고 가로 327px 세로 327px로 해놨고 인라인 박스로 만들면서 빈칸있으면 채워주고 배경은 화이트로 하고  text-align: center로 위에 가운데가 되고 */
+/* line-height: 327px;로  세로를 맞추는데 이게 될려면 이미지에  vertical-align: middle;로 미드를 잡아줘야 된다다*/
+.z{
+    border: 1px solid black; 
+    width: 327px;
+    height: 327px;
+    display: inline-block;
+    background-color: white;
+    text-align: center;
+    line-height: 327px;
+    
+}
+/* 사진의 미드를 잡아줬다 이건 클래스z의  line-height: 327px;랑 같이 써야한다*/
+img{
+    vertical-align: middle;
+}

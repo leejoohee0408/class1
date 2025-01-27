@@ -1,0 +1,48 @@
+body{
+    margin: 0;
+}
+
+/* margin: 0 auto;에 auto는 왼쪽 오른쪽만 되고*/
+/* margin: 0 auto;의 0은 위아래를 정한다 */
+.block{
+    border: 1px solid purple;
+    height: 50px;
+    width: 100px;
+    margin: 0 auto;
+}
+
+
+.inline{
+    border: 1px solid purple;
+    height: 50px;
+    width: 100px;
+    /* 좌우만 되고 위 아래 안됨  */
+    margin: 50px;
+    /* 좌우만 되고 위 아래 안됨 단, border는 밀어짐 */
+    padding: 30px;
+}
+
+.bg_blue{
+    background-color: blue;
+    color: #fff;
+   
+}
+
+.parent{
+    border:  1px dotted rgb(255, 0, 255);
+    width: 400px;
+    /* width: 100%; */
+}
+
+.parent > div{
+    border: 1px solid blue;
+
+    height: 50px;
+    width: 150px;
+
+    
+    display: inline-block;
+    /* vertical-align: top;은 세로방향 정렬로 맨위로 맞추어줬다 */
+    /* inline, inline-block에만 적용 됨 */
+    vertical-align: top;
+}

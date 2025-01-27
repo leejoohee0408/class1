@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        window.addEventListener("load", function () {
+            // 조건문
+            // 선택한 것에 따라 다르게 #view에 출력
+            // 다시말해
+            // 1.확인버튼 #btn1을 누르면
+            const btn = document.querySelector("#btn1");
+            btn.addEventListener("click", function () {
+                // 2.선택된 값을 읽어서
+                //  -select의 선택된 option의 value를 읽어서
+                let i2 = document.querySelector("#i");
+                console.log(i2.value);
+                let i2_value = i2.value;
+                // 3.값에 따라
+                // 4.다르게 #vlew에 출력한다
+                const view = document.querySelector("#view");
+                if (i2_value == 1) {
+                    // console.log("1번선택")
+                    view.innerHTML = "1번"
+                } else if (i2_value == 2) {
+                    // console.log("2번선택")
+                    view.innerHTML = "2번"
+                } else {
+                    // console.log("3번선택")
+                    view.innerHTML = "3번"
+                }
+
+            })
+
+        })
+    </script>
+</head>
+
+<body>
+
+    <div id="view"></div>
+    <select id="i">
+        <option value="1">게임하기 </option>
+        <option value="2">게임하기1 </option>
+        <option value="3">게임하기2 </option>
+    </select>
+    <button type="button" id="btn1">확인</button>
+    <hr>
+
+
+</body>
+
+</html>
