@@ -215,8 +215,6 @@
         function addRow(품번, 품명, 규격, 수량, 입고단가, 비고사항) {
             const tableBody = document.getElementById("table-body");
             const row = document.createElement("tr");
-
-            // 체크박스 복제
             const checkbox = checkboxTemplate.cloneNode(true);
 
             row.innerHTML = `
@@ -230,13 +228,30 @@
         <td>${(수량 * 입고단가).toLocaleString()}</td> 
         <td>${(수량 * 입고단가 * 0.1).toLocaleString()}</td> 
         <td>${(수량 * 입고단가 * 1.1).toLocaleString()}</td> 
-        <td>${비고사항}</td>  `;
+        <td>${비고사항}</td>`;
 
-            // 체크박스 셀에 추가
             row.cells[1].appendChild(checkbox);
-
             tableBody.appendChild(row);
+            updateTable();
         }
+
+        // 자동 계산 함수
+        function calculateValues() {
+            const 수량 = parseInt(document.getElementById("수량").value, 10) || 0;
+            const 입고단가 = parseInt(document.getElementById("입고단가").value.replace(/,/g, ''), 10) || 0;
+
+            const 공급가액 = 수량 * 입고단가;
+            const 세액 = Math.round(공급가액 * 0.1);
+            const 합계 = 공급가액 + 세액;
+
+            document.getElementById("공급가액").value = 공급가액.toLocaleString();
+            document.getElementById("세액").value = 세액.toLocaleString();
+            document.getElementById("합계").value = 합계.toLocaleString();
+        }
+
+        // 수량, 입고단가 입력 시 자동 계산
+        document.getElementById("수량").addEventListener("input", calculateValues);
+        document.getElementById("입고단가").addEventListener("input", calculateValues);
 
         // 등록 버튼 클릭 이벤트
         document.getElementById("등록").addEventListener("click", function () {
@@ -244,32 +259,20 @@
             const 품명 = document.getElementById("품명").value;
             const 규격 = document.getElementById("규격").value;
             const 수량 = parseInt(document.getElementById("수량").value, 10);
-            const 입고단가 = parseInt(document.getElementById("입고단가").value, 10);
+            const 입고단가 = parseInt(document.getElementById("입고단가").value.replace(/,/g, ''), 10);
             const 비고사항 = document.getElementById("비고사항").value;
 
-            // 데이터 유효성 검사 
-            if (!품번 || !품명 || !규격 || !수량 || !입고단가) {
-                alert("필수 항목을 모두 입력해주세요.");
+            if (!품번 || !품명 || !규격 || isNaN(수량) || isNaN(입고단가)) {
+                alert("필수 항목을 모두 올바르게 입력해주세요.");
                 return;
             }
 
-            // 등록을 누르면 내가 입력한것을 넣어주는것
             addRow(품번, 품명, 규격, 수량, 입고단가, 비고사항);
-
-            // 입력 필드 초기화
-            document.getElementById("품번").value = "";
-            document.getElementById("품명").value = "";
-            document.getElementById("규격").value = "";
-            document.getElementById("수량").value = "";
-            document.getElementById("입고단가").value = "";
-            document.getElementById("공급가액").value = "";
-            document.getElementById("세액").value = "";
-            document.getElementById("비고사항").value = "";
-
+            clearInputFields();
         });
 
-         // 삭제 버튼 클릭 이벤트
-         document.getElementById("삭제").addEventListener("click", function () {
+        // 삭제 버튼 클릭 이벤트
+        document.getElementById("삭제").addEventListener("click", function () {
             const rows = document.querySelectorAll("#table-body tr");
             let deletedCount = 0;
             if (confirm("삭제 하시겠습니까?")) {
@@ -288,38 +291,31 @@
             }
         });
 
-
-        // 전체 선택 체크박스에 이벤트 리스너 추가
+        // 전체 선택 체크박스 이벤트
         const 체크박스 = document.getElementById('체크박스');
         체크박스.addEventListener('change', function () {
             const checkboxes = document.querySelectorAll('#table-body input[type="checkbox"]');
-            checkboxes.forEach(checkbox => {
-                checkbox.checked = this.checked;
-            });
+            checkboxes.forEach(checkbox => checkbox.checked = this.checked);
         });
 
-        // 개별 체크박스 변경 시 전체 선택 체크박스 상태 변경
+        // 개별 체크박스 변경 이벤트
         const tableBody = document.getElementById('table-body');
         tableBody.addEventListener('change', function (event) {
             if (event.target.type === 'checkbox') {
                 const checkboxes = document.querySelectorAll('#table-body input[type="checkbox"]');
-                const isChecked = checkboxes.every(checkbox => checkbox.checked);
-                체크박스.checked = isChecked;
+                체크박스.checked = Array.from(checkboxes).every(checkbox => checkbox.checked);
             }
         });
 
-
         // 조회 버튼 클릭 이벤트
         document.getElementById("조회").addEventListener("click", function () {
-            const checkedRows = document.querySelectorAll("#table-body tr input[type='checkbox']:checked");
+            const rows = document.querySelectorAll("#table-body tr");
             const check = [];
 
-            checkedRows.forEach(checkbox => {
-                const row = checkbox.parentNode.parentNode; // 체크박스가 속한 tr 요소 찾기
+            rows.forEach(row => {
                 const cells = row.querySelectorAll('td');
-                const data = {
-                    // 순번은 아직 미완성입니다 자꾸 늘어남
-                    순번: tableBody.children.length,
+                check.push({
+                    순번: cells[0].textContent,
                     품번: cells[2].textContent,
                     품명: cells[3].textContent,
                     규격: cells[4].textContent,
@@ -328,174 +324,154 @@
                     공급가액: cells[7].textContent,
                     세액: cells[8].textContent,
                     합계: cells[9].textContent,
-                    비고사항: cells[10].textContent,
-
-                };
-                check.push(data);
+                    비고사항: cells[10].textContent
+                });
             });
 
-            // 검색 결과를 화면에 표시할 영역
-            const resultArea = document.getElementById("check");
-            resultArea.innerHTML = ''; // 기존 결과 초기화
-            check.forEach(item => {
-                const p = document.createElement('p');
-                p.textContent = `순번: ${item.순번}, 
-                                 품번: ${item.품번}, 
-                                 품명: ${item.품명}
-                                 규격: ${item.규격}
-                                 수량: ${item.수량}
-                                 입고단가: ${item.입고단가}
-                                 공급가액: ${item.공급가액}
-                                 세액: ${item.세액}
-                                 합계: ${item.합계}
-                                 비고사항: ${item.비고사항}`;
-                resultArea.appendChild(p);
-            });
+            console.log(check); // 서버 연동 전 임시로 콘솔에 출력
         });
-
-        // 수정 모드 변수
-        let isEditMode = false;
-        let currentRow = null;
-
-
-        // 수정 모드에서 수량이나 입고단가가 변경될 때 공급가액, 세액, 합계를 자동으로 계산
-        document.getElementById("수량").addEventListener("input", update);
-        document.getElementById("입고단가").addEventListener("input", update);
-
-        function update() {
-            // 수량과 입고단가를 가져옴
-            const 수량 = parseInt(document.getElementById("수량").value, 10);
-            const 입고단가 = parseInt(document.getElementById("입고단가").value, 10);
-
-            // 수정할때 입력하지않고 가져올값을 구함
-            const 공급가액 = 수량 * 입고단가;
-            const 세액 = 공급가액 * 0.1;
-            const 합계 = 공급가액 + 세액;
-
-            // 수정한것을 반영할곳
-            document.getElementById("공급가액").value = 공급가액.toLocaleString();
-            document.getElementById("세액").value = 세액.toLocaleString();
-            document.getElementById("합계").value = 합계.toLocaleString();
-        }
 
         // 수정 버튼 클릭 이벤트
         document.getElementById("수정").addEventListener("click", function () {
-            if (isEditMode) {
-                // 저장 로직
-                const cells = currentRow.querySelectorAll('td');
-                cells[2].textContent = document.getElementById("품번").value;
-                cells[3].textContent = document.getElementById("품명").value;
-                cells[4].textContent = document.getElementById("규격").value;
-                cells[5].textContent = document.getElementById("수량").value;
-                cells[6].textContent = document.getElementById("입고단가").value;
-                cells[7].textContent = document.getElementById("공급가액").value;
-                cells[8].textContent = document.getElementById("세액").value;
-                cells[9].textContent = document.getElementById("합계").value;
-                cells[10].textContent = document.getElementById("비고사항").value;
-
-                // false면 수정상태
-                isEditMode = false;
-                this.textContent = "수정";
-
-                // 입력 필드 초기화
-                document.getElementById("품번").value = "";
-                document.getElementById("품명").value = "";
-                document.getElementById("규격").value = "";
-                document.getElementById("수량").value = "";
-                document.getElementById("입고단가").value = "";
-                document.getElementById("공급가액").value = "";
-                document.getElementById("세액").value = "";
-                document.getElementById("합계").value = "";
-                document.getElementById("비고사항").value = "";
-
-            } else {
-                // 수정 모드 활성화
-                const checkedRows = document.querySelectorAll("#table-body tr input[type='checkbox']:checked");
-                if (checkedRows.length === 1) {
-                    currentRow = checkedRows[0].parentNode.parentNode;
-                    const cells = currentRow.querySelectorAll('td');
-                    // 입력 필드에 데이터 채우기
-                    document.getElementById("품번").value = cells[2].textContent;
-                    document.getElementById("품명").value = cells[3].textContent;
-                    document.getElementById("규격").value = cells[4].textContent;
-                    document.getElementById("수량").value = cells[5].textContent;
-                    document.getElementById("입고단가").value = cells[6].textContent.replace(/,/g, '');
-                    document.getElementById("공급가액").value = cells[7].textContent;
-                    document.getElementById("세액").value = cells[8].textContent;
-                    document.getElementById("합계").value = cells[9].textContent;
-                    document.getElementById("비고사항").value = cells[10].textContent;
-
-                    // true면 저장상태
-                    isEditMode = true;
-                    this.textContent = "저장";
-
-                } else {
-                    alert("수정할 항목을 하나만 선택해주세요.");
-                }
+            const checkedRows = document.querySelectorAll("#table-body tr input[type='checkbox']:checked");
+            if (checkedRows.length !== 1) {
+                alert("수정할 항목을 하나만 선택해주세요.");
+                return;
             }
-            
-        });
 
+            const row = checkedRows[0].closest('tr');
+            const cells = row.cells;
 
-        // 페이지당 표시할 데이터 수
-        const pagedata = 5;
+            // 체크박스 해제
+            checkedRows[0].checked = false;
+            체크박스.checked = false;
 
-        // 현재 페이지 번호
-        let page = 1;
+            // 기존 버튼들 숨기기
+            const buttonsContainer = document.querySelector('.buttons');
+            const originalButtons = Array.from(document.querySelectorAll('.buttons button'));
+            originalButtons.forEach(button => button.style.display = 'none');
 
-        // 페이지네이션 버튼에 이벤트 리스너 추가
-        document.querySelectorAll('.pagination button').forEach(button => {
-            button.addEventListener('click', function () {
-                const pageText = this.textContent;
-                if (pageText === '<') {
-                    if (page > 1) {
-                        page--;
-                    }
-                } else if (pageText === '>') {
-                    if (page < Math.ceil(tableBody.children.length / pagedata)) {
-                        page++;
-                    }
-                } else {
-                    page = parseInt(pageText, 10);
-                }
-                updateTable();
+            // 수정/취소 버튼 추가
+            const editButtons = document.createElement('div');
+            editButtons.className = 'edit-buttons';
+            editButtons.innerHTML = `
+        <button id="수정완료">수정완료</button>
+        <button id="수정취소">수정취소</button>
+    `;
+            buttonsContainer.appendChild(editButtons);
+
+            // 테이블 셀을 입력 필드로 변경 (수정 가능한 항목만)
+            const editableCells = [2, 3, 4, 5, 6, 10]; // 품번, 품명, 규격, 수량, 입고단가, 비고사항
+            editableCells.forEach(index => {
+                const originalValue = cells[index].textContent;
+                cells[index].innerHTML = `<input type="text" value="${originalValue}" style="width: 90%;">`;
+            });
+
+            // 수정완료 버튼 이벤트
+            document.getElementById("수정완료").addEventListener("click", function () {
+                const inputs = row.querySelectorAll('input[type="text"]');
+                const 수량 = parseInt(inputs[3].value, 10);
+                const 입고단가 = parseInt(inputs[4].value.replace(/,/g, ''), 10);
+
+                // 값 업데이트
+                cells[2].textContent = inputs[0].value; // 품번
+                cells[3].textContent = inputs[1].value; // 품명
+                cells[4].textContent = inputs[2].value; // 규격
+                cells[5].textContent = 수량; // 수량
+                cells[6].textContent = 입고단가.toLocaleString(); // 입고단가
+                cells[7].textContent = (수량 * 입고단가).toLocaleString(); // 공급가액
+                cells[8].textContent = (수량 * 입고단가 * 0.1).toLocaleString(); // 세액
+                cells[9].textContent = (수량 * 입고단가 * 1.1).toLocaleString(); // 합계
+                cells[10].textContent = inputs[5].value; // 비고사항
+
+                // 원래 버튼들 복원
+                editButtons.remove();
+                originalButtons.forEach(button => button.style.display = '');
+            });
+
+            // 수정취소 버튼 이벤트
+            document.getElementById("수정취소").addEventListener("click", function () {
+                // 원래 값으로 복원
+                editableCells.forEach((index, i) => {
+                    cells[index].textContent = cells[index].querySelector('input').defaultValue;
+                });
+                // 원래 버튼들 복원
+                editButtons.remove();
+                originalButtons.forEach(button => button.style.display = '');
             });
         });
 
-        // 테이블 업데이트 함수
+        function clearInputFields() {
+            const fields = ["품번", "품명", "규격", "수량", "입고단가", "공급가액", "세액", "합계", "비고사항"];
+            fields.forEach(field => document.getElementById(field).value = "");
+        }
+
+        function updateRowNumbers() {
+            const rows = document.querySelectorAll("#table-body tr");
+            rows.forEach((row, index) => {
+                row.cells[0].textContent = index + 1;
+            });
+        }
+
+        // 페이지네이션 관련 코드
+        const pagedata = 5;
+        let page = 1;
+
         function updateTable() {
             const rows = document.querySelectorAll("#table-body tr");
+            const totalPages = Math.ceil(rows.length / pagedata);
             const startIndex = (page - 1) * pagedata;
             const endIndex = startIndex + pagedata;
 
             rows.forEach((row, index) => {
-                if (index >= startIndex && index < endIndex) {
-                    row.style.display = '';
-                } else {
-                    row.style.display = 'none';
-                }
+                row.style.display = (index >= startIndex && index < endIndex) ? '' : 'none';
             });
 
-            // 페이지네이션 버튼 업데이트
-            updatePaginationButtons();
+            updatePaginationButtons(totalPages);
         }
 
-        // 페이지네이션 버튼 업데이트 함수
-        function updatePaginationButtons() {
-            const buttons = document.querySelectorAll('.pagination button');
-            buttons.forEach(button => {
-                if (button.textContent === page.toString()) {
-                    button.classList.add('active');
-                } else {
-                    button.classList.remove('active');
+        function updatePaginationButtons(totalPages) {
+            const paginationContainer = document.querySelector('.pagination');
+            paginationContainer.innerHTML = '';
+
+            paginationContainer.appendChild(createButton('<', page > 1));
+
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === 1 || i === totalPages || (i >= page - 2 && i <= page + 2)) {
+                    paginationContainer.appendChild(createButton(i.toString(), true, i === page));
                 }
-            });
+            }
+
+            paginationContainer.appendChild(createButton('>', page < totalPages));
         }
 
-        // 초기 테이블 업데이트
+        // 페이지네이션 버튼 클릭 이벤트
+        document.querySelector('.pagination').addEventListener('click', function (e) {
+            if (e.target.tagName === 'BUTTON') {
+                const text = e.target.textContent;
+                const rows = document.querySelectorAll("#table-body tr");
+                const totalPages = Math.ceil(rows.length / pagedata);
+
+                if (text === '<' && page > 1) {
+                    page--;
+                } else if (text === '>' && page < totalPages) {
+                    page++;
+                } else if (text !== '<' && text !== '>') {
+                    page = parseInt(text);
+                }
+                updateTable();
+            }
+        });
+
+        function createButton(text, enabled, isActive = false) {
+            const button = document.createElement('button');
+            button.textContent = text;
+            button.disabled = !enabled;
+            if (isActive) button.classList.add('active');
+            return button;
+        }
+
         updateTable();
-
-
 
     </script>
 </body>
