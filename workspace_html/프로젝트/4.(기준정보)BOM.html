@@ -51,11 +51,7 @@
             input, button { width: 100%; }
             table th, table td { font-size: 0.8rem; }
         }
-        @media (max-width: 480px) {
-            h1 { font-size: 1rem; }
-            label, input, button { font-size: 0.8rem; }
-            .pagination button { padding: 3px 6px; }
-        }
+       
     </style>
 </head>
 
@@ -105,8 +101,8 @@
         <table>
             <thead>
                 <tr>
-                    <th>순번</th>
                     <th><input type="checkbox" id="체크박스"></th>
+                    <th>순번</th>
                     <th>원자재</th>
                     <th>생산량및소모량</th>
                     <th>완제품</th>
@@ -154,8 +150,8 @@
             const checkbox = checkboxTemplate.cloneNode(true);
 
             row.innerHTML = `
+            <td></td>
         <td>${tableBody.children.length + 1}</td>
-        <td></td>
         <td>${원자재}</td>
         <td>${생산량및소모량}</td>
         <td>${완제품}</td>
@@ -163,7 +159,7 @@
         <td>${비고사항}</td>`;
 
             // 체크박스 셀에 추가
-            row.cells[1].appendChild(checkbox);
+            row.cells[0].appendChild(checkbox);
 
             tableBody.appendChild(row);
         }
