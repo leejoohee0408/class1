@@ -147,23 +147,33 @@
         <!-- 입력할곳 및 등록, 조회, 수정, 삭제버튼 -->
         <div class="form">
             <div class="form-fields">
-            <div class="form-row">
-                <label for="원자재">원자재</label>
-                <input type="text" id="원자재">
-                <label for="생산량및소모량">생산량및소모량</label>
-                <input type="text" id="생산량및소모량">
-                
+                <div class="form-row">
 
-                
-            </div>
-            <div class="form-row">
-                <label for="완제품">완제품</label>
-                <input type="text" id="완제품">
-                <label for="비고사항">비고사항</label>
-                <input type="text" id="비고사항">
+                    <div class="form-row">
+                        <label for="완제품">완제품</label>
+                        <select id="완제품">
+                            <option>없음</option>
+                            <option>칫솔</option>
+                            <option>강철칫솔</option>
+                        </select>
 
-                
-            </div>
+                        <label for="원자재">원자재</label>
+                        <select id="원자재">
+                            <option value="선택하세요">선택하세요</option>
+                        </select>
+
+
+                    </div>
+
+                    <div class="form-row">
+                        <label for="생산량">소모량</label>
+                        <input type="text" id="생산량">
+
+
+                        <label for="비고사항">비고사항</label>
+                        <input type="text" id="비고사항">
+                    </div>
+                </div>
             </div>
             <div class="buttons">
                 <button id="등록">등록</button>
@@ -172,6 +182,7 @@
                 <button id="삭제">삭제</button>
             </div>
         </div>
+
         <!-- 내가 체크한것들을 조회버튼을 누르면 추출 -->
         <div id="check"></div>
 
@@ -182,15 +193,12 @@
                     <th><input type="checkbox" id="체크박스"></th>
                     <th>순번</th>
                     <th>원자재</th>
-                    <th>생산량및소모량</th>
+                    <th>소모량</th>
                     <th>완제품</th>
                     <th>비고사항</th>
                 </tr>
             </thead>
-
-            <!-- 데이터가 추가됩니다 -->
             <tbody id="table-body"></tbody>
-
         </table>
 
         <!-- 페이지 넘길때 쓸 버튼들 -->
@@ -218,8 +226,8 @@
         const checkboxTemplate = document.createElement('input');
         checkboxTemplate.type = 'checkbox';
 
-         // 행 번호를 갱신하는 함수
-         function updateRowNumbers() {
+        // 행 번호를 갱신하는 함수
+        function updateRowNumbers() {
             const rows = document.querySelectorAll("#table-body tr");
             rows.forEach((row, index) => {
                 row.cells[1].textContent = index + 1;  // 순번 갱신
@@ -227,18 +235,20 @@
         }
 
         // 데이터 추가 함수
-        function addRow(원자재, 완제품, 비고사항, 생산량및소모량) {
+        function addRow(원자재, 완제품, 비고사항, 생산량) {
             const tableBody = document.getElementById("table-body");
             const row = document.createElement("tr");
 
             // 체크박스 복제
             const checkbox = checkboxTemplate.cloneNode(true);
 
+
+
             row.innerHTML = `
-            <td></td>
+        <td></td>
         <td>${tableBody.children.length + 1}</td>
         <td>${원자재}</td>
-        <td>${생산량및소모량}</td>
+        <td>${생산량}</td>
         <td>${완제품}</td>
         <td>${비고사항}</td>`;
 
@@ -248,33 +258,36 @@
             tableBody.appendChild(row);
         }
 
+
         // 등록 버튼 클릭 이벤트
         document.getElementById("등록").addEventListener("click", function () {
             const 원자재 = document.getElementById("원자재").value;
             const 완제품 = document.getElementById("완제품").value;
             const 비고사항 = document.getElementById("비고사항").value;
-            const 생산량및소모량 = document.getElementById("생산량및소모량").value;
-            
+            const 생산량 = document.getElementById("생산량").value;
 
-            // 데이터 유효성 검사 
-            if (!원자재 || !완제품 || !생산량및소모량) {
+            // 데이터 유효성 검사
+            if (!완제품 || !원자재 || !생산량) {
                 alert("필수 항목을 모두 입력해주세요.");
                 return;
             }
 
             // 등록을 누르면 내가 입력한것을 넣어주는것
-            addRow(원자재, 완제품, 비고사항, 생산량및소모량);
+            addRow(원자재, 완제품, 비고사항, 생산량);
 
             // 입력 필드 초기화
             document.getElementById("원자재").value = "";
-            document.getElementById("완제품").value = "";
+            document.getElementById("완제품").value = "없음"; // 기본값으로 초기화
             document.getElementById("비고사항").value = "";
-            document.getElementById("생산량및소모량").value = "";
+            document.getElementById("생산량").value = "";
 
+             // 원자재 select를 "선택하세요"로 초기화
+    document.getElementById("원자재").innerHTML = '<option value="선택하세요">선택하세요</option>';
         });
 
-         // 삭제 버튼 클릭 이벤트
-         document.getElementById("삭제").addEventListener("click", function () {
+
+        // 삭제 버튼 클릭 이벤트
+        document.getElementById("삭제").addEventListener("click", function () {
             const rows = document.querySelectorAll("#table-body tr");
             let deletedCount = 0;
             if (confirm("삭제 하시겠습니까?")) {
@@ -327,7 +340,7 @@
                     원자재: cells[2].textContent,
                     완제품: cells[3].textContent,
                     비고사항: cells[4].textContent,
-                    생산량및소모량: cells[5].textContent
+                    생산량: cells[5].textContent
 
                 };
                 check.push(data);
@@ -341,14 +354,14 @@
                 p.textContent = `순번: ${item.순번}, 
                                  원자재: ${item.원자재}, 
                                  완제품: ${item.완제품}
-                                 비고사항: ${item.비고사항}
-                                 생산량및소모량: ${item.생산량및소모량}`;
+                                 비고사항: ${item.비고사항},
+                                 생산량: ${item.생산량}`;
                 resultArea.appendChild(p);
             });
         });
 
-       // 체크박스 전체 해제 기능
-       function uncheckAllCheckboxes() {
+        // 체크박스 전체 해제 기능
+        function uncheckAllCheckboxes() {
             const checkboxes = document.querySelectorAll('#table-body input[type="checkbox"]');
             checkboxes.forEach(checkbox => {
                 checkbox.checked = false;
@@ -408,6 +421,38 @@
                 originalButtons.forEach(button => button.style.display = '');
             });
         });
+
+        // 완제품별 원자재 목록 
+        const productMaterials = {
+            "칫솔": ["칫솔모1개", "칫솔대1개", "고무1개"],
+            "강철칫솔": ["강철칫솔모1개", "강철칫솔대1개", "고무1개"],
+        };
+
+        // 완제품 선택 시 원자재 목록 업데이트
+        document.getElementById("완제품").addEventListener("change", function () {
+            const selectedProduct = this.value; 
+            const materialSelect = document.getElementById("원자재"); 
+
+            // 기존 목록 초기화
+            materialSelect.innerHTML = "";
+
+            // 기본 옵션 추가
+            const defaultOption = document.createElement("option");
+            defaultOption.value = "";
+            defaultOption.textContent = "선택하세요";
+            materialSelect.appendChild(defaultOption);
+
+            // 선택된 완제품에 맞는 원자재 목록 추가
+            if (selectedProduct in productMaterials) {
+                productMaterials[selectedProduct].forEach(material => {
+                    const option = document.createElement("option");
+                    option.value = material;
+                    option.textContent = material;
+                    materialSelect.appendChild(option);
+                });
+            }
+        });
+
 
 
         // 페이지당 표시할 데이터 수
