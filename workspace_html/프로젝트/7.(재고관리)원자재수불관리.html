@@ -166,17 +166,17 @@
                 </tr>
 
                 <tr>
-                    <td><input type="checkbox" id="체크박스"></td>
-                    <td>1</td>
-                    <td>3월1일</td>
-                    <td>원자재</td>
-                    <td>칫솔모</td>
-                    <td>입고</td>
-                    <td>100</td>
-                    <td>1000</td>
-                    <td>1000</td>
-                    <td>1010</td>
-                    <td>100개 수량 입고</td>   
+                    <th><input type="checkbox" id="체크박스"></th>
+                    <th>1</th>
+                    <th>3월1일</th>
+                    <th>원자재</th>
+                    <th>칫솔모</th>
+                    <th>입고</th>
+                    <th>1</th>
+                    <th>1</th>
+                    <th>1</th>
+                    <th>1</th>
+                    <th></th>
                 </tr>
             </thead>
 
@@ -202,10 +202,66 @@
         </div>
     </div>
 
-
-
-
-
 </body>
+
+<script>
+    // 페이지당 표시할 데이터 수
+    const pagedata = 5;
+
+    // 현재 페이지 번호
+    let page = 1;
+
+    // 페이지네이션 버튼에 이벤트 리스너 추가
+    document.querySelectorAll('.pagination button').forEach(button => {
+        button.addEventListener('click', function () {
+            const pageText = this.textContent;
+            if (pageText === '<') {
+                if (page > 1) {
+                    page--;
+                }
+            } else if (pageText === '>') {
+                if (page < Math.ceil(tableBody.children.length / pagedata)) {
+                    page++;
+                }
+            } else {
+                page = parseInt(pageText, 10);
+            }
+            updateTable();
+        });
+    });
+
+    // 테이블 업데이트 함수
+    function updateTable() {
+        const rows = document.querySelectorAll("#table-body tr");
+        const startIndex = (page - 1) * pagedata;
+        const endIndex = startIndex + pagedata;
+
+        rows.forEach((row, index) => {
+            if (index >= startIndex && index < endIndex) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+
+        // 페이지네이션 버튼 업데이트
+        updatePaginationButtons();
+    }
+
+    // 페이지네이션 버튼 업데이트 함수
+    function updatePaginationButtons() {
+        const buttons = document.querySelectorAll('.pagination button');
+        buttons.forEach(button => {
+            if (button.textContent === page.toString()) {
+                button.classList.add('active');
+            } else {
+                button.classList.remove('active');
+            }
+        });
+    }
+
+    // 초기 테이블 업데이트
+    updateTable();
+</script>
 
 </html>
