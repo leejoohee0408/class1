@@ -26,4 +26,12 @@ private boolean stop;
 	public void setSpeed(int speed) {
 		this.speed = speed;
 	}
+	
+	// getter 중ㅇ에서 boolean 타입의 경우
+	// get+필드명 대신에 is+필드명도 가능하다
+	// 그런데 오류가 발생하거나 인식 못하는 (남이 만든)클래스가
+	// 있을 수 있어서 그냥 get+필드명이 더 좋다
+	public boolean isStop() {
+		return this.stop;
+	}
 }
