@@ -3,6 +3,12 @@ package sec03.exam02;
 // abstract 추상클래스
 public abstract class Animal {
 	
+	Animal(){}
+	
+	Animal(String name){
+		
+	}
+	
 	String kind;
 	
 	void breathe() {
