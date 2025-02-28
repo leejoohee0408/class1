@@ -8,11 +8,9 @@
 </head>
 <body>
 
-<header>
-	<div>이거 해더임</div>
-	<div>로고 here</div>
-	<div>${param.id}님 환영합니다</div>
-</header>
+뭘 써놓았는데 그래요? - 안보임
 
+<!-- 액션태그 -->
+<jsp:forward page="jsp.jsp"/>
 </body>
 </html>

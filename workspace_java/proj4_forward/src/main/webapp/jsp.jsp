@@ -46,6 +46,13 @@
    %>
    <!-- jsp에서 html로 그 값을 출력하시오  -->
    <%=text%>
+ <hr>
+ <!-- 액션태그 -->
+ <jsp:include page="header.jsp">
+ <jsp:param value="joohee" name="id"/>
+ </jsp:include>
+ 
+ 
  
  <script>
  let a = '<%= a%>'
