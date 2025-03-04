@@ -1500,9 +1500,17 @@ select empno, ename, dname, loc from emp, dept;
 select empno, ename, dname, loc from emp join dept using(deptno)
 order by dname desc ;
 
+create table todo (
+    todo_id number primary key,
+    todo varchar2(4000) not null,
+    create_date date not null,
+    modify_date date,
+    done char(1) not null
+);
 
+create sequence seq_todo;
 
-
+select * from todo;
 
 
 
