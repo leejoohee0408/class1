@@ -153,7 +153,17 @@
         <div class="form">
             <div class="form-fields">
                 <div class="form-row">
-                    <label for="원자재코드">원자재코드<span>*</span></label>
+                    <label for="원자재코드">원자재수량<span>*</span></label>
+                    <input type="text" id="원자재수량">
+
+                    <label for="원자재명">원자재가격<span>*</span></label>
+                    <input type="text" id="원자재가격">
+
+                    
+                </div>
+
+                <div class="form-row">
+                    <label for="수량">상품코드<span>*</span></label>
                     <select id="원자재코드">
                         <option></option>
                         <option>9603.21</option>
@@ -161,35 +171,28 @@
                         <option>4001</option>
                     </select>
 
-                    <label for="원자재명">원자재명<span>*</span></label>
-                        <select id="원자재명">
-                            <option value="선택하세요">선택하세요</option>
-                        </select>
+                    <label for="입고단가">상품명<span>*</span></label>
+                    <select id="원자재코드">
+                        <option></option>
+                        <option>칫솔모</option>
+                        <option>칫솔대</option>
+                        <option>고무</option>
+                    </select>
 
 
+                    <label for="일자">분류<span>*</span></label>
+                    <select id="원자재코드">
+                        <option></option>
+                        <option>원자재</option>
+                        <option>완제품</option>
+                    </select>
                 </div>
 
                 <div class="form-row">
-                    <label for="수량">수량<span>*</span></label>
-                    <input type="text" id="수량">
-
-                    <label for="입고단가">입고단가<span>*</span></label>
-                    <input type="text" id="입고단가">
-
-                </div>
-
-
-                <div class="form-row">
-                    <label for="규격">규격<span>*</span></label>
-                    <input type="text" id="규격">
-
-                    <label for="일자">일자<span>*</span></label>
-                    <input type="text" id="일자">
-
-
-                </div>
-
-                <div class="form-row">
+                    <label for="비고사항">등록날짜</label>
+                    <input type="date" id="비고사항">
+                    <label for="비고사항">수정날짜</label>
+                    <input type="date" id="비고사항">
                     <label for="비고사항">비고사항</label>
                     <input type="text" id="비고사항">
                 </div>
@@ -211,32 +214,18 @@
                 <tr>
                     <th><input type="checkbox" id="체크박스"></th>
                     <th>순번</th>
-                    <th>일자</th>
-                    <th>원자재코드</th>
-                    <th>원자재명</th>
+                    <th>원자재수량</th>
+                    <th>원자재가격</th>
+                    <th>상품코드</th>
+                    <th>상품명</th>
                     <th>규격</th>
-                    <th>수량</th>
-                    <th>입고단가</th>
-                    <th>공급가액</th>
-                    <th>세액</th>
-                    <th>합계</th>
+                    <th>분류</th>
+                    <th>등록날짜</th>
+                    <th>수정날짜</th>
                     <th>비고사항</th>
                 </tr>
 
-                <tr>
-                    <th><input type="checkbox" id="체크박스"></th>
-                    <th>1</th>
-                    <th>3월1일</th>
-                    <th>9603.21</th>
-                    <th>칫솔모</th>
-                    <th>라지</th>
-                    <th>1</th>
-                    <th>1</th>
-                    <th>1</th>
-                    <th>0.1</th>
-                    <th>1.1</th>
-                    <th></th>
-                </tr>
+               
             </thead>
 
             <!-- 데이터가 추가됩니다 -->
