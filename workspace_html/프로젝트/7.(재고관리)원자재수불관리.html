@@ -135,6 +135,10 @@
         .active {
             background-color: #0056b3;
         }
+
+        span{
+            color: red;
+        }
     </style>
 </head>
 
@@ -143,10 +147,11 @@
 <body>
     <div class="container">
         <h1>◎ 원자재 수불관리</h1>
+        <span>* 모두 기입</span>
         <div class="form">
             <div class="form-fields">
                 <div class="form-row">
-                    <label for="주차">주차</label>
+                    <label for="주차">주차<span>*</span></label>
                     <select id="주차">
                         <option></option>
                         <option>1주차</option>
@@ -154,7 +159,7 @@
                         <option>3주차</option>
                     </select>
 
-                    <label for="비고사항">등록날짜</label>
+                    <label for="비고사항">등록날짜<span>*</span></label>
                     <input type="date" id="비고사항">
                 </div>
 
