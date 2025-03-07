@@ -64,8 +64,10 @@
 					html +=`<input type="submit" value="수정">`
 					html +=`</td>`
 					html +=`</form>`
+					tr.innerHTML = html
+					
+					content.prepend(tr)
 				
-			
 			}
 		}
 	}
