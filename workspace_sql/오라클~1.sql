@@ -1529,10 +1529,34 @@ commit;
 
 
 
+-- 시퀀스 생성
+
+CREATE SEQUENCE p_sku_seq
+    START WITH 1
+    INCREMENT BY 1;
 
 
+-- 테이블 생성
 
+CREATE TABLE p_sku (
+    sku_id NUMBER(10) PRIMARY KEY,
+    sku_code VARCHAR2(50) NOT NULL,
+    sku_name VARCHAR2(60) NOT NULL,
+    sku_size VARCHAR2(50),
+    vendor_name VARCHAR2(100),
+    price NUMBER(15, 2),
+    create_date DATE NOT NULL,
+    modify_date DATE,
+    category VARCHAR2(50)
+);
 
+create sequence seq_p_sku;
 
+select * from p_sku;
 
+insert into p_sku
 
+--테이블에 삽입할거 입력했음 인서트한것임
+values(seq_p_sku.nextval, 'text','text','text','text',1,sysdate,null,'text');
+--커밋하는법임
+commit; 이게 내 오라클에 있는 테이블이야

@@ -47,14 +47,17 @@ public class P_skuController extends HttpServlet {
 		
 		// 삭제버튼의 이름을 가져옴
 		String action = request.getParameter("action");
+		
 				
 		// 만약 action가 삭제인경우
 		if("삭제".equals(action)) {
 			//check안에 있는 sku_id목록을 담고있다
 			// 이걸checkParam로 담았다
 			String checkParam = request.getParameter("check");
-			// 만약 checkParam 안에 sku_id목록이 있으면
-			// 
+			// 만약 checkParam 안에 sku_id목록이 null이 아니거나
+			// isEmpty가 0인데 0이 아니면
+			// 쉼표로 구분된 문자열을 배열로 변환
+			// DAO를 통해 DB에서 해당 sku_id목록 삭제
 			if (checkParam != null && !checkParam.isEmpty()) {
 		         String[] check1 = checkParam.split(",");
 		         P_skuDAO p_skuDAO = new P_skuDAO();

@@ -188,9 +188,9 @@
 			</div>
 			<div>
 			<input type="submit" value="등록" class="buttons" >
-			<input type="submit" value="수정" class="buttons" >
-			<input type="submit" value="삭제" class="buttons" name="action">
 			<input type="submit" value="조회" class="buttons" >
+			<input type="submit" value="수정" class="buttons" name="action1">
+			<input type="submit" value="삭제" class="buttons" name="action">
 			</div>
 		
 
@@ -264,17 +264,21 @@
 		// 체크된거 1개 이상이면
         if (selectedChecks.length > 0) {
         	// 체크된 value="${dto.sku_id } 목록을 
+        	// 새로운 입력 필드로 추가하여 서버에 전송
+        	// 내가 만든 배열에 추가된거에 ,로 구분된 문자열로 결합
             var form = event.target.closest('form');
             var input = document.createElement('input');
             input.type = 'hidden';
             input.name = 'check';
             input.value = selectedChecks.join(',');
             form.appendChild(input);
-        } else {
+        } else{
             alert("선택된 항목이 없습니다.");
             event.preventDefault(); // 폼 제출 방지
         }
     });
+	
+	
 </script>	
 
 </body>

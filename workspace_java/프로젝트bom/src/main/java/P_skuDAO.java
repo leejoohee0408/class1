@@ -1,6 +1,7 @@
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -99,19 +100,29 @@ public class P_skuDAO {
 		return list;
 	}
 	
+	// 삭제구역
+	// 삭제할 sku_id목록을 배열로 받아 DB에서 삭제 작업수행
 	 public int deleteSkus(String[] skuIds) {
 	        int result = 0;
 	        try {
+	        	// [DB 접속] 시작
 	            Context ctx = new InitialContext();
 	            DataSource ds = (DataSource) ctx.lookup("java:/comp/env/jdbc/oracle");
 	            Connection con = ds.getConnection();
-
-	            String query = "DELETE FROM p_sku WHERE sku_id = ?";
-	            PreparedStatement ps = con.prepareStatement(query);
-
+	            // DB 접속 끝
+	            
+	            // [SQL 삭제준비]
+	            // SQL에서 DELETE FROM이 삭제하는건데 
+	            // 그거랑 똑같이 사용하는거임
+	            // WHERE는 삭제할 레코드를 선택하는 조건을 지정한다
+	            // = ?는 삭제하고 싶은 sku_id의 값을 의미
+	            //각 sku_id에 대해 삭제 쿼리를 실행하고 삭제된 행 수를 누적
 	            for (String skuId : skuIds) {
+	            	String query = "DELETE FROM p_sku WHERE sku_id = ?";
+	            	PreparedStatement ps = con.prepareStatement(query);
 	                ps.setInt(1, Integer.parseInt(skuId));
-	                result += ps.executeUpdate();
+	                ps.executeUpdate();
+	                ps.close();
 	            }
 
 	            con.close();
@@ -120,6 +131,8 @@ public class P_skuDAO {
 	        }
 	        return result;
 	    }
+	 
+	 	
 	
 }
 
