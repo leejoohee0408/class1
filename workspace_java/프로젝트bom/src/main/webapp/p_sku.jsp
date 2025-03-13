@@ -164,39 +164,41 @@
 			<div class="form-fields">
 				<div class="form-row">
 					<label for="상품코드">상품코드<span>*</span></label> 
-					<input type="text" name="p_sku"> 
+					<input type="text" name="p_sku" id=sku_code> 
 					<label for="상품명">상품명<span>*</span></label> 
-					<input type="text" name="p_sku1">
+					<input type="text" name="p_sku1" id=sku_name>
 				</div>
 
 
 				<div class="form-row">
 					<label for="규격">규격<span>*</span></label> 
-					<input type="text" name="p_sku2"> 
+					<input type="text" name="p_sku2" id=sku_size> 
 					<label for="업체명">업체명<span>*</span></label>
-					<input type="text" name="p_sku3">
+					<input type="text" name="p_sku3" id=vendor_name>
 
 				</div>
 
 
 				<div class="form-row">
 					<label for="단가">단가<span>*</span></label> 
-					<input type="text" name="p_sku4"> 
+					<input type="text" name="p_sku4" id=price> 
 					<label for="제품분류">제품분류<span>*</span></label>
-					<input type="text" name="p_sku5">
+					<input type="text" name="p_sku5" id=sku_category>
 				</div>
 			</div>
 			<div>
-			<input type="submit" value="등록" class="buttons" >
-			<input type="submit" value="조회" class="buttons" >
-			<input type="submit" value="수정" class="buttons" name="action1">
-			<input type="submit" value="삭제" class="buttons" name="action">
+                    <c:otherwise>
+                        <input type="submit" value="등록" class="buttons">
+                        <input type="submit" value="조회" class="buttons">
+                        <input type="submit" value="수정" class="buttons" id="수정">
+                        <input type="submit" value="삭제" class="buttons" name="action">
+                    </c:otherwise>
 			</div>
-		
+		</form>
 
 
 
-
+		<!-- 테이블 표시 -->
 		<table border=1>
 			<thead>
 				<tr>
@@ -227,13 +229,13 @@
 					<td>${dto.price }</td>
 					<td>${dto.create_date }</td>
 					<td>${dto.modify_date }</td>
-					<td>${dto.category }</td>
+					<td>${dto.sku_category }</td>
 					
 				</tr>
 			</c:forEach>
 			</tbody>
 		</table>
-		</form>
+		
 		<div class="pagination">
 			<button>&lt;</button>
 			<button>1</button>
@@ -251,6 +253,14 @@
 	</div>
 	
 <script>
+//전체 선택/해제 체크박스 이벤트
+document.getElementById('체크박스').addEventListener('change', function() {
+    var checkboxes = document.querySelectorAll('input[name="check"]');
+    checkboxes.forEach(function(checkbox) {
+        checkbox.checked = document.getElementById('체크박스').checked;
+    });
+});
+
 	// 삭제버튼 클릭 이벤트
     document.querySelector('input[value="삭제"]').addEventListener('click', function(event) {
         // 배열 초기화
@@ -277,8 +287,32 @@
             event.preventDefault(); // 폼 제출 방지
         }
     });
-	
-	
+	// 수정 이벤트
+    document.getElementById("수정").addEventListener("click", function () {
+        const checkedRows = document.querySelectorAll("#table-body tr input[type='checkbox']:checked");
+        if (checkedRows.length !== 1) {
+            alert("수정할 항목을 하나만 선택해주세요.");
+            return;
+        }
+
+        const row = checkedRows[0].closest('tr');
+        const cells = row.cells;
+        const skuId = cells[0].textContent;  // 예: 첫 번째 열에 sku_id가 있다고 가정
+
+        // 입력 필드에 데이터 채우기
+        document.getElementById("sku_code").value = cells[1].textContent;
+        document.getElementById("sku_name").value = cells[2].textContent;
+        document.getElementById("sku_size").value = cells[3].textContent;
+        document.getElementById("vendor_name").value = cells[4].textContent;
+        document.getElementById("price").value = cells[5].textContent;
+        document.getElementById("sku_category").value = cells[6].textContent;
+
+        // 수정 완료 버튼 클릭 시 해당 값을 서버로 전송
+        document.getElementById("수정완료").addEventListener("click", function () {
+            const form = document.getElementById("editForm");
+            form.submit();  // 폼 제출하여 서버로 데이터 전송
+        });
+    });
 </script>	
 
 </body>

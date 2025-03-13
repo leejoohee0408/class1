@@ -18,10 +18,13 @@ public class P_skuController extends HttpServlet {
    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		
 		//DAO을 가져와서
 		P_skuDAO p_skuDAO = new P_skuDAO();
+		
+		
 		//그 DAO안에 있는 화면보여주는 리스트를 담았다
-		List resultList = p_skuDAO.selectP_skuList();
+		List<P_skuDTO> resultList = p_skuDAO.selectP_skuList();
 		// setAttribute은 넣는것 이다
 		request.setAttribute("resultList", resultList);
 		
@@ -43,8 +46,6 @@ public class P_skuController extends HttpServlet {
 		// 한글깨짐 방지용
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
-		
-		
 		// 삭제버튼의 이름을 가져옴
 		String action = request.getParameter("action");
 		
@@ -63,7 +64,8 @@ public class P_skuController extends HttpServlet {
 		         P_skuDAO p_skuDAO = new P_skuDAO();
 		         p_skuDAO.deleteSkus(check1);
 		       }
-			}else {
+		 
+		}else {
 				
 				// insert 장소
 				
@@ -103,7 +105,7 @@ public class P_skuController extends HttpServlet {
 				//단가를 받음
 				p_skuDTO.setPrice(p_sku4_1);
 				//제품분류를 받음
-				p_skuDTO.setCategory(p_sku5);
+				p_skuDTO.setSku_category(p_sku5);
 				
 				
 				P_skuDAO p_skuDAO = new P_skuDAO();

@@ -11,6 +11,21 @@ import javax.sql.DataSource;
 
 public class P_skuDAO {
 	
+	 // JNDI 방식으로 연결하는 메서드
+    public Connection getConnection() {
+        Connection con = null;
+        try {
+            // [DB 접속] 시작
+            Context ctx = new InitialContext();
+            DataSource ds = (DataSource) ctx.lookup("java:/comp/env/jdbc/oracle");
+            con = ds.getConnection();
+            // DB 접속 끝
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return con;
+    }
+	
 	int insertsku(P_skuDTO p_skuDTO) {
 		 System.out.println("p_skuDTO insertsku 실행");
 		 int result = -1;
@@ -35,7 +50,7 @@ public class P_skuDAO {
 				ps.setString(3, p_skuDTO.getSku_size());
 				ps.setString(4, p_skuDTO.getVendor_name());
 				ps.setInt(5, p_skuDTO.getPrice());
-				ps.setString(6, p_skuDTO.getCategory());
+				ps.setString(6, p_skuDTO.getSku_category());
 
 				// [SQL 실행] 및 [결과 확보]
 				// int executeUpdate() : select 외 모든 것
@@ -86,7 +101,7 @@ public class P_skuDAO {
 				dto.setPrice(rs.getInt("price"));
 				dto.setCreate_date(rs.getDate("create_date"));
 				dto.setModify_date(rs.getDate("modify_date"));
-				dto.setCategory(rs.getString("category"));
+				dto.setSku_category(rs.getString("sku_category"));
 				
 				list.add(dto);
 			}
@@ -131,8 +146,5 @@ public class P_skuDAO {
 	        }
 	        return result;
 	    }
-	 
-	 	
-	
 }
 

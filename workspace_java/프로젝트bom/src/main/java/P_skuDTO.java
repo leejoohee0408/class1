@@ -10,8 +10,7 @@ public class P_skuDTO {
 	int price;
 	Date create_date;
 	Date modify_date;
-	String category;
-	
+	String sku_category;
 	
 	public int getSku_id() {
 		return sku_id;
@@ -61,12 +60,15 @@ public class P_skuDTO {
 	public void setModify_date(Date modify_date) {
 		this.modify_date = modify_date;
 	}
-	public String getCategory() {
-		return category;
+	public String getSku_category() {
+		return sku_category;
 	}
-	public void setCategory(String category) {
-		this.category = category;
+	public void setSku_category(String sku_category) {
+		this.sku_category = sku_category;
 	}
+	
+	
+	
 	
 	
 	

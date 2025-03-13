@@ -1560,3 +1560,6 @@ insert into p_sku
 values(seq_p_sku.nextval, 'text','text','text','text',1,sysdate,null,'text');
 --커밋하는법임
 commit; 이게 내 오라클에 있는 테이블이야
+
+
+ALTER TABLE p_sku MODIFY modify_date DEFAULT SYSDATE;
