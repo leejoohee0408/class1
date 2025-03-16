@@ -12,6 +12,7 @@ import javax.sql.DataSource;
 
 public class P_skuDAO {
 	
+		// DB 연결하기
 	   public Connection getConnection() throws SQLException {
 	        try {
 	            Context ctx = new InitialContext();
@@ -22,7 +23,8 @@ public class P_skuDAO {
 	            throw new SQLException("데이터베이스 연결 실패");
 	        }
 	    }
-
+	   // 내가 입력한거 삽입
+	   // id는 1씩 오르고 SYSDATE로 지금날짜를 나오게했고 수정날짜는 일단 null로 해놨다 
 	    public int insertsku(P_skuDTO p_skuDTO) throws SQLException {
 	        int result = -1;
 	        Connection con = null;
@@ -44,7 +46,8 @@ public class P_skuDAO {
 	        }
 	        return result;
 	    }
-
+	    
+	 // 내가 등록한 테이블 전체 가져오기
 	    public List<P_skuDTO> selectP_skuList() throws SQLException {
 	        List<P_skuDTO> list = new ArrayList<>();
 	        Connection con = null;
@@ -75,7 +78,8 @@ public class P_skuDAO {
 	        }
 	        return list;
 	    }
-
+	    
+	    // 삭제할때 쓰이는 것
 	    public int deleteSkus(String[] skuIds) throws SQLException {
 	        int result = 0;
 	        Connection con = null;
@@ -94,7 +98,7 @@ public class P_skuDAO {
 	        }
 	        return result;
 	    }
-
+	    // 이건 수정할때 쓰이는 업데이트 
 	    public int updateSku(P_skuDTO p_skuDTO) throws SQLException {
 	        int result = 0;
 	        Connection con = null;
@@ -118,6 +122,7 @@ public class P_skuDAO {
 	        return result;
 	    }
 	    
+	    // 조회할때 쓰이는 것
 	    public List<P_skuDTO> searchP_skuList(String searchKeyword) throws SQLException {
 	        List<P_skuDTO> list = new ArrayList<>();
 	        Connection con = null;
