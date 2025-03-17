@@ -13,147 +13,147 @@ import javax.sql.DataSource;
 public class P_skuDAO {
 	
 
-	// DB Ïó∞Í≤∞ÌïòÍ∏∞
-   public Connection getConnection() throws SQLException {
-        try {
-            Context ctx = new InitialContext();
-            DataSource ds = (DataSource) ctx.lookup("java:/comp/env/jdbc/oracle");
-            return ds.getConnection();
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new SQLException("Îç∞Ïù¥ÌÑ∞Î≤†Ïù¥Ïä§ Ïó∞Í≤∞ Ïã§Ìå®");
-        }
-    }
-   // ÎÇ¥Í∞Ä ÏûÖÎ†•ÌïúÍ±∞ ÏÇΩÏûÖ
-   // idÎäî 1Ïî© Ïò§Î•¥Í≥† SYSDATEÎ°ú ÏßÄÍ∏àÎÇ†ÏßúÎ•º ÎÇòÏò§Í≤åÌñàÍ≥† ÏàòÏ†ïÎÇ†ÏßúÎäî ÏùºÎã® nullÎ°ú Ìï¥ÎÜ®Îã§ 
-    public int insertsku(P_skuDTO p_skuDTO) throws SQLException {
-        int result = -1;
-        Connection con = null;
-        PreparedStatement ps = null;
-        try {
-            con = getConnection();
-            String query = "INSERT INTO p_sku VALUES (seq_p_sku.nextval, ?, ?, ?, ?, ?, SYSDATE, NULL, ?)";
-            ps = con.prepareStatement(query);
-            ps.setString(1, p_skuDTO.getSku_code());
-            ps.setString(2, p_skuDTO.getSku_name());
-            ps.setString(3, p_skuDTO.getSku_size());
-            ps.setString(4, p_skuDTO.getVendor_name());
-            ps.setInt(5, p_skuDTO.getPrice());
-            ps.setString(6, p_skuDTO.getSku_category());
-            result = ps.executeUpdate();
-        } finally {
-            if (ps != null) ps.close();
-            if (con != null) con.close();
-        }
-        return result;
-    }
-    
- // ÎÇ¥Í∞Ä Îì±Î°ùÌïú ÌÖåÏù¥Î∏î Ï†ÑÏ≤¥ Í∞ÄÏ†∏Ïò§Í∏∞
-    public List<P_skuDTO> selectP_skuList() throws SQLException {
-        List<P_skuDTO> list = new ArrayList<>();
-        Connection con = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try {
-            con = getConnection();
-            String query = "SELECT * FROM p_sku";
-            ps = con.prepareStatement(query);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                P_skuDTO dto = new P_skuDTO();
-                dto.setSku_id(rs.getInt("sku_id"));
-                dto.setSku_code(rs.getString("sku_code"));
-                dto.setSku_name(rs.getString("sku_name"));
-                dto.setSku_size(rs.getString("sku_size"));
-                dto.setVendor_name(rs.getString("vendor_name"));
-                dto.setPrice(rs.getInt("price"));
-                dto.setCreate_date(rs.getDate("create_date"));
-                dto.setModify_date(rs.getDate("modify_date"));
-                dto.setSku_category(rs.getString("sku_category"));
-                list.add(dto);
-            }
-        } finally {
-            if (rs != null) rs.close();
-            if (ps != null) ps.close();
-            if (con != null) con.close();
-        }
-        return list;
-    }
-    
-    // ÏÇ≠Ï†úÌï†Îïå Ïì∞Ïù¥Îäî Í≤É
-    public int deleteSkus(String[] skuIds) throws SQLException {
-        int result = 0;
-        Connection con = null;
-        PreparedStatement ps = null;
-        try {
-            con = getConnection();
-            String query = "DELETE FROM p_sku WHERE sku_id = ?";
-            ps = con.prepareStatement(query);
-            for (String skuId : skuIds) {
-                ps.setInt(1, Integer.parseInt(skuId));
-                result += ps.executeUpdate();
-            }
-        } finally {
-            if (ps != null) ps.close();
-            if (con != null) con.close();
-        }
-        return result;
-    }
-    // Ïù¥Í±¥ ÏàòÏ†ïÌï†Îïå Ïì∞Ïù¥Îäî ÏóÖÎç∞Ïù¥Ìä∏ 
-    public int updateSku(P_skuDTO p_skuDTO) throws SQLException {
-        int result = 0;
-        Connection con = null;
-        PreparedStatement ps = null;
-        try {
-            con = getConnection();
-            String query = "UPDATE p_sku SET sku_code = ?, sku_name = ?, sku_size = ?, vendor_name = ?, price = ?, modify_date = SYSDATE, sku_category = ? WHERE sku_id = ?";
-            ps = con.prepareStatement(query);
-            ps.setString(1, p_skuDTO.getSku_code());
-            ps.setString(2, p_skuDTO.getSku_name());
-            ps.setString(3, p_skuDTO.getSku_size());
-            ps.setString(4, p_skuDTO.getVendor_name());
-            ps.setInt(5, p_skuDTO.getPrice());
-            ps.setString(6, p_skuDTO.getSku_category());
-            ps.setInt(7, p_skuDTO.getSku_id());
-            result = ps.executeUpdate();
-        } finally {
-            if (ps != null) ps.close();
-            if (con != null) con.close();
-        }
-        return result;
-    }
-    
-    // Ï°∞ÌöåÌï†Îïå Ïì∞Ïù¥Îäî Í≤É
-    public List<P_skuDTO> searchP_skuList(String searchKeyword) throws SQLException {
-        List<P_skuDTO> list = new ArrayList<>();
-        Connection con = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try {
-            con = getConnection();
-            String query = "SELECT * FROM p_sku WHERE sku_code LIKE ? OR sku_name LIKE ?";
-            ps = con.prepareStatement(query);
-            ps.setString(1, "%" + searchKeyword + "%");
-            ps.setString(2, "%" + searchKeyword + "%");
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                P_skuDTO dto = new P_skuDTO();
-                dto.setSku_id(rs.getInt("sku_id"));
-                dto.setSku_code(rs.getString("sku_code"));
-                dto.setSku_name(rs.getString("sku_name"));
-                dto.setSku_size(rs.getString("sku_size"));
-                dto.setVendor_name(rs.getString("vendor_name"));
-                dto.setPrice(rs.getInt("price"));
-                dto.setCreate_date(rs.getDate("create_date"));
-                dto.setModify_date(rs.getDate("modify_date"));
-                dto.setSku_category(rs.getString("sku_category"));
-                list.add(dto);
-            }
-        } finally {
-            if (rs != null) rs.close();
-            if (ps != null) ps.close();
-            if (con != null) con.close();
-        }
-        return list;
-    }
-}
+	// DB ø¨∞·«œ±‚
+	   public Connection getConnection() throws SQLException {
+	        try {
+	            Context ctx = new InitialContext();
+	            DataSource ds = (DataSource) ctx.lookup("java:/comp/env/jdbc/oracle");
+	            return ds.getConnection();
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            throw new SQLException("µ•¿Ã≈Õ∫£¿ÃΩ∫ ø¨∞· Ω«∆–");
+	        }
+	    }
+	   // ≥ª∞° ¿‘∑¬«—∞≈ ª¿‘
+	   // id¥¬ 1æø ø¿∏£∞Ì SYSDATE∑Œ ¡ˆ±›≥Ø¬•∏¶ ≥™ø¿∞‘«ﬂ∞Ì ºˆ¡§≥Ø¬•¥¬ ¿œ¥‹ null∑Œ «ÿ≥˘¥Ÿ 
+	    public int insertsku(P_skuDTO p_skuDTO) throws SQLException {
+	        int result = -1;
+	        Connection con = null;
+	        PreparedStatement ps = null;
+	        try {
+	            con = getConnection();
+	            String query = "INSERT INTO p_sku VALUES (seq_p_sku.nextval, ?, ?, ?, ?, ?, SYSDATE, NULL, ?)";
+	            ps = con.prepareStatement(query);
+	            ps.setString(1, p_skuDTO.getSku_code());
+	            ps.setString(2, p_skuDTO.getSku_name());
+	            ps.setString(3, p_skuDTO.getSku_size());
+	            ps.setString(4, p_skuDTO.getVendor_name());
+	            ps.setInt(5, p_skuDTO.getPrice());
+	            ps.setString(6, p_skuDTO.getSku_category());
+	            result = ps.executeUpdate();
+	        } finally {
+	            if (ps != null) ps.close();
+	            if (con != null) con.close();
+	        }
+	        return result;
+	    }
+	    
+	 // ≥ª∞° µÓ∑œ«— ≈◊¿Ã∫Ì ¿¸√º ∞°¡Æø¿±‚
+	    public List<P_skuDTO> selectP_skuList() throws SQLException {
+	        List<P_skuDTO> list = new ArrayList<>();
+	        Connection con = null;
+	        PreparedStatement ps = null;
+	        ResultSet rs = null;
+	        try {
+	            con = getConnection();
+	            String query = "SELECT * FROM p_sku";
+	            ps = con.prepareStatement(query);
+	            rs = ps.executeQuery();
+	            while (rs.next()) {
+	                P_skuDTO dto = new P_skuDTO();
+	                dto.setSku_id(rs.getInt("sku_id"));
+	                dto.setSku_code(rs.getString("sku_code"));
+	                dto.setSku_name(rs.getString("sku_name"));
+	                dto.setSku_size(rs.getString("sku_size"));
+	                dto.setVendor_name(rs.getString("vendor_name"));
+	                dto.setPrice(rs.getInt("price"));
+	                dto.setCreate_date(rs.getDate("create_date"));
+	                dto.setModify_date(rs.getDate("modify_date"));
+	                dto.setSku_category(rs.getString("sku_category"));
+	                list.add(dto);
+	            }
+	        } finally {
+	            if (rs != null) rs.close();
+	            if (ps != null) ps.close();
+	            if (con != null) con.close();
+	        }
+	        return list;
+	    }
+	    
+	    // ªË¡¶«“∂ß æ≤¿Ã¥¬ ∞Õ
+	    public int deleteSkus(String[] skuIds) throws SQLException {
+	        int result = 0;
+	        Connection con = null;
+	        PreparedStatement ps = null;
+	        try {
+	            con = getConnection();
+	            String query = "DELETE FROM p_sku WHERE sku_id = ?";
+	            ps = con.prepareStatement(query);
+	            for (String skuId : skuIds) {
+	                ps.setInt(1, Integer.parseInt(skuId));
+	                result += ps.executeUpdate();
+	            }
+	        } finally {
+	            if (ps != null) ps.close();
+	            if (con != null) con.close();
+	        }
+	        return result;
+	    }
+	    // ¿Ã∞« ºˆ¡§«“∂ß æ≤¿Ã¥¬ æ˜µ•¿Ã∆Æ 
+	    public int updateSku(P_skuDTO p_skuDTO) throws SQLException {
+	        int result = 0;
+	        Connection con = null;
+	        PreparedStatement ps = null;
+	        try {
+	            con = getConnection();
+	            String query = "UPDATE p_sku SET sku_code = ?, sku_name = ?, sku_size = ?, vendor_name = ?, price = ?, modify_date = SYSDATE, sku_category = ? WHERE sku_id = ?";
+	            ps = con.prepareStatement(query);
+	            ps.setString(1, p_skuDTO.getSku_code());
+	            ps.setString(2, p_skuDTO.getSku_name());
+	            ps.setString(3, p_skuDTO.getSku_size());
+	            ps.setString(4, p_skuDTO.getVendor_name());
+	            ps.setInt(5, p_skuDTO.getPrice());
+	            ps.setString(6, p_skuDTO.getSku_category());
+	            ps.setInt(7, p_skuDTO.getSku_id());
+	            result = ps.executeUpdate();
+	        } finally {
+	            if (ps != null) ps.close();
+	            if (con != null) con.close();
+	        }
+	        return result;
+	    }
+	    
+	    // ¡∂»∏«“∂ß æ≤¿Ã¥¬ ∞Õ
+	    public List<P_skuDTO> searchP_skuList(String searchKeyword) throws SQLException {
+	        List<P_skuDTO> list = new ArrayList<>();
+	        Connection con = null;
+	        PreparedStatement ps = null;
+	        ResultSet rs = null;
+	        try {
+	            con = getConnection();
+	            String query = "SELECT * FROM p_sku WHERE sku_code LIKE ? OR sku_name LIKE ?";
+	            ps = con.prepareStatement(query);
+	            ps.setString(1, "%" + searchKeyword + "%");
+	            ps.setString(2, "%" + searchKeyword + "%");
+	            rs = ps.executeQuery();
+	            while (rs.next()) {
+	                P_skuDTO dto = new P_skuDTO();
+	                dto.setSku_id(rs.getInt("sku_id"));
+	                dto.setSku_code(rs.getString("sku_code"));
+	                dto.setSku_name(rs.getString("sku_name"));
+	                dto.setSku_size(rs.getString("sku_size"));
+	                dto.setVendor_name(rs.getString("vendor_name"));
+	                dto.setPrice(rs.getInt("price"));
+	                dto.setCreate_date(rs.getDate("create_date"));
+	                dto.setModify_date(rs.getDate("modify_date"));
+	                dto.setSku_category(rs.getString("sku_category"));
+	                list.add(dto);
+	            }
+	        } finally {
+	            if (rs != null) rs.close();
+	            if (ps != null) ps.close();
+	            if (con != null) con.close();
+	        }
+	        return list;
+	    }
+	}

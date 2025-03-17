@@ -7,7 +7,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>완제품입출고관리</title>
+    <title>완제품입고관리</title>
     <style>
         
         body {
@@ -160,47 +160,36 @@
 </head>
 <body>
 <div class="container">
-    <h1>◎ 완제품입출고관리</h1>
+    <h1>◎ 완제품입고관리</h1>
     <span>* 모두 기입</span>
-    <form method="post" action="p_sku" class="form">
+    <form method="post" action="P_material_in_outController" class="form">
         <div class="form-fields">
             <div class="form-row">
-                <label for="원자재수량">원자재수량<span>*</span></label>
+                <label for="완제품수량">완제품수량<span>*</span></label>
                 <input type="text" name="p_sku" id="materialcount">
-                <label for="원자재가격">원자재가격<span>*</span></label>
+                <label for="완제품가격">완제품가격<span>*</span></label>
                 <input type="text" name="p_sku1" id="materialprice">
             </div>
             <div class="form-row">
-                <label for="상품코드">상품코드<span>*</span></label>
-                <input type="text" name="p_sku2" id="skucode">
-                <label for="상품명">상품명<span>*</span></label>
-                <input type="text" name="p_sku3" id="skuname">
-            </div>
-            <div class="form-row">
-                <label for="규격">규격<span>*</span></label>
-                <input type="text" name="p_sku4" id="skusize">
                 <label for="분류">분류<span>*</span></label>
-                <input type="text" name="p_sku5" id="skutype">
+                <input type="text" name="p_sku2" id="skutype">
+                 <label for="비고사항">비고사항<span>*</span></label>
+                <input type="text" name="p_sku3" id="remarks">
             </div>
              <div class="form-row">
-                <label for="비고사항">비고사항<span>*</span></label>
-                <input type="text" name="p_sku6" id="remarks">
+                <label for="상품고유번호">상품고유번호<span>*</span></label>
+                <input type="text" name="p_sku4" id="skuid">
+                 <label for="사원번호">사원번호<span>*</span></label>
+                <input type="text" name="p_sku5" id="empno">
             </div>
         </div>
         <div>
-         <!-- 작업자 -->
-         <c:if test="${user.grade == 2}">
-         <input type="button" value="조회" class="buttons" onclick="searchSkus()"> 
-         </c:if>
-        <!-- 관리자 -->
-        <c:if test="${user.grade == 1}">
             <input type="submit" value="등록" class="buttons">
             <input type="button" value="조회" class="buttons" onclick="searchSkus()"> 
             <button type="button" class="buttons" id="editSelectedButton">수정</button> 
             <button type="button" class="buttons" id="updateButton" style="display: none;" onclick="updateSku()">수정 완료</button>
             <button type="button" class="buttons" id="cancelButton" style="display: none;">취소</button>
             <input type="submit" value="삭제" class="buttons" name="action">
-            </c:if>
         </div>
         
     </form>
@@ -222,6 +211,8 @@
             <th>등록날짜</th>
             <th>수정날짜</th>
             <th>비고사항</th>
+            <th>상품고유번호</th>
+            <th>사원번호</th>
         </tr>
         </thead>
         <tbody>
@@ -229,15 +220,17 @@
             <tr>
                 <td><input type="checkbox" name="check" value="${dto.ib_id}"></td>
                 <td>${dto.ib_id}</td>
-                <td>${dto.material_count}</td>
-                <td>${dto.material_price}</td>
+                <td>${dto.product_count}</td>
+                <td>${dto.product_price}</td>
                 <td>${dto.sku_code}</td>
                 <td>${dto.sku_name}</td>
-                <td>${dto.sku_size}</td>
+                <td>${dto.sku_size}</td>  
                 <td>${dto.sku_type}</td>
                 <td>${dto.create_date}</td>
                 <td>${dto.modify_date}</td>
                 <td>${dto.remarks}</td>
+                <td>${dto.sku_id}</td>
+                <td>${dto.empno}</td>
                 
             </tr>
         </c:forEach>
@@ -260,7 +253,7 @@
         </div>
 </div>
 
-<script>
+<!-- <script>
 //전체 선택/해제 체크박스 이벤트
 document.getElementById('체크박스').addEventListener('change', function() {
     var checkboxes = document.querySelectorAll('input[name="check"]');
@@ -319,8 +312,8 @@ function searchSkus() {
         });
 
         if (selectedChecks.length === 1) { // 하나만 선택했을 경우
-            var skuId = selectedChecks[0];
-            var selectedRow = document.querySelector('input[name="check"][value="' + skuId + '"]').closest('tr');
+            var ibId = selectedChecks[0];
+            var selectedRow = document.querySelector('input[name="check"][value="' + ibId + '"]').closest('tr');
 
             // 선택된 행의 데이터 가져오기
             var materialcount = selectedRow.querySelectorAll('td')[2].textContent;
@@ -355,7 +348,7 @@ function searchSkus() {
 
     // 수정 완료 함수
     function updateSku() {
-        const skuId = document.getElementById('updateButton').dataset.skuId;
+        const ibId = document.getElementById('updateButton').dataset.ibId;
         const materialcount = document.getElementById('materialcount').value;
         const materialprice = document.getElementById('materialprice').value;
         const skucode = document.getElementById('skucode').value;
@@ -372,7 +365,7 @@ function searchSkus() {
             },
             body: new URLSearchParams({
                 action1: '수정',
-                skuId: skuId,
+                ibId: ibId,
                 p_sku: materialcount,
                 p_sku1: materialprice,
                 p_sku2: skucode,
@@ -391,6 +384,6 @@ function searchSkus() {
                 console.error('수정 오류:', error);
             });
     }
-</script>
+</script> -->
 </body>
 </html>
