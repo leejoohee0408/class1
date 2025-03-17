@@ -7,7 +7,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>원자재입출고관리</title>
+    <title>원자재입고관리</title>
     <style>
         
         body {
@@ -160,9 +160,9 @@
 </head>
 <body>
 <div class="container">
-    <h1>◎ 원자재입출고관리</h1>
+    <h1>◎ 원자재입고관리</h1>
     <span>* 모두 기입</span>
-    <form method="post" action="p_sku" class="form">
+    <form method="post" action="P_material_in_outController" class="form">
         <div class="form-fields">
             <div class="form-row">
                 <label for="원자재수량">원자재수량<span>*</span></label>
@@ -171,20 +171,16 @@
                 <input type="text" name="p_sku1" id="materialprice">
             </div>
             <div class="form-row">
-                <label for="상품코드">상품코드<span>*</span></label>
-                <input type="text" name="p_sku2" id="skucode">
-                <label for="상품명">상품명<span>*</span></label>
-                <input type="text" name="p_sku3" id="skuname">
-            </div>
-            <div class="form-row">
-                <label for="규격">규격<span>*</span></label>
-                <input type="text" name="p_sku4" id="skusize">
                 <label for="분류">분류<span>*</span></label>
-                <input type="text" name="p_sku5" id="skutype">
+                <input type="text" name="p_sku2" id="skutype">
+                 <label for="비고사항">비고사항<span>*</span></label>
+                <input type="text" name="p_sku3" id="remarks">
             </div>
              <div class="form-row">
-                <label for="비고사항">비고사항<span>*</span></label>
-                <input type="text" name="p_sku6" id="remarks">
+                <label for="상품고유번호">상품고유번호<span>*</span></label>
+                <input type="text" name="p_sku4" id="skuid">
+                 <label for="등록번호">등록번호<span>*</span></label>
+                <input type="text" name="p_sku5" id="billid">
             </div>
         </div>
         <div>
@@ -215,6 +211,8 @@
             <th>등록날짜</th>
             <th>수정날짜</th>
             <th>비고사항</th>
+            <th>상품고유번호</th>
+            <th>등록번호</th>
         </tr>
         </thead>
         <tbody>
@@ -226,11 +224,13 @@
                 <td>${dto.material_price}</td>
                 <td>${dto.sku_code}</td>
                 <td>${dto.sku_name}</td>
-                <td>${dto.sku_size}</td>
+                <td>${dto.sku_size}</td>  
                 <td>${dto.sku_type}</td>
                 <td>${dto.create_date}</td>
                 <td>${dto.modify_date}</td>
                 <td>${dto.remarks}</td>
+                <td>${dto.sku_id}</td>
+                <td>${dto.bill_id}</td>
                 
             </tr>
         </c:forEach>
@@ -253,7 +253,7 @@
         </div>
 </div>
 
-<script>
+<!-- <script>
 //전체 선택/해제 체크박스 이벤트
 document.getElementById('체크박스').addEventListener('change', function() {
     var checkboxes = document.querySelectorAll('input[name="check"]');
@@ -312,8 +312,8 @@ function searchSkus() {
         });
 
         if (selectedChecks.length === 1) { // 하나만 선택했을 경우
-            var skuId = selectedChecks[0];
-            var selectedRow = document.querySelector('input[name="check"][value="' + skuId + '"]').closest('tr');
+            var ibId = selectedChecks[0];
+            var selectedRow = document.querySelector('input[name="check"][value="' + ibId + '"]').closest('tr');
 
             // 선택된 행의 데이터 가져오기
             var materialcount = selectedRow.querySelectorAll('td')[2].textContent;
@@ -348,7 +348,7 @@ function searchSkus() {
 
     // 수정 완료 함수
     function updateSku() {
-        const skuId = document.getElementById('updateButton').dataset.skuId;
+        const ibId = document.getElementById('updateButton').dataset.ibId;
         const materialcount = document.getElementById('materialcount').value;
         const materialprice = document.getElementById('materialprice').value;
         const skucode = document.getElementById('skucode').value;
@@ -365,7 +365,7 @@ function searchSkus() {
             },
             body: new URLSearchParams({
                 action1: '수정',
-                skuId: skuId,
+                ibId: ibId,
                 p_sku: materialcount,
                 p_sku1: materialprice,
                 p_sku2: skucode,
@@ -384,6 +384,6 @@ function searchSkus() {
                 console.error('수정 오류:', error);
             });
     }
-</script>
+</script> -->
 </body>
 </html>

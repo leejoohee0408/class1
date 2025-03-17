@@ -1563,3 +1563,32 @@ commit; 이게 내 오라클에 있는 테이블이야
 
 
 ALTER TABLE p_sku MODIFY modify_date DEFAULT SYSDATE;
+
+
+
+--이게 상품정보관리랑 원자재입출고관리 연결함 +  조회까지임
+SELECT *
+FROM P_SKU  PS
+LEFT JOIN P_MATERIAL_IN_OUT  PMIO ON PS.SKU_ID = PMIO.SKU_ID;
+--커밋
+COMMIT;
+
+
+drop table p_material_in_out;
+
+CREATE TABLE p_material_in_out ( 
+    IB_ID NUMBER(10, 0) NOT NULL,
+    MATERIAL_COUNT NUMBER(15, 2) NOT NULL,
+    MATERIAL_PRICE NUMBER(15, 2) NOT NULL,
+    SKU_TYPE VARCHAR2(20 BYTE) NOT NULL,
+    CREATE_DATE DATE NOT NULL,
+    MODIFY_DATE DATE,
+    REMARKS VARCHAR2(255 BYTE),
+    BILL_ID NUMBER(10, 0) NOT NULL,
+    SKU_ID NUMBER(10, 0) NOT NULL
+);
+select * from P_MATERIAL_IN_OUT;
+
+--원자재입출력관리테이블에 직접입력
+insert into p_material_in_out
+VALUES (seq_p_material_in_out.nextval, 1, 1, 'text', SYSDATE, NULL,'text',10,2);
