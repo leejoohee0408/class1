@@ -1573,9 +1573,10 @@ LEFT JOIN P_MATERIAL_IN_OUT  PMIO ON PS.SKU_ID = PMIO.SKU_ID;
 --커밋
 COMMIT;
 
-
+--원자재입출력관리테이블삭제
 drop table p_material_in_out;
 
+--원자재입출력관리테이블생성
 CREATE TABLE p_material_in_out ( 
     IB_ID NUMBER(10, 0) NOT NULL,
     MATERIAL_COUNT NUMBER(15, 2) NOT NULL,
@@ -1587,6 +1588,7 @@ CREATE TABLE p_material_in_out (
     BILL_ID NUMBER(10, 0) NOT NULL,
     SKU_ID NUMBER(10, 0) NOT NULL
 );
+--원자재입출력관리테이블확인
 select * from P_MATERIAL_IN_OUT;
 
 --원자재입출력관리테이블에 직접입력
