@@ -162,13 +162,13 @@
 <div class="container">
     <h1>◎ 완제품출고관리</h1>
     <span>* 모두 기입</span>
-    <form method="post" action="P_material_in_outController" class="form">
+     <form method="post" action="P_product_in_out1Controller" class="form">
         <div class="form-fields">
             <div class="form-row">
                 <label for="완제품수량">완제품수량<span>*</span></label>
-                <input type="text" name="p_sku" id="materialcount">
+                <input type="text" name="p_sku" id="productcount">
                 <label for="완제품가격">완제품가격<span>*</span></label>
-                <input type="text" name="p_sku1" id="materialprice">
+                <input type="text" name="p_sku1" id="productprice">
             </div>
             <div class="form-row">
                 <label for="분류">분류<span>*</span></label>
@@ -253,137 +253,125 @@
         </div>
 </div>
 
-<!-- <script>
+ <script>
 //전체 선택/해제 체크박스 이벤트
 document.getElementById('체크박스').addEventListener('change', function() {
-    var checkboxes = document.querySelectorAll('input[name="check"]');
-    checkboxes.forEach(function(checkbox) {
-        checkbox.checked = document.getElementById('체크박스').checked;
-    });
+   var checkboxes = document.querySelectorAll('input[name="check"]');
+   checkboxes.forEach(function(checkbox) {
+       checkbox.checked = document.getElementById('체크박스').checked;
+   });
 });
 
-// 조회버튼
+//조회버튼
 function searchSkus() {
-    var searchKeyword = document.getElementById('searchKeyword').value;
-    if (searchKeyword.trim() === "") {
-        // 검색어가 없을 경우 전체 목록 조회
-        window.location.href = "p_material_in_out";
-    } else {
-        // 검색어가 있을 경우 검색 결과 조회
-        window.location.href = "p_material_in_out?searchKeyword=" + searchKeyword;
-    }
+   var searchKeyword = document.getElementById('searchKeyword').value;
+   if (searchKeyword.trim() === "") {
+       // 검색어가 없을 경우 전체 목록 조회
+       window.location.href = "P_product_in_out1Controller";
+   } else {
+       // 검색어가 있을 경우 검색 결과 조회
+       window.location.href = "P_product_in_out1Controller?searchKeyword=" + searchKeyword;
+   }
 }
 
 
-	// 삭제버튼 클릭 이벤트
-    document.querySelector('input[value="삭제"]').addEventListener('click', function(event) {
-        // 배열 초기화
-    	var selectedChecks = [];
-        // 체크된거 전체가져오기를 checkboxes에 담았다  
-        var checkboxes = document.querySelectorAll('input[name="check"]:checked');
-        // 선택된것들을 selectedChecks는 배열에 추가했다
-        checkboxes.forEach(function(checkbox) {
-        	selectedChecks.push(checkbox.value);
-        });
+	 // 삭제버튼 클릭 이벤트
+   document.querySelector('input[value="삭제"]').addEventListener('click', function(event) {
+       // 배열 초기화
+   	var selectedChecks = [];
+       // 체크된거 전체가져오기를 checkboxes에 담았다  
+       var checkboxes = document.querySelectorAll('input[name="check"]:checked');
+       // 선택된것들을 selectedChecks는 배열에 추가했다
+       checkboxes.forEach(function(checkbox) {
+       	selectedChecks.push(checkbox.value);
+       });
 		// 체크된거 1개 이상이면
-        if (selectedChecks.length > 0) {
-        	// 체크된 value="${dto.sku_id } 목록을 
-        	// 새로운 입력 필드로 추가하여 서버에 전송
-        	// 내가 만든 배열에 추가된거에 ,로 구분된 문자열로 결합
-            var form = event.target.closest('form');
-            var input = document.createElement('input');
-            input.type = 'hidden';
-            input.name = 'check';
-            input.value = selectedChecks.join(',');
-            form.appendChild(input);
-        } else{
-            alert("선택된 항목이 없습니다.");
-            event.preventDefault(); // 폼 제출 방지
-        }
-    });
+       if (selectedChecks.length > 0) {
+       	// 체크된 value="${dto.sku_id } 목록을 
+       	// 새로운 입력 필드로 추가하여 서버에 전송
+       	// 내가 만든 배열에 추가된거에 ,로 구분된 문자열로 결합
+           var form = event.target.closest('form');
+           var input = document.createElement('input');
+           input.type = 'hidden';
+           input.name = 'check';
+           input.value = selectedChecks.join(',');
+           form.appendChild(input);
+       } else{
+           alert("선택된 항목이 없습니다.");
+           event.preventDefault(); // 폼 제출 방지
+       }
+   });
 
-    // 수정 버튼 클릭 이벤트
-     // 선택 수정 버튼 클릭 이벤트
-    document.getElementById('editSelectedButton').addEventListener('click', function() {
-        var selectedChecks = [];
-        var checkboxes = document.querySelectorAll('input[name="check"]:checked');
-        checkboxes.forEach(function(checkbox) {
-            selectedChecks.push(checkbox.value);
-        });
+   // 수정 버튼 클릭 이벤트
+    // 선택 수정 버튼 클릭 이벤트
+   document.getElementById('editSelectedButton').addEventListener('click', function() {
+       var selectedChecks = [];
+       var checkboxes = document.querySelectorAll('input[name="check"]:checked');
+       checkboxes.forEach(function(checkbox) {
+           selectedChecks.push(checkbox.value);
+       });
 
-        if (selectedChecks.length === 1) { // 하나만 선택했을 경우
-            var ibId = selectedChecks[0];
-            var selectedRow = document.querySelector('input[name="check"][value="' + ibId + '"]').closest('tr');
+       if (selectedChecks.length === 1) { // 하나만 선택했을 경우
+           var Ib_id = selectedChecks[0];
+           var selectedRow = document.querySelector('input[name="check"][value="' + Ib_id + '"]').closest('tr');
 
-            // 선택된 행의 데이터 가져오기
-            var materialcount = selectedRow.querySelectorAll('td')[2].textContent;
-            var materialprice = selectedRow.querySelectorAll('td')[3].textContent;
-            var skucode = selectedRow.querySelectorAll('td')[4].textContent;
-            var skuname = selectedRow.querySelectorAll('td')[5].textContent;
-            var skusize = selectedRow.querySelectorAll('td')[6].textContent;
-            var skutype = selectedRow.querySelectorAll('td')[7].textContent;
-            var remarks = selectedRow.querySelectorAll('td')[10].textContent;
+           // 선택된 행의 데이터 가져오기
+           var productcount = selectedRow.querySelectorAll('td')[2].textContent;
+           var productprice = selectedRow.querySelectorAll('td')[3].textContent;
+           var skutype = selectedRow.querySelectorAll('td')[7].textContent;
+           var remarks = selectedRow.querySelectorAll('td')[10].textContent;
 
-            // 입력 필드에 데이터 표시
-            document.getElementById('materialcount').value = materialcount;
-            document.getElementById('materialprice').value = materialprice;
-            document.getElementById('skucode').value = skucode;
-            document.getElementById('skuname').value = sku_name;
-            document.getElementById('skusize').value = sku_size;
-            document.getElementById('skutype').value = sku_type;
-            document.getElementById('remarks').value = remarks;
+           // 입력 필드에 데이터 표시
+           document.getElementById('productcount').value = productcount;
+           document.getElementById('productprice').value = productprice;
+           document.getElementById('skutype').value = skutype;
+           document.getElementById('remarks').value = remarks;
 
-            // 수정 버튼 및 취소 버튼 표시
-            document.getElementById('updateButton').style.display = 'inline-block';
-            document.getElementById('cancelButton').style.display = 'inline-block';
+           // 수정 버튼 및 취소 버튼 표시
+           document.getElementById('updateButton').style.display = 'inline-block';
+           document.getElementById('cancelButton').style.display = 'inline-block';
 
-            // 수정 모드 설정 (수정 완료 시 필요한 정보)
-            document.getElementById('updateButton').dataset.skuId = skuId;
-        } else if (selectedChecks.length > 1){
-            alert("수정시 하나의 항목만 선택해주세요.");
-        }else {
-            alert("선택된 항목이 없습니다.");
-        }
-    });
+           // 수정 모드 설정 (수정 완료 시 필요한 정보)
+           document.getElementById('updateButton').dataset.ibId = Ib_id;
+       } else if (selectedChecks.length > 1){
+           alert("수정시 하나의 항목만 선택해주세요.");
+       }else {
+           alert("선택된 항목이 없습니다.");
+       }
+   });
 
-    // 수정 완료 함수
-    function updateSku() {
-        const ibId = document.getElementById('updateButton').dataset.ibId;
-        const materialcount = document.getElementById('materialcount').value;
-        const materialprice = document.getElementById('materialprice').value;
-        const skucode = document.getElementById('skucode').value;
-        const sku_name = document.getElementById('skuname').value;
-        const skusize = document.getElementById('skusize').value;
-        const skutype = document.getElementById('skutype').value;
-        const remarks = document.getElementById('remarks').value;
+   // 수정 완료 함수
+   function updateSku() {
+   	const Ib_id = document.getElementById('updateButton').dataset.ibId;
+       const productcount = document.getElementById('productcount').value;
+       const productprice = document.getElementById('productprice').value;
+       const skutype = document.getElementById('skutype').value;
+       const remarks = document.getElementById('remarks').value;
 
-        // AJAX 요청을 사용하여 서버에 수정된 상품 정보 전송
-        fetch('p_sku', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: new URLSearchParams({
-                action1: '수정',
-                ibId: ibId,
-                p_sku: materialcount,
-                p_sku1: materialprice,
-                p_sku2: skucode,
-                p_sku3: skuname,
-                p_sku4: skusize,
-                p_sku5: skutype,
-                p_sku6: remarks,
-            }),
-        })
-            .then((response) => response.text())
-            .then((data) => {
-                // 상품 목록 테이블 다시 표시, 수정 폼 숨김
-                location.reload(); // 페이지 새로고침 또는 테이블 업데이트
-            })
-            .catch((error) => {
-                console.error('수정 오류:', error);
-            });
-    }
-</script> -->
+       // AJAX 요청을 사용하여 서버에 수정된 상품 정보 전송
+       fetch('P_product_in_out1Controller', {
+           method: 'POST',
+           headers: {
+               'Content-Type': 'application/x-www-form-urlencoded',
+           },
+           body: new URLSearchParams({
+               action1: '수정',
+               Ib_id: Ib_id,
+               p_sku: productcount,
+               p_sku1: productprice,
+               p_sku2: skutype,
+               p_sku3: remarks,
+           }),
+       })
+           .then((response) => response.text())
+           .then((data) => {
+               // 상품 목록 테이블 다시 표시, 수정 폼 숨김
+               location.reload(); // 페이지 새로고침 또는 테이블 업데이트
+           })
+           .catch((error) => {
+               console.error('수정 오류:', error);
+           });
+   }  
+</script> 
 </body>
 </html>

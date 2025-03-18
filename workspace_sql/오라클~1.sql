@@ -1594,3 +1594,44 @@ select * from P_MATERIAL_IN_OUT;
 --원자재입출력관리테이블에 직접입력
 insert into p_material_in_out
 VALUES (seq_p_material_in_out.nextval, 1, 1, 'text', SYSDATE, NULL,'text',10,2);
+
+
+--완제품입출고관리테이블삭제
+drop table p_product_in_out;
+
+--완제품입출고관리테이블확인
+select * from P_PRODUCT_IN_OUT;
+
+--완제품입출고관리테이블에있는 컬럼없애기
+alter table P_PRODUCT_IN_OUT drop column SKU_SIZE;
+
+--완제품입출고관리테이블생성
+CREATE TABLE p_product_in_out (
+    IB_ID NUMBER(10, 0) NOT NULL,
+    PRODUCT_COUNT NUMBER(10, 0) NOT NULL,
+    PRODUCT_PRICE NUMBER(10, 0) NOT NULL,
+    SKU_TYPE VARCHAR2(20 BYTE) NOT NULL,
+    CREATE_DATE DATE NOT NULL,
+    MODIFY_DATE DATE,
+    REMARKS VARCHAR2(255 BYTE),
+    SKU_ID NUMBER(10, 0) NOT NULL,
+    EMPNO NUMBER(10, 0) NOT NULL
+);
+
+--이게 상품정보관리랑 완제품입출고관리 연결함 +  조회까지임
+SELECT *
+FROM P_SKU  PS
+LEFT JOIN P_PRODUCT_IN_OUT  PPIO ON PS.SKU_ID = PPIO.SKU_ID;
+--커밋
+COMMIT;
+
+SELECT * FROM USER_CONSTRAINTS WHERE TABLE_NAME = 'P_PRODUCT_IN_OUT';
+
+--시퀀스 생성 p_product_in_out
+CREATE SEQUENCE seq_p_product_in_out
+START WITH 1 -- 시작 값
+INCREMENT BY 1; -- 증가 값
+
+insert into P_PRODUCT_IN_OUT
+VALUES (seq_p_product_in_out.nextval, 1, 1, 'text', SYSDATE, NULL,'text',1,2);
+

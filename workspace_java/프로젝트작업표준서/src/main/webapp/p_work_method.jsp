@@ -165,27 +165,24 @@
     <form method="post" action="p_sku" class="form">
         <div class="form-fields">
             <div class="form-row">
-                <label for="원자재수량">원자재수량<span>*</span></label>
-                <input type="text" name="p_sku" id="materialcount">
-                <label for="원자재가격">원자재가격<span>*</span></label>
-                <input type="text" name="p_sku1" id="materialprice">
+                <label for="작업양식 파일업로드">작업양식 파일업로드<span>*</span></label>
+                <input type="text" name="p_sku" id="workfile">
+                <label for="작업양식">작업양식<span>*</span></label>
+                <input type="text" name="p_sku1" id="work">
+            </div>
+            <div class="form-row">
+                <label for="비고사항">비고사항<span>*</span></label>
+                <input type="text" name="p_sku2" id="remarks">
+                <label for="소모량">소모량<span>*</span></label>
+                <input type="text" name="p_sku3" id="consumption">
             </div>
             <div class="form-row">
                 <label for="상품코드">상품코드<span>*</span></label>
-                <input type="text" name="p_sku2" id="skucode">
+                <input type="text" name="p_sku4" id="sku_code">
                 <label for="상품명">상품명<span>*</span></label>
-                <input type="text" name="p_sku3" id="skuname">
+                <input type="text" name="p_sku5" id="sku_name">
             </div>
-            <div class="form-row">
-                <label for="규격">규격<span>*</span></label>
-                <input type="text" name="p_sku4" id="skusize">
-                <label for="분류">분류<span>*</span></label>
-                <input type="text" name="p_sku5" id="skutype">
-            </div>
-             <div class="form-row">
-                <label for="비고사항">비고사항<span>*</span></label>
-                <input type="text" name="p_sku6" id="remarks">
-            </div>
+            
         </div>
         <div>
             <input type="submit" value="등록" class="buttons">

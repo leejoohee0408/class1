@@ -194,9 +194,13 @@
         
     </form>
 		<div>
-        조회할것 입력해주세요
+        조회할 상품코드를 입력해주세요
         <input type="text" name="searchKeyword" id="searchKeyword">
         </div>
+        <!-- 검색결과가 없을때 나온다 -->
+        <c:if test="${not empty message}">
+    <p style="color: red;">${message}</p>
+		</c:if>
     <table border=1>
         <thead>
         <tr>
@@ -253,7 +257,7 @@
         </div>
 </div>
 
-<!-- <script>
+ <script>
 //전체 선택/해제 체크박스 이벤트
 document.getElementById('체크박스').addEventListener('change', function() {
     var checkboxes = document.querySelectorAll('input[name="check"]');
@@ -267,15 +271,15 @@ function searchSkus() {
     var searchKeyword = document.getElementById('searchKeyword').value;
     if (searchKeyword.trim() === "") {
         // 검색어가 없을 경우 전체 목록 조회
-        window.location.href = "p_material_in_out";
+        window.location.href = "P_material_in_outController";
     } else {
         // 검색어가 있을 경우 검색 결과 조회
-        window.location.href = "p_material_in_out?searchKeyword=" + searchKeyword;
+        window.location.href = "P_material_in_outController?searchKeyword=" + searchKeyword;
     }
 }
 
 
-	// 삭제버튼 클릭 이벤트
+	 // 삭제버튼 클릭 이벤트
     document.querySelector('input[value="삭제"]').addEventListener('click', function(event) {
         // 배열 초기화
     	var selectedChecks = [];
@@ -312,25 +316,19 @@ function searchSkus() {
         });
 
         if (selectedChecks.length === 1) { // 하나만 선택했을 경우
-            var ibId = selectedChecks[0];
-            var selectedRow = document.querySelector('input[name="check"][value="' + ibId + '"]').closest('tr');
+            var Ib_id = selectedChecks[0];
+            var selectedRow = document.querySelector('input[name="check"][value="' + Ib_id + '"]').closest('tr');
 
             // 선택된 행의 데이터 가져오기
             var materialcount = selectedRow.querySelectorAll('td')[2].textContent;
             var materialprice = selectedRow.querySelectorAll('td')[3].textContent;
-            var skucode = selectedRow.querySelectorAll('td')[4].textContent;
-            var skuname = selectedRow.querySelectorAll('td')[5].textContent;
-            var skusize = selectedRow.querySelectorAll('td')[6].textContent;
             var skutype = selectedRow.querySelectorAll('td')[7].textContent;
             var remarks = selectedRow.querySelectorAll('td')[10].textContent;
 
             // 입력 필드에 데이터 표시
             document.getElementById('materialcount').value = materialcount;
             document.getElementById('materialprice').value = materialprice;
-            document.getElementById('skucode').value = skucode;
-            document.getElementById('skuname').value = sku_name;
-            document.getElementById('skusize').value = sku_size;
-            document.getElementById('skutype').value = sku_type;
+            document.getElementById('skutype').value = skutype;
             document.getElementById('remarks').value = remarks;
 
             // 수정 버튼 및 취소 버튼 표시
@@ -338,7 +336,7 @@ function searchSkus() {
             document.getElementById('cancelButton').style.display = 'inline-block';
 
             // 수정 모드 설정 (수정 완료 시 필요한 정보)
-            document.getElementById('updateButton').dataset.skuId = skuId;
+            document.getElementById('updateButton').dataset.ibId = Ib_id;
         } else if (selectedChecks.length > 1){
             alert("수정시 하나의 항목만 선택해주세요.");
         }else {
@@ -348,31 +346,25 @@ function searchSkus() {
 
     // 수정 완료 함수
     function updateSku() {
-        const ibId = document.getElementById('updateButton').dataset.ibId;
+    	const Ib_id = document.getElementById('updateButton').dataset.ibId;
         const materialcount = document.getElementById('materialcount').value;
         const materialprice = document.getElementById('materialprice').value;
-        const skucode = document.getElementById('skucode').value;
-        const sku_name = document.getElementById('skuname').value;
-        const skusize = document.getElementById('skusize').value;
         const skutype = document.getElementById('skutype').value;
         const remarks = document.getElementById('remarks').value;
 
         // AJAX 요청을 사용하여 서버에 수정된 상품 정보 전송
-        fetch('p_sku', {
+        fetch('P_material_in_outController', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
             body: new URLSearchParams({
                 action1: '수정',
-                ibId: ibId,
+                Ib_id: Ib_id,
                 p_sku: materialcount,
                 p_sku1: materialprice,
-                p_sku2: skucode,
-                p_sku3: skuname,
-                p_sku4: skusize,
-                p_sku5: skutype,
-                p_sku6: remarks,
+                p_sku2: skutype,
+                p_sku3: remarks,
             }),
         })
             .then((response) => response.text())
@@ -383,7 +375,7 @@ function searchSkus() {
             .catch((error) => {
                 console.error('수정 오류:', error);
             });
-    }
-</script> -->
+    }  
+</script> 
 </body>
 </html>

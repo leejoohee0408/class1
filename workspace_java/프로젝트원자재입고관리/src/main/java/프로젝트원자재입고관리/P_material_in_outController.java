@@ -1,4 +1,4 @@
-package ÇÁ·ÎÁ§Æ®¿øÀÚÀçÀÔ°í°ü¸®;
+package í”„ë¡œì íŠ¸ì›ìì¬ì…ê³ ê´€ë¦¬;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -18,6 +18,10 @@ import javax.servlet.http.HttpServletResponse;
 
 
 
+
+
+
+
 @WebServlet("/P_material_in_outController")
 public class P_material_in_outController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -26,35 +30,97 @@ public class P_material_in_outController extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 
+		String searchKeyword = request.getParameter("searchKeyword");
 		
-		 
-		    try {
-		    	P_material_in_outDAO p_skuDAO = new P_material_in_outDAO();
-		    	List<P_material_in_outDTO> resultList;
-		        
-		            // °Ë»ö¾î°¡ ¾øÀ» °æ¿ì ÀüÃ¼ ¸ñ·Ï Á¶È¸
-		            resultList = p_skuDAO.selectP_skuList();
-		       
-		        // Á¶È¸ °á°ú ÀúÀå
-		        request.setAttribute("resultList", resultList);
-		    } catch (SQLException e) {
-		        e.printStackTrace();
-		        response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "µ¥ÀÌÅÍº£ÀÌ½º ¿À·ù");
-		        return;
-		    }
+	    if (searchKeyword != null) {
+	        searchKeyword = searchKeyword.trim();
+	    }
+	    P_material_in_outDAO p_skuDAO = new P_material_in_outDAO();
+	    List<P_material_in_outDTO> resultList;
+	    try {
+	        if (searchKeyword != null && !searchKeyword.isEmpty()) {
+	            resultList = p_skuDAO.searchP_skuList(searchKeyword);
+	            if (resultList.isEmpty()) {
+	                request.setAttribute("message", "ê²€ìƒ‰ ê²°ê³¼ê°€ ì—†ìŠµë‹ˆë‹¤.");
+	            }
+	        } else {
+	            resultList = p_skuDAO.selectP_skuList();
+	        }
+	        request.setAttribute("resultList", resultList);
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "ë°ì´í„°ë² ì´ìŠ¤ ì˜¤ë¥˜");
+	        return;
+	    }
+	    String url = "p_material_in_out.jsp";
+	    request.getRequestDispatcher(url).forward(request, response);
+	}
 		    
 		    
-		    String url = "p_material_in_out.jsp";
-		    request.getRequestDispatcher(url).forward(request, response);
-		}
+				
+	
+	
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		 request.setCharacterEncoding("utf-8");
 	        response.setContentType("text/html; charset=utf-8");
+	        String action = request.getParameter("action");
+	        String action1 = request.getParameter("action1");
 	        
+	     // ì‚­ì œ
+	        if ("ì‚­ì œ".equals(action)) {
+	        	// check íŒŒë¼ë¯¸í„° ê°’ì„ checkParamë°”ê¿¨ìŒ
+	            String checkParam = request.getParameter("check");
+	            // ì‚­ì œí• êº¼ ì²´í¬ëœê²½ìš°
+	            if (checkParam != null && !checkParam.isEmpty()) {
+	            	// ì²´í¬í•œê±° ì‰¼í‘œë¥¼ ê¸°ì¤€ìœ¼ë¡œ ë¶„ë¦¬í•˜ì—¬ ë°°ì—´ ìƒì„±
+	                String[] skuIds = checkParam.split(",");
+	                P_material_in_outDAO p_skuDAO = new P_material_in_outDAO();
+	                try {
+	                	// ë°°ì—´ì„ ì‚¬ìš©í•´ì„œ ì²´í¬ëœê±° ì‚­ì œ ë©”ì„œë“œë¥¼ ë¶€ë¦„
+	                    p_skuDAO.deleteSkus(skuIds);
+	                } catch (SQLException e) {
+	                    e.printStackTrace();
+	                    response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "ì‚­ì œ ì¤‘ ì˜¤ë¥˜ ë°œìƒ");
+	                    return;
+	                }
+	            }
+	            // ìˆ˜ì •
+	        } else if ("ìˆ˜ì •".equals(action1)) {
+	            try {
+	            	// ê° íŒŒë¼ë¯¸í„° ê°’ì„ ê°€ì ¸ì˜´
+	                int Ib_id = Integer.parseInt(request.getParameter("Ib_id"));
+	                int materialcount = Integer.parseInt(request.getParameter("p_sku"));
+	                int materialprice = Integer.parseInt(request.getParameter("p_sku1"));
+	                String skutype = request.getParameter("p_sku2");
+	                String remarks = request.getParameter("p_sku3");
+	                
+	                
+
+	                P_material_in_outDTO p_skuDTO = new P_material_in_outDTO();
+	                // ê° íŒŒë¼ë¯¸í„° ê°’ì„ p_skuDTOì— ì„¤ì •
+	                p_skuDTO.setIb_id(Ib_id);
+	                p_skuDTO.setMaterial_count(materialcount);
+	                p_skuDTO.setMaterial_price(materialprice);
+	                p_skuDTO.setSku_type(skutype);
+	                p_skuDTO.setRemarks(remarks);
+
+	                P_material_in_outDAO p_skuDAO = new P_material_in_outDAO();
+	                // P_skuDTOë¥¼ ì‚¬ìš©í•˜ì—¬ DB ìˆ˜ì • ë©”ì„œë“œë¥¼ ë¶€ë¦„
+	                p_skuDAO.updateSku(p_skuDTO);
+	            } catch (NumberFormatException e) {
+	                e.printStackTrace();
+	                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ì˜ëª»ëœ ê°€ê²© í˜•ì‹");
+	                return;
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "ìˆ˜ì • ì¤‘ ì˜¤ë¥˜ ë°œìƒ");
+	                return;
+	            }
+	           // ì‚­ì œ ë˜ëŠ” ìˆ˜ì •ì´ ì•„ë‹ˆë©´ ë“±ë¡ë˜ê²Œ í•˜ê¸°
+	          }else {
 	        try {
-	            // °¢ ÆÄ¶ó¹ÌÅÍ°ª °¡Á®¿À±â
+	            // ê° íŒŒë¼ë¯¸í„°ê°’ ê°€ì ¸ì˜¤ê¸°
 	        	int materialcount = Integer.parseInt(request.getParameter("p_sku"));
 	        	int materialprice = Integer.parseInt(request.getParameter("p_sku1"));
 	            String skutype = request.getParameter("p_sku2");
@@ -62,7 +128,7 @@ public class P_material_in_outController extends HttpServlet {
 	            int skuid = Integer.parseInt(request.getParameter("p_sku4")); 
 	            int billid = Integer.parseInt(request.getParameter("p_sku5"));
 
-	            // DTO¿¡ °ª ¼³Á¤
+	            // DTOì— ê°’ ì„¤ì •
 	            P_material_in_outDTO p_skuDTO = new P_material_in_outDTO();
 	            p_skuDTO.setMaterial_count(materialcount);
 	            p_skuDTO.setMaterial_price(materialprice);
@@ -71,25 +137,25 @@ public class P_material_in_outController extends HttpServlet {
 	            p_skuDTO.setSku_id(skuid);
 	            p_skuDTO.setBill_id(billid);
 
-	            // DAO¸¦ ÅëÇØ µî·Ï ¸Ş¼­µå È£Ãâ
+	            // DAOë¥¼ í†µí•´ ë“±ë¡ ë©”ì„œë“œ í˜¸ì¶œ
 	            P_material_in_outDAO p_skuDAO = new P_material_in_outDAO();
 	            p_skuDAO.insertsku(p_skuDTO);
-	            System.out.println("µ¥ÀÌÅÍ µî·Ï ¼º°ø: " + p_skuDTO.getIb_id());
+	            System.out.println("ë°ì´í„° ë“±ë¡ ì„±ê³µ: " + p_skuDTO.getIb_id());
 	            
-	         // µî·Ï ÈÄ doGet() ¸Ş¼­µå È£ÃâÇÏ¿© Å×ÀÌºí ´Ù½Ã ·Îµå
+	         // ë“±ë¡ í›„ doGet() ë©”ì„œë“œ í˜¸ì¶œí•˜ì—¬ í…Œì´ë¸” ë‹¤ì‹œ ë¡œë“œ
 	            doGet(request, response);
 
 	        } catch (NumberFormatException e) {
 	            e.printStackTrace();
-	            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Àß¸øµÈ °¡°İ Çü½Ä");
+	            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ì˜ëª»ëœ ê°€ê²© í˜•ì‹");
 	            return;
 	        } catch (SQLException e) {
 	            e.printStackTrace();
-	            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "µî·Ï Áß ¿À·ù ¹ß»ı");
+	            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "ë“±ë¡ ì¤‘ ì˜¤ë¥˜ ë°œìƒ");
 	            return;
-	        }
-
-	        // µî·Ï ¿Ï·á ÈÄ ¸®´ÙÀÌ·ºÆ®
+	         }
+	       }     
+	        // ë“±ë¡ ì™„ë£Œ í›„ ë¦¬ë‹¤ì´ë ‰íŠ¸
 	        response.sendRedirect("P_material_in_outController");
 	    }
 }
