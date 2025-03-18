@@ -165,23 +165,12 @@
     <form method="post" action="p_sku" class="form">
         <div class="form-fields">
             <div class="form-row">
-                <label for="작업양식 파일업로드">작업양식 파일업로드<span>*</span></label>
-                <input type="text" name="p_sku" id="workfile">
                 <label for="작업양식">작업양식<span>*</span></label>
-                <input type="text" name="p_sku1" id="work">
-            </div>
-            <div class="form-row">
-                <label for="비고사항">비고사항<span>*</span></label>
-                <input type="text" name="p_sku2" id="remarks">
+                <input type="text" name="p_sku" id="work">
                 <label for="소모량">소모량<span>*</span></label>
-                <input type="text" name="p_sku3" id="consumption">
+                <input type="text" name="p_sku1" id="consumption">
             </div>
-            <div class="form-row">
-                <label for="상품코드">상품코드<span>*</span></label>
-                <input type="text" name="p_sku4" id="sku_code">
-                <label for="상품명">상품명<span>*</span></label>
-                <input type="text" name="p_sku5" id="sku_name">
-            </div>
+            
             
         </div>
         <div>

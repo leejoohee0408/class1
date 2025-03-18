@@ -165,23 +165,12 @@
     <form method="post" action="p_sku" class="form">
         <div class="form-fields">
             <div class="form-row">
-                <label for="상품코드">상품코드<span>*</span></label>
-                <input type="text" name="p_sku" id="skuCode">
-                <label for="상품명">상품명<span>*</span></label>
-                <input type="text" name="p_sku1" id="skuName">
+                <label for="상품고유번호_원자재">상품고유번호_원자재<span>*</span></label>
+                <input type="text" name="p_sku" id="skuidmaterial">
+                <label for="소모량">소모량<span>*</span></label>
+                <input type="text" name="p_sku1" id="consumption">
             </div>
-            <div class="form-row">
-                <label for="규격">규격<span>*</span></label>
-                <input type="text" name="p_sku2" id="skuSize">
-                <label for="업체명">업체명<span>*</span></label>
-                <input type="text" name="p_sku3" id="vendorName">
-            </div>
-            <div class="form-row">
-                <label for="단가">단가<span>*</span></label>
-                <input type="text" name="p_sku4" id="price">
-                <label for="제품분류">제품분류<span>*</span></label>
-                <input type="text" name="p_sku5" id="skuCategory">
-            </div>
+            
         </div>
         <div>
             <input type="submit" value="등록" class="buttons">
