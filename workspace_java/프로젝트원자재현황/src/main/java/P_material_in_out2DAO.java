@@ -11,7 +11,7 @@ import javax.sql.DataSource;
 
 public class P_material_in_out2DAO {
 
-	// DB ì—°ê²°í•˜ê¸°
+	// DB ¿¬°áÇÏ±â
 	public Connection getConnection() throws SQLException {
 		try {
 			Context ctx = new InitialContext();
@@ -19,12 +19,12 @@ public class P_material_in_out2DAO {
 			return ds.getConnection();
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new SQLException("ë°ì´í„°ë² ì´ìŠ¤ ì—°ê²° ì‹¤íŒ¨");
+			throw new SQLException("µ¥ÀÌÅÍº£ÀÌ½º ¿¬°á ½ÇÆĞ");
 		}
 	}
 
-	// ë‚´ê°€ ë“±ë¡í•œ í…Œì´ë¸” ì „ì²´ ê°€ì ¸ì˜¤ê¸°
-	// ìƒí’ˆì •ë³´ê´€ë¦¬ì—ì„œ ìƒí’ˆì½”ë“œ,ìƒí’ˆëª…,ê·œê²©ë„ ê°€ì ¸ì™”ìŒ
+	// ³»°¡ µî·ÏÇÑ Å×ÀÌºí ÀüÃ¼ °¡Á®¿À±â
+	// »óÇ°Á¤º¸°ü¸®¿¡¼­ »óÇ°ÄÚµå,»óÇ°¸í,±Ô°İµµ °¡Á®¿ÔÀ½
 	public List<P_material_in_out2DTO> selectP_skuList() throws SQLException {
 		List<P_material_in_out2DTO> list = new ArrayList<>();
 		Connection con = null;
@@ -39,8 +39,8 @@ public class P_material_in_out2DAO {
 			while (rs.next()) {
 				P_material_in_out2DTO dto = new P_material_in_out2DTO();
 				dto.setIb_id(rs.getInt("ib_id"));
-				dto.setMaterial_count(rs.getInt("material_count")); // ë°ì´í„° íƒ€ì… ìˆ˜ì •
-				dto.setMaterial_price(rs.getInt("material_price")); // ë°ì´í„° íƒ€ì… ìˆ˜ì •
+				dto.setMaterial_count(rs.getInt("material_count")); // µ¥ÀÌÅÍ Å¸ÀÔ ¼öÁ¤
+				dto.setMaterial_price(rs.getInt("material_price")); // µ¥ÀÌÅÍ Å¸ÀÔ ¼öÁ¤
 				dto.setSku_code(rs.getString("sku_code"));
 				dto.setSku_name(rs.getString("sku_name"));
 				dto.setSku_size(rs.getString("sku_size"));
@@ -62,7 +62,7 @@ public class P_material_in_out2DAO {
 		}
 		return list;
 	}
-	 // ì¡°íšŒí• ë•Œ ì“°ì´ëŠ” ê²ƒ
+	 // Á¶È¸ÇÒ¶§ ¾²ÀÌ´Â °Í
 	public List<P_material_in_out2DTO> searchP_skuList(String searchKeyword) throws SQLException {
 	    List<P_material_in_out2DTO> list = new ArrayList<>();
 	    Connection con = null;

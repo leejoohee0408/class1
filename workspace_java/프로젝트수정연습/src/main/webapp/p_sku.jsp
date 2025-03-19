@@ -194,7 +194,7 @@
         
     </form>
 		<div>
-        조회할것 입력해주세요
+        조회할 상품코드를 입력해주세요
         <input type="text" name="searchKeyword" id="searchKeyword">
         </div>
     <table border=1>

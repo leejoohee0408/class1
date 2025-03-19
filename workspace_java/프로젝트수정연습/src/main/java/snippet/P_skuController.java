@@ -19,24 +19,24 @@ public class P_skuController extends HttpServlet {
    
    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// ì¡°íšŒí• ë–„ ì“°ì´ëŠ” ì…ë ¥í•˜ëŠ”ê³³ ì´ë¦„
+		// Á¶È¸ÇÒ‹š ¾²ÀÌ´Â ÀÔ·ÂÇÏ´Â°÷ ÀÌ¸§
 		 String searchKeyword = request.getParameter("searchKeyword");
 		 
 		    P_skuDAO p_skuDAO = new P_skuDAO();
 		    List<P_skuDTO> resultList;
 		    try {
 		        if (searchKeyword != null && !searchKeyword.isEmpty()) {
-		            // ê²€ìƒ‰ì–´ê°€ ìˆì„ ê²½ìš° ê²€ìƒ‰ ë©”ì„œë“œ í˜¸ì¶œ
+		            // °Ë»ö¾î°¡ ÀÖÀ» °æ¿ì °Ë»ö ¸Ş¼­µå È£Ãâ
 		            resultList = p_skuDAO.searchP_skuList(searchKeyword);
 		        } else {
-		            // ê²€ìƒ‰ì–´ê°€ ì—†ì„ ê²½ìš° ì „ì²´ ëª©ë¡ ì¡°íšŒ
+		            // °Ë»ö¾î°¡ ¾øÀ» °æ¿ì ÀüÃ¼ ¸ñ·Ï Á¶È¸
 		            resultList = p_skuDAO.selectP_skuList();
 		        }
-		        // ì¡°íšŒ ê²°ê³¼ ì €ì¥
+		        // Á¶È¸ °á°ú ÀúÀå
 		        request.setAttribute("resultList", resultList);
 		    } catch (SQLException e) {
 		        e.printStackTrace();
-		        response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "ë°ì´í„°ë² ì´ìŠ¤ ì˜¤ë¥˜");
+		        response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "µ¥ÀÌÅÍº£ÀÌ½º ¿À·ù");
 		        return;
 		    }
 		    
@@ -52,28 +52,28 @@ public class P_skuController extends HttpServlet {
 	        String action = request.getParameter("action");
 	        String action1 = request.getParameter("action1");
 
-	        // ì‚­ì œ
-	        if ("ì‚­ì œ".equals(action)) {
-	        	// check íŒŒë¼ë¯¸í„° ê°’ì„ checkParamë°”ê¿¨ìŒ
+	        // »èÁ¦
+	        if ("»èÁ¦".equals(action)) {
+	        	// check ÆÄ¶ó¹ÌÅÍ °ªÀ» checkParam¹Ù²åÀ½
 	            String checkParam = request.getParameter("check");
-	            // ì‚­ì œí• êº¼ ì²´í¬ëœê²½ìš°
+	            // »èÁ¦ÇÒ²¨ Ã¼Å©µÈ°æ¿ì
 	            if (checkParam != null && !checkParam.isEmpty()) {
-	            	// ì²´í¬í•œê±° ì‰¼í‘œë¥¼ ê¸°ì¤€ìœ¼ë¡œ ë¶„ë¦¬í•˜ì—¬ ë°°ì—´ ìƒì„±
+	            	// Ã¼Å©ÇÑ°Å ½°Ç¥¸¦ ±âÁØÀ¸·Î ºĞ¸®ÇÏ¿© ¹è¿­ »ı¼º
 	                String[] skuIds = checkParam.split(",");
 	                P_skuDAO p_skuDAO = new P_skuDAO();
 	                try {
-	                	// ë°°ì—´ì„ ì‚¬ìš©í•´ì„œ ì²´í¬ëœê±° ì‚­ì œ ë©”ì„œë“œë¥¼ ë¶€ë¦„
+	                	// ¹è¿­À» »ç¿ëÇØ¼­ Ã¼Å©µÈ°Å »èÁ¦ ¸Ş¼­µå¸¦ ºÎ¸§
 	                    p_skuDAO.deleteSkus(skuIds);
 	                } catch (SQLException e) {
 	                    e.printStackTrace();
-	                    response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "ì‚­ì œ ì¤‘ ì˜¤ë¥˜ ë°œìƒ");
+	                    response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "»èÁ¦ Áß ¿À·ù ¹ß»ı");
 	                    return;
 	                }
 	            }
-	         // ìˆ˜ì •
-	        } else if ("ìˆ˜ì •".equals(action1)) {
+	         // ¼öÁ¤
+	        } else if ("¼öÁ¤".equals(action1)) {
 	            try {
-	            	// ê° íŒŒë¼ë¯¸í„° ê°’ì„ ê°€ì ¸ì˜´
+	            	// °¢ ÆÄ¶ó¹ÌÅÍ °ªÀ» °¡Á®¿È
 	                int skuId = Integer.parseInt(request.getParameter("skuId"));
 	                String skuCode = request.getParameter("p_sku");
 	                String skuName = request.getParameter("p_sku1");
@@ -83,7 +83,7 @@ public class P_skuController extends HttpServlet {
 	                String skuCategory = request.getParameter("p_sku5");
 
 	                P_skuDTO p_skuDTO = new P_skuDTO();
-	                // ê° íŒŒë¼ë¯¸í„° ê°’ì„ p_skuDTOì— ì„¤ì •
+	                // °¢ ÆÄ¶ó¹ÌÅÍ °ªÀ» p_skuDTO¿¡ ¼³Á¤
 	                p_skuDTO.setSku_id(skuId);
 	                p_skuDTO.setSku_code(skuCode);
 	                p_skuDTO.setSku_name(skuName);
@@ -93,30 +93,30 @@ public class P_skuController extends HttpServlet {
 	                p_skuDTO.setSku_category(skuCategory);
 
 	                P_skuDAO p_skuDAO = new P_skuDAO();
-	                // P_skuDTOë¥¼ ì‚¬ìš©í•˜ì—¬ DB ìˆ˜ì • ë©”ì„œë“œë¥¼ ë¶€ë¦„
+	                // P_skuDTO¸¦ »ç¿ëÇÏ¿© DB ¼öÁ¤ ¸Ş¼­µå¸¦ ºÎ¸§
 	                p_skuDAO.updateSku(p_skuDTO);
 	            } catch (NumberFormatException e) {
 	                e.printStackTrace();
-	                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ì˜ëª»ëœ ê°€ê²© í˜•ì‹");
+	                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Àß¸øµÈ °¡°İ Çü½Ä");
 	                return;
 	            } catch (SQLException e) {
 	                e.printStackTrace();
-	                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "ìˆ˜ì • ì¤‘ ì˜¤ë¥˜ ë°œìƒ");
+	                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "¼öÁ¤ Áß ¿À·ù ¹ß»ı");
 	                return;
 	            }
-	           // ì‚­ì œ ë˜ëŠ” ìˆ˜ì •ì´ ì•„ë‹ˆë©´ ë“±ë¡ë˜ê²Œ í•˜ê¸°
+	           // »èÁ¦ ¶Ç´Â ¼öÁ¤ÀÌ ¾Æ´Ï¸é µî·ÏµÇ°Ô ÇÏ±â
 	        } else {
-	        	//ê° íŒŒë¼ë¯¸í„°ê°’ ê°€ì ¸ì˜¤ê¸°
+	        	//°¢ ÆÄ¶ó¹ÌÅÍ°ª °¡Á®¿À±â
 	            String skuCode = request.getParameter("p_sku");
 	            String skuName = request.getParameter("p_sku1");
 	            String skuSize = request.getParameter("p_sku2");
 	            String vendorName = request.getParameter("p_sku3");
 	            try {
-	            	// ì´ê±´ Stringì´ ì•„ë‹ˆì—¬ì„œ ì—¬ê¸°ì„œí•¨ ë°–ì—ì„œ í–ˆëŠ”ë° ê³„ì† ì—ëŸ¬ë‚˜ì„œ
+	            	// ÀÌ°Ç StringÀÌ ¾Æ´Ï¿©¼­ ¿©±â¼­ÇÔ ¹Û¿¡¼­ Çß´Âµ¥ °è¼Ó ¿¡·¯³ª¼­
 	                int price = Integer.parseInt(request.getParameter("p_sku4"));
 	                String skuCategory = request.getParameter("p_sku5");
 	                
-	                //ìœ„ì—ì„œ ê°ì íŒŒë¼ë¯¸í„°ê°’ ê°€ì ¸ì˜¨ê²ƒì„ DTOì— ì„¤ì •
+	                //À§¿¡¼­ °¢ÀÚ ÆÄ¶ó¹ÌÅÍ°ª °¡Á®¿Â°ÍÀ» DTO¿¡ ¼³Á¤
 	                P_skuDTO p_skuDTO = new P_skuDTO();
 	                p_skuDTO.setSku_code(skuCode);
 	                p_skuDTO.setSku_name(skuName);
@@ -126,19 +126,19 @@ public class P_skuController extends HttpServlet {
 	                p_skuDTO.setSku_category(skuCategory);
 
 	                P_skuDAO p_skuDAO = new P_skuDAO();
-	                // ë“±ë¡ ë©”ì†Œë“œ í˜¸ì¶œ
+	                // µî·Ï ¸Ş¼Òµå È£Ãâ
 	                p_skuDAO.insertsku(p_skuDTO);
 	            } catch (NumberFormatException e) {
 	                e.printStackTrace();
-	                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ì˜ëª»ëœ ê°€ê²© í˜•ì‹");
+	                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Àß¸øµÈ °¡°İ Çü½Ä");
 	                return;
 	            } catch (SQLException e) {
 	                e.printStackTrace();
-	                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "ë“±ë¡ ì¤‘ ì˜¤ë¥˜ ë°œìƒ");
+	                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "µî·Ï Áß ¿À·ù ¹ß»ı");
 	                return;
 	            }
 	        }
 	        response.sendRedirect("p_sku");
-	     // ëë‚œë’¤ ë§¨ìœ„ë¡œ ì˜¬ë¦¬ê¸° 
+	     // ³¡³­µÚ ¸ÇÀ§·Î ¿Ã¸®±â 
 	    }
 	}

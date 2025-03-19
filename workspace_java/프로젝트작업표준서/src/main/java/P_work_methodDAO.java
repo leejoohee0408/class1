@@ -15,7 +15,7 @@ import javax.sql.DataSource;
 
 public class P_work_methodDAO {
 
-	// DB ì—°ê²°í•˜ê¸°
+	// DB ¿¬°áÇÏ±â
 			public Connection getConnection() throws SQLException {
 				try {
 					Context ctx = new InitialContext();
@@ -23,12 +23,12 @@ public class P_work_methodDAO {
 					return ds.getConnection();
 				} catch (Exception e) {
 					e.printStackTrace();
-					throw new SQLException("ë°ì´í„°ë² ì´ìŠ¤ ì—°ê²° ì‹¤íŒ¨");
+					throw new SQLException("µ¥ÀÌÅÍº£ÀÌ½º ¿¬°á ½ÇÆĞ");
 				}
 			}
 
-			// ë‚´ê°€ ì…ë ¥í•œê±° ì‚½ì…
-			// idëŠ” 1ì”© ì˜¤ë¥´ê³  SYSDATEë¡œ ì§€ê¸ˆë‚ ì§œë¥¼ ë‚˜ì˜¤ê²Œí–ˆê³  ìˆ˜ì •ë‚ ì§œëŠ” ì¼ë‹¨ nullë¡œ í•´ë†¨ë‹¤
+			// ³»°¡ ÀÔ·ÂÇÑ°Å »ğÀÔ
+			// id´Â 1¾¿ ¿À¸£°í SYSDATE·Î Áö±İ³¯Â¥¸¦ ³ª¿À°ÔÇß°í ¼öÁ¤³¯Â¥´Â ÀÏ´Ü null·Î ÇØ³ù´Ù
 			public int insertsku(P_work_methodDTO p_skuDTO) throws SQLException {
 			        int result = -1;
 			        Connection con = null;
@@ -50,8 +50,8 @@ public class P_work_methodDAO {
 			        return result;
 			    }
 		    
-			// ë‚´ê°€ ë“±ë¡í•œ í…Œì´ë¸” ì „ì²´ ê°€ì ¸ì˜¤ê¸°
-			// ìƒí’ˆì •ë³´ê´€ë¦¬ì—ì„œ ìƒí’ˆì½”ë“œ,ìƒí’ˆëª…,ê·œê²©ë„ ê°€ì ¸ì™”ìŒ
+			// ³»°¡ µî·ÏÇÑ Å×ÀÌºí ÀüÃ¼ °¡Á®¿À±â
+			// »óÇ°Á¤º¸°ü¸®¿¡¼­ »óÇ°ÄÚµå,»óÇ°¸í,±Ô°İµµ °¡Á®¿ÔÀ½
 			public List<P_work_methodDTO> selectP_skuList() throws SQLException {
 			    List<P_work_methodDTO> list = new ArrayList<>();
 			    Connection con = null;
@@ -66,8 +66,8 @@ public class P_work_methodDAO {
 			        while (rs.next()) {
 			        	P_work_methodDTO dto = new P_work_methodDTO();
 			            dto.setWork_method(rs.getString("work_method"));
-			            dto.setSku_code(rs.getString("sku_code")); // ë°ì´í„° íƒ€ì… ìˆ˜ì •
-			            dto.setSku_name(rs.getString("sku_name")); // ë°ì´í„° íƒ€ì… ìˆ˜ì •
+			            dto.setSku_code(rs.getString("sku_code")); // µ¥ÀÌÅÍ Å¸ÀÔ ¼öÁ¤
+			            dto.setSku_name(rs.getString("sku_name")); // µ¥ÀÌÅÍ Å¸ÀÔ ¼öÁ¤
 			            dto.setWork(rs.getString("work"));
 			            dto.setConsumption(rs.getInt("consumption"));
 			            dto.setSku_id(rs.getInt("sku_id"));
@@ -84,7 +84,7 @@ public class P_work_methodDAO {
 			  
 			  
 		    
-		    // ì‚­ì œí• ë•Œ ì“°ì´ëŠ” ê²ƒ
+		    // »èÁ¦ÇÒ¶§ ¾²ÀÌ´Â °Í
 		    public int deleteSkus(String[] skuIds) throws SQLException {
 		        int result = 0;
 		        Connection con = null;
@@ -103,7 +103,7 @@ public class P_work_methodDAO {
 		        }
 		        return result;
 		    }
-		    // ì´ê±´ ìˆ˜ì •í• ë•Œ ì“°ì´ëŠ” ì—…ë°ì´íŠ¸ 
+		    // ÀÌ°Ç ¼öÁ¤ÇÒ¶§ ¾²ÀÌ´Â ¾÷µ¥ÀÌÆ® 
 		    public int updateSku(P_work_methodDTO p_skuDTO) throws SQLException {
 		        int result = 0;
 		        Connection con = null;
@@ -123,7 +123,7 @@ public class P_work_methodDAO {
 		        return result;
 		    }
 		    
-		    // ì¡°íšŒí• ë•Œ ì“°ì´ëŠ” ê²ƒ
+		    // Á¶È¸ÇÒ¶§ ¾²ÀÌ´Â °Í
 			public List<P_work_methodDTO> searchP_skuList(String searchKeyword) throws SQLException {
 			    List<P_work_methodDTO> list = new ArrayList<>();
 			    Connection con = null;

@@ -162,6 +162,7 @@
 <div class="container">
     <h1>◎ 원자재입고관리</h1>
     <span>* 모두 기입</span>
+    
     <form method="post" action="P_material_in_outController" class="form">
         <div class="form-fields">
             <div class="form-row">
@@ -191,8 +192,8 @@
             <button type="button" class="buttons" id="cancelButton" style="display: none;">취소</button>
             <input type="submit" value="삭제" class="buttons" name="action">
         </div>
-        
     </form>
+        <span>원자재 상품고유번호는 1번칫솔모 ,2번칫솔대,3번고무 입니다</span>
 		<div>
         조회할 상품코드를 입력해주세요
         <input type="text" name="searchKeyword" id="searchKeyword">

@@ -30,7 +30,7 @@ public class P_material_in_out2Controller extends HttpServlet {
 		        if (searchKeyword != null && !searchKeyword.isEmpty()) {
 		            resultList = p_skuDAO.searchP_skuList(searchKeyword);
 		            if (resultList.isEmpty()) {
-		                request.setAttribute("message", "ê²€ìƒ‰ ê²°ê³¼ê°€ ì—†ìŠµë‹ˆë‹¤.");
+		                request.setAttribute("message", "°Ë»ö °á°ú°¡ ¾ø½À´Ï´Ù.");
 		            }
 		        } else {
 		            resultList = p_skuDAO.selectP_skuList();
@@ -38,7 +38,7 @@ public class P_material_in_out2Controller extends HttpServlet {
 		        request.setAttribute("resultList", resultList);
 		    } catch (SQLException e) {
 		        e.printStackTrace();
-		        response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "ë°ì´í„°ë² ì´ìŠ¤ ì˜¤ë¥˜");
+		        response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "µ¥ÀÌÅÍº£ÀÌ½º ¿À·ù");
 		        return;
 		    }
 			String url = "p_material_in_out2.jsp";

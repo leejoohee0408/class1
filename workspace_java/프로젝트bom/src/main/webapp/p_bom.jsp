@@ -162,7 +162,7 @@
 <div class="container">
     <h1>◎ BOM</h1>
     <span>* 모두 기입</span>
-    <form method="post" action="p_sku" class="form">
+    <form method="post" action="P_bomController" class="form">
         <div class="form-fields">
             <div class="form-row">
                 <label for="상품고유번호_원자재">상품고유번호_원자재<span>*</span></label>
@@ -263,7 +263,7 @@ function searchSkus() {
 }
 
 
-	// 삭제버튼 클릭 이벤트
+	 // 삭제버튼 클릭 이벤트
     document.querySelector('input[value="삭제"]').addEventListener('click', function(event) {
         // 배열 초기화
     	var selectedChecks = [];
@@ -300,31 +300,25 @@ function searchSkus() {
         });
 
         if (selectedChecks.length === 1) { // 하나만 선택했을 경우
-            var skuId = selectedChecks[0];
-            var selectedRow = document.querySelector('input[name="check"][value="' + skuId + '"]').closest('tr');
+            var Ib_id = selectedChecks[0];
+            var selectedRow = document.querySelector('input[name="check"][value="' + Ib_id + '"]').closest('tr');
 
             // 선택된 행의 데이터 가져오기
-            var skuCode = selectedRow.querySelectorAll('td')[2].textContent;
-            var skuName = selectedRow.querySelectorAll('td')[3].textContent;
-            var skuSize = selectedRow.querySelectorAll('td')[4].textContent;
-            var vendorName = selectedRow.querySelectorAll('td')[5].textContent;
-            var price = selectedRow.querySelectorAll('td')[6].textContent;
-            var skuCategory = selectedRow.querySelectorAll('td')[9].textContent;
+            var skuidmaterial = selectedRow.querySelectorAll('td')[4].textContent;
+            var consumption = selectedRow.querySelectorAll('td')[5].textContent;
+           
 
             // 입력 필드에 데이터 표시
-            document.getElementById('skuCode').value = skuCode;
-            document.getElementById('skuName').value = skuName;
-            document.getElementById('skuSize').value = skuSize;
-            document.getElementById('vendorName').value = vendorName;
-            document.getElementById('price').value = price;
-            document.getElementById('skuCategory').value = skuCategory;
+            document.getElementById('skuidmaterial').value = skuidmaterial;
+            document.getElementById('consumption').value = consumption;
+            
 
             // 수정 버튼 및 취소 버튼 표시
             document.getElementById('updateButton').style.display = 'inline-block';
             document.getElementById('cancelButton').style.display = 'inline-block';
 
             // 수정 모드 설정 (수정 완료 시 필요한 정보)
-            document.getElementById('updateButton').dataset.skuId = skuId;
+            document.getElementById('updateButton').dataset.bom_id = Ib_id;
         } else if (selectedChecks.length > 1){
             alert("수정시 하나의 항목만 선택해주세요.");
         }else {
@@ -334,29 +328,23 @@ function searchSkus() {
 
     // 수정 완료 함수
     function updateSku() {
-        const skuId = document.getElementById('updateButton').dataset.skuId;
-        const skuCode = document.getElementById('skuCode').value;
-        const skuName = document.getElementById('skuName').value;
-        const skuSize = document.getElementById('skuSize').value;
-        const vendorName = document.getElementById('vendorName').value;
-        const price = document.getElementById('price').value;
-        const skuCategory = document.getElementById('skuCategory').value;
+    	const Ib_id = document.getElementById('updateButton').dataset.bom_id;
+        const skuidmaterial = document.getElementById('skuidmaterial').value;
+        const consumption = document.getElementById('consumption').value;
+        
 
         // AJAX 요청을 사용하여 서버에 수정된 상품 정보 전송
-        fetch('p_sku', {
+        fetch('P_bomController', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
             body: new URLSearchParams({
                 action1: '수정',
-                skuId: skuId,
-                p_sku: skuCode,
-                p_sku1: skuName,
-                p_sku2: skuSize,
-                p_sku3: vendorName,
-                p_sku4: price,
-                p_sku5: skuCategory,
+                bom_id: Ib_id,
+                p_sku: skuidmaterial,
+                p_sku1: consumption,
+               
             }),
         })
             .then((response) => response.text())
@@ -367,7 +355,7 @@ function searchSkus() {
             .catch((error) => {
                 console.error('수정 오류:', error);
             });
-    }
-</script>
+    }  
+</script> 
 </body>
 </html>
