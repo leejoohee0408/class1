@@ -60,8 +60,9 @@ public class P_material_in_outDAO {
 		    ResultSet rs = null;
 		    try {
 		        con = getConnection();
-		        String query = "SELECT pmio.*, ps.sku_code, ps.sku_name, ps.sku_size " +
-		                       "FROM P_MATERIAL_IN_OUT pmio LEFT JOIN P_SKU ps ON pmio.sku_id = ps.sku_id";
+		        String query = " SELECT pmio.*, ps.sku_code, ps.sku_name, ps.sku_size " +
+		                       " FROM P_MATERIAL_IN_OUT pmio LEFT JOIN P_SKU ps ON pmio.sku_id = ps.sku_id"
+		                       + " WHERE pmio.sku_type = '입고'";
 		        ps = con.prepareStatement(query);
 		        rs = ps.executeQuery();
 		        while (rs.next()) {
@@ -139,9 +140,9 @@ public class P_material_in_outDAO {
 		    ResultSet rs = null;
 		    try {
 		        con = getConnection();
-		        String query = "SELECT pmio.*, ps.sku_code, ps.sku_name, ps.sku_size " +
-		                       "FROM P_MATERIAL_IN_OUT pmio LEFT JOIN P_SKU ps ON pmio.sku_id = ps.sku_id " +
-		                       "WHERE UPPER(ps.sku_code) LIKE UPPER(?) OR UPPER(ps.sku_name) LIKE UPPER(?)";
+		        String query = " SELECT pmio.*, ps.sku_code, ps.sku_name, ps.sku_size " +
+		                       " FROM P_MATERIAL_IN_OUT pmio LEFT JOIN P_SKU ps ON pmio.sku_id = ps.sku_id " +
+		                       " WHERE (UPPER(ps.sku_code) LIKE UPPER(?) OR UPPER(ps.sku_name) LIKE UPPER(?)) AND pmio.sku_type = '입고'";
 		        ps = con.prepareStatement(query);
 		        ps.setString(1, "%" + searchKeyword + "%");
 		        ps.setString(2, "%" + searchKeyword + "%");

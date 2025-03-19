@@ -36,7 +36,7 @@ public class P_bomDAO {
 			ps.setString(1, p_skuDTO.getSku_id_material());
 			ps.setInt(2, p_skuDTO.getConsumption());
 			ps.setInt(3, p_skuDTO.getSku_id());
-			ps.setString(1, p_skuDTO.getWork_method());
+			ps.setString(4, p_skuDTO.getWork_method());
 
 			result = ps.executeUpdate();
 		} finally {
