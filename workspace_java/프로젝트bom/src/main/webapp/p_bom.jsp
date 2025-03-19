@@ -171,6 +171,13 @@
                 <input type="text" name="p_sku1" id="consumption">
             </div>
             
+            <div class="form-row">
+                <label for="상품고유번호">상품고유번호<span>*</span></label>
+                <input type="text" name="p_sku2" id="skuid">
+                <label for="작업표준서">작업표준서<span>*</span></label>
+                <input type="text" name="p_sku3" id="workmethod">
+            </div>
+            
         </div>
         <div>
             <input type="submit" value="등록" class="buttons">
@@ -190,30 +197,28 @@
         <thead>
         <tr>
             <th><input type="checkbox" id="체크박스"></th>
-            <th>상품고유번호</th>
+            <th>BOMID</th>
             <th>상품코드</th>
             <th>상품명</th>
-            <th>규격</th>
-            <th>업체명</th>
-            <th>단가</th>
-            <th>등록날짜</th>
-            <th>수정날짜</th>
-            <th>제품분류</th>
+            <th>상품고유번호_원자재</th>
+            <th>소모량</th>
+            <th>상품고유번호</th>
+            <th>작업표준서</th>
+           
         </tr>
         </thead>
         <tbody>
         <c:forEach var="dto" items="${resultList}">
             <tr>
-                <td><input type="checkbox" name="check" value="${dto.sku_id}"></td>
-                <td>${dto.sku_id}</td>
+                <td><input type="checkbox" name="check" value="${dto.bom_id}"></td>
+                <td>${dto.bom_id}</td>
                 <td>${dto.sku_code}</td>
                 <td>${dto.sku_name}</td>
-                <td>${dto.sku_size}</td>
-                <td>${dto.vendor_name}</td>
-                <td>${dto.price}</td>
-                <td>${dto.create_date}</td>
-                <td>${dto.modify_date}</td>
-                <td>${dto.sku_category}</td>
+                <td>${dto.sku_id_material}</td>
+                <td>${dto.consumption}</td>
+                <td>${dto.sku_id}</td>
+                <td>${dto.work_method}</td>
+                
                 
             </tr>
         </c:forEach>
@@ -250,10 +255,10 @@ function searchSkus() {
     var searchKeyword = document.getElementById('searchKeyword').value;
     if (searchKeyword.trim() === "") {
         // 검색어가 없을 경우 전체 목록 조회
-        window.location.href = "p_sku";
+        window.location.href = "P_bomController";
     } else {
         // 검색어가 있을 경우 검색 결과 조회
-        window.location.href = "p_sku?searchKeyword=" + searchKeyword;
+        window.location.href = "P_bomController?searchKeyword=" + searchKeyword;
     }
 }
 

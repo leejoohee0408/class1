@@ -1577,7 +1577,7 @@ COMMIT;
 drop table p_material_in_out;
 
 --원자재입출력관리테이블생성
-CREATE TABLE p_material_in_out ( 
+CREATE TABLE p_material_in_out (
     IB_ID NUMBER(10, 0) NOT NULL,
     MATERIAL_COUNT NUMBER(15, 2) NOT NULL,
     MATERIAL_PRICE NUMBER(15, 2) NOT NULL,
@@ -1585,15 +1585,37 @@ CREATE TABLE p_material_in_out (
     CREATE_DATE DATE NOT NULL,
     MODIFY_DATE DATE,
     REMARKS VARCHAR2(255 BYTE),
+    SKU_ID NUMBER(10, 0) NOT NULL,
     BILL_ID NUMBER(10, 0) NOT NULL,
-    SKU_ID NUMBER(10, 0) NOT NULL
+    
+
+    -- 기본 키 제약 조건 추가
+    CONSTRAINT PK_P_MATERIAL_IN_OUT PRIMARY KEY (IB_ID),
+
+    -- 외래 키 제약 조건 1 추가
+    CONSTRAINT FK_BILL_MAT_1 -- 제약 조건 이름 변경 (길이 제한 고려)
+    FOREIGN KEY (BILL_ID)
+    REFERENCES P_BILL(BILL_ID),
+
+    -- 외래 키 제약 조건 2 추가
+    CONSTRAINT FK_SKU_MAT_1 -- 제약 조건 이름 변경 (길이 제한 고려)
+    FOREIGN KEY (SKU_ID)
+    REFERENCES P_SKU(SKU_ID)
 );
 --원자재입출력관리테이블확인
 select * from P_MATERIAL_IN_OUT;
 
+
+--시퀀스 생성 p_material_in_out
+CREATE SEQUENCE seq_p_material_in_out
+START WITH 1 -- 시작 값
+INCREMENT BY 1; -- 증가 값
+
 --원자재입출력관리테이블에 직접입력
 insert into p_material_in_out
-VALUES (seq_p_material_in_out.nextval, 1, 1, 'text', SYSDATE, NULL,'text',10,2);
+VALUES (seq_p_material_in_out.nextval, 1, 1, 'text', SYSDATE, NULL,'text',1,67);
+insert into p_material_in_out
+VALUES (seq_p_material_in_out.nextval, 1, 1, 'text', SYSDATE, NULL,'text',2,67);
 
 
 --완제품입출고관리테이블삭제
@@ -1632,6 +1654,54 @@ CREATE SEQUENCE seq_p_product_in_out
 START WITH 1 -- 시작 값
 INCREMENT BY 1; -- 증가 값
 
+--p_product_in_out에 등록
 insert into P_PRODUCT_IN_OUT
 VALUES (seq_p_product_in_out.nextval, 1, 1, 'text', SYSDATE, NULL,'text',1,2);
 
+--작업표준서 확인
+select * from p_work_method;
+
+--이게 상품정보관리랑 작업표준서 연결함 +  조회까지임
+SELECT *
+FROM P_SKU  PS
+LEFT JOIN P_WORK_METHOD  PWM ON PS.SKU_ID = PWM.SKU_ID;
+
+--시퀀스 생성 작업표준서
+CREATE SEQUENCE seq_p_work_method
+START WITH 1 -- 시작 값
+INCREMENT BY 1; -- 증가 값
+
+--p_work_method에 등록
+insert into p_work_method
+VALUES (seq_p_work_method.nextval,'text',1,1);
+
+--작업표준서테이블에있는 컬럼없애기
+alter table p_work_method drop column sku_name;
+
+--작업표준서테이블에 작업양식사진 컬럼 추가
+ALTER TABLE p_work_method ADD work_file VARCHAR2(255);
+
+--bom테이블에있는 컬럼없애기
+alter table p_bom drop column sku_code;
+
+select * from p_bom;
+
+--이게 상품정보관리랑 bom 연결함 +  조회까지임
+SELECT *
+FROM P_SKU  PS
+LEFT JOIN P_BOM  PB ON PS.SKU_ID = PB.SKU_ID;
+
+--이게 상품정보관리랑 bom 연결함 +  조회까지임
+SELECT *
+FROM P_WORK_METHOD  PWM
+LEFT JOIN P_BOM  PB ON PWM.WORK_METHOD = PB.WORK_METHOD;
+--bom에 삽입
+insert into p_bom
+VALUES (seq_p_bom.nextval,'text',1,1,1);
+
+--시퀀스 생성 bom
+CREATE SEQUENCE seq_p_bom
+START WITH 1 -- 시작 값
+INCREMENT BY 1; -- 증가 값
+
+commit;

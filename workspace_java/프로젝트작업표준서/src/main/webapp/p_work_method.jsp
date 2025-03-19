@@ -162,7 +162,7 @@
 <div class="container">
     <h1>◎ 작업표준서</h1>
     <span>* 모두 기입</span>
-    <form method="post" action="p_sku" class="form">
+    <form method="post" action="P_work_methodController" class="form">
         <div class="form-fields">
             <div class="form-row">
                 <label for="작업양식">작업양식<span>*</span></label>
@@ -170,8 +170,14 @@
                 <label for="소모량">소모량<span>*</span></label>
                 <input type="text" name="p_sku1" id="consumption">
             </div>
-            
-            
+            <div class="form-row">
+                <label for="상품고유번호">상품고유번호<span>*</span></label>
+                <input type="text" name="p_sku2" id="skuid">
+                 <label for="작업양식사진">작업양식사진</label>
+            	<input type="file" name="p_sku3" id="workfile">
+                 
+            </div>
+             
         </div>
         <div>
             <input type="submit" value="등록" class="buttons">
@@ -184,39 +190,37 @@
         
     </form>
 		<div>
-        조회할것 입력해주세요
+        조회할 상품코드를 입력해주세요
         <input type="text" name="searchKeyword" id="searchKeyword">
         </div>
+        <!-- 검색결과가 없을때 나온다 -->
+        <c:if test="${not empty message}">
+    <p style="color: red;">${message}</p>
+		</c:if>
     <table border=1>
         <thead>
         <tr>
             <th><input type="checkbox" id="체크박스"></th>
-            <th>원자재관리번호</th>
-            <th>원자재수량</th>
-            <th>원자재가격</th>
+            <th>작업표준서</th>
             <th>상품코드</th>
             <th>상품명</th>
-            <th>규격</th>
-            <th>분류</th>
-            <th>등록날짜</th>
-            <th>수정날짜</th>
-            <th>비고사항</th>
+            <th>작업양식</th>
+            <th>소모량</th>
+            <th>상품고유번호</th>
+            <th>작업양식사진</th>
         </tr>
         </thead>
         <tbody>
         <c:forEach var="dto" items="${resultList}">
             <tr>
-                <td><input type="checkbox" name="check" value="${dto.ib_id}"></td>
-                <td>${dto.ib_id}</td>
-                <td>${dto.material_count}</td>
-                <td>${dto.material_price}</td>
+                <td><input type="checkbox" name="check" value="${dto.work_method}"></td>
+                <td>${dto.work_method}</td>
                 <td>${dto.sku_code}</td>
                 <td>${dto.sku_name}</td>
-                <td>${dto.sku_size}</td>
-                <td>${dto.sku_type}</td>
-                <td>${dto.create_date}</td>
-                <td>${dto.modify_date}</td>
-                <td>${dto.remarks}</td>
+                <td>${dto.work}</td>
+                <td>${dto.consumption}</td>                
+                <td>${dto.sku_id}</td>
+                
                 
             </tr>
         </c:forEach>
@@ -239,7 +243,7 @@
         </div>
 </div>
 
-<script>
+ <script>
 //전체 선택/해제 체크박스 이벤트
 document.getElementById('체크박스').addEventListener('change', function() {
     var checkboxes = document.querySelectorAll('input[name="check"]');
@@ -253,15 +257,15 @@ function searchSkus() {
     var searchKeyword = document.getElementById('searchKeyword').value;
     if (searchKeyword.trim() === "") {
         // 검색어가 없을 경우 전체 목록 조회
-        window.location.href = "p_material_in_out";
+        window.location.href = "P_work_methodController";
     } else {
         // 검색어가 있을 경우 검색 결과 조회
-        window.location.href = "p_material_in_out?searchKeyword=" + searchKeyword;
+        window.location.href = "P_work_methodController?searchKeyword=" + searchKeyword;
     }
 }
 
 
-	// 삭제버튼 클릭 이벤트
+	 // 삭제버튼 클릭 이벤트
     document.querySelector('input[value="삭제"]').addEventListener('click', function(event) {
         // 배열 초기화
     	var selectedChecks = [];
@@ -298,33 +302,25 @@ function searchSkus() {
         });
 
         if (selectedChecks.length === 1) { // 하나만 선택했을 경우
-            var skuId = selectedChecks[0];
-            var selectedRow = document.querySelector('input[name="check"][value="' + skuId + '"]').closest('tr');
+            var Ib_id = selectedChecks[0];
+            var selectedRow = document.querySelector('input[name="check"][value="' + Ib_id + '"]').closest('tr');
 
             // 선택된 행의 데이터 가져오기
-            var materialcount = selectedRow.querySelectorAll('td')[2].textContent;
-            var materialprice = selectedRow.querySelectorAll('td')[3].textContent;
-            var skucode = selectedRow.querySelectorAll('td')[4].textContent;
-            var skuname = selectedRow.querySelectorAll('td')[5].textContent;
-            var skusize = selectedRow.querySelectorAll('td')[6].textContent;
-            var skutype = selectedRow.querySelectorAll('td')[7].textContent;
-            var remarks = selectedRow.querySelectorAll('td')[10].textContent;
+            var work = selectedRow.querySelectorAll('td')[4].textContent;
+            var consumption = selectedRow.querySelectorAll('td')[5].textContent;
+           
 
             // 입력 필드에 데이터 표시
-            document.getElementById('materialcount').value = materialcount;
-            document.getElementById('materialprice').value = materialprice;
-            document.getElementById('skucode').value = skucode;
-            document.getElementById('skuname').value = sku_name;
-            document.getElementById('skusize').value = sku_size;
-            document.getElementById('skutype').value = sku_type;
-            document.getElementById('remarks').value = remarks;
+            document.getElementById('work').value = work;
+            document.getElementById('consumption').value = consumption;
+            
 
             // 수정 버튼 및 취소 버튼 표시
             document.getElementById('updateButton').style.display = 'inline-block';
             document.getElementById('cancelButton').style.display = 'inline-block';
 
             // 수정 모드 설정 (수정 완료 시 필요한 정보)
-            document.getElementById('updateButton').dataset.skuId = skuId;
+            document.getElementById('updateButton').dataset.work_method = Ib_id;
         } else if (selectedChecks.length > 1){
             alert("수정시 하나의 항목만 선택해주세요.");
         }else {
@@ -334,31 +330,23 @@ function searchSkus() {
 
     // 수정 완료 함수
     function updateSku() {
-        const skuId = document.getElementById('updateButton').dataset.skuId;
-        const materialcount = document.getElementById('materialcount').value;
-        const materialprice = document.getElementById('materialprice').value;
-        const skucode = document.getElementById('skucode').value;
-        const sku_name = document.getElementById('skuname').value;
-        const skusize = document.getElementById('skusize').value;
-        const skutype = document.getElementById('skutype').value;
-        const remarks = document.getElementById('remarks').value;
+    	const Ib_id = document.getElementById('updateButton').dataset.work_method;
+        const work = document.getElementById('work').value;
+        const consumption = document.getElementById('consumption').value;
+        
 
         // AJAX 요청을 사용하여 서버에 수정된 상품 정보 전송
-        fetch('p_sku', {
+        fetch('P_work_methodController', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
             body: new URLSearchParams({
                 action1: '수정',
-                skuId: skuId,
-                p_sku: materialcount,
-                p_sku1: materialprice,
-                p_sku2: skucode,
-                p_sku3: skuname,
-                p_sku4: skusize,
-                p_sku5: skutype,
-                p_sku6: remarks,
+                work_method: Ib_id,
+                p_sku: work,
+                p_sku1: consumption,
+               
             }),
         })
             .then((response) => response.text())
@@ -369,7 +357,7 @@ function searchSkus() {
             .catch((error) => {
                 console.error('수정 오류:', error);
             });
-    }
-</script>
+    }  
+</script> 
 </body>
 </html>
