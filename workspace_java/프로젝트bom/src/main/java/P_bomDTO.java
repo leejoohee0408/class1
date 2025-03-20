@@ -8,8 +8,22 @@ public class P_bomDTO {
 	int consumption;
 	int sku_id;
 	String work_method;
+	String work;
+	String workfile;
 	
 	
+	public String getWork() {
+		return work;
+	}
+	public void setWork(String work) {
+		this.work = work;
+	}
+	public String getWorkfile() {
+		return workfile;
+	}
+	public void setWorkfile(String workfile) {
+		this.workfile = workfile;
+	}
 	public int getBom_id() {
 		return bom_id;
 	}

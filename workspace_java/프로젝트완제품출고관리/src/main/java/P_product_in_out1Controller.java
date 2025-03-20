@@ -26,7 +26,7 @@ public class P_product_in_out1Controller extends HttpServlet {
 			if (searchKeyword != null && !searchKeyword.isEmpty()) {
 				resultList = p_skuDAO.searchP_skuList(searchKeyword);
 				if (resultList.isEmpty()) {
-					request.setAttribute("message", "°Ë»ö °á°ú°¡ ¾ø½À´Ï´Ù.");
+					request.setAttribute("message", "ê²€ìƒ‰ ê²°ê³¼ê°€ ì—†ìŠµë‹ˆë‹¤.");
 				}
 			} else {
 				resultList = p_skuDAO.selectP_skuList();
@@ -34,7 +34,7 @@ public class P_product_in_out1Controller extends HttpServlet {
 			request.setAttribute("resultList", resultList);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "µ¥ÀÌÅÍº£ÀÌ½º ¿À·ù");
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "ë°ì´í„°ë² ì´ìŠ¤ ì˜¤ë¥˜");
 			return;
 		}
 		String url = "p_product_in_out1.jsp";
@@ -48,28 +48,28 @@ public class P_product_in_out1Controller extends HttpServlet {
 		String action = request.getParameter("action");
 		String action1 = request.getParameter("action1");
 
-		// »èÁ¦
-		if ("»èÁ¦".equals(action)) {
-			// check ÆÄ¶ó¹ÌÅÍ °ªÀ» checkParam¹Ù²åÀ½
+		// ì‚­ì œ
+		if ("ì‚­ì œ".equals(action)) {
+			// check íŒŒë¼ë¯¸í„° ê°’ì„ checkParamë°”ê¿¨ìŒ
 			String checkParam = request.getParameter("check");
-			// »èÁ¦ÇÒ²¨ Ã¼Å©µÈ°æ¿ì
+			// ì‚­ì œí• êº¼ ì²´í¬ëœê²½ìš°
 			if (checkParam != null && !checkParam.isEmpty()) {
-				// Ã¼Å©ÇÑ°Å ½°Ç¥¸¦ ±âÁØÀ¸·Î ºĞ¸®ÇÏ¿© ¹è¿­ »ı¼º
+				// ì²´í¬í•œê±° ì‰¼í‘œë¥¼ ê¸°ì¤€ìœ¼ë¡œ ë¶„ë¦¬í•˜ì—¬ ë°°ì—´ ìƒì„±
 				String[] skuIds = checkParam.split(",");
 				P_product_in_out1DAO p_skuDAO = new P_product_in_out1DAO();
 				try {
-					// ¹è¿­À» »ç¿ëÇØ¼­ Ã¼Å©µÈ°Å »èÁ¦ ¸Ş¼­µå¸¦ ºÎ¸§
+					// ë°°ì—´ì„ ì‚¬ìš©í•´ì„œ ì²´í¬ëœê±° ì‚­ì œ ë©”ì„œë“œë¥¼ ë¶€ë¦„
 					p_skuDAO.deleteSkus(skuIds);
 				} catch (SQLException e) {
 					e.printStackTrace();
-					response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "»èÁ¦ Áß ¿À·ù ¹ß»ı");
+					response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "ì‚­ì œ ì¤‘ ì˜¤ë¥˜ ë°œìƒ");
 					return;
 				}
 			}
-			// ¼öÁ¤
-		} else if ("¼öÁ¤".equals(action1)) {
+			// ìˆ˜ì •
+		} else if ("ìˆ˜ì •".equals(action1)) {
 			try {
-				// °¢ ÆÄ¶ó¹ÌÅÍ °ªÀ» °¡Á®¿È
+				// ê° íŒŒë¼ë¯¸í„° ê°’ì„ ê°€ì ¸ì˜´
 				int Ib_id = Integer.parseInt(request.getParameter("Ib_id"));
 				int productcount = Integer.parseInt(request.getParameter("p_sku"));
 				int productprice = Integer.parseInt(request.getParameter("p_sku1"));
@@ -77,7 +77,7 @@ public class P_product_in_out1Controller extends HttpServlet {
 				String remarks = request.getParameter("p_sku3");
 
 				P_product_in_out1DTO p_skuDTO = new P_product_in_out1DTO();
-				// °¢ ÆÄ¶ó¹ÌÅÍ °ªÀ» p_skuDTO¿¡ ¼³Á¤
+				// ê° íŒŒë¼ë¯¸í„° ê°’ì„ p_skuDTOì— ì„¤ì •
 				p_skuDTO.setIb_id(Ib_id);
 				p_skuDTO.setProduct_count(productcount);
 				p_skuDTO.setProduct_price(productprice);
@@ -85,21 +85,21 @@ public class P_product_in_out1Controller extends HttpServlet {
 				p_skuDTO.setRemarks(remarks);
 
 				P_product_in_out1DAO p_skuDAO = new P_product_in_out1DAO();
-				// P_skuDTO¸¦ »ç¿ëÇÏ¿© DB ¼öÁ¤ ¸Ş¼­µå¸¦ ºÎ¸§
+				// P_skuDTOë¥¼ ì‚¬ìš©í•˜ì—¬ DB ìˆ˜ì • ë©”ì„œë“œë¥¼ ë¶€ë¦„
 				p_skuDAO.updateSku(p_skuDTO);
 			} catch (NumberFormatException e) {
 				e.printStackTrace();
-				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Àß¸øµÈ °¡°İ Çü½Ä");
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ì˜ëª»ëœ ê°€ê²© í˜•ì‹");
 				return;
 			} catch (SQLException e) {
 				e.printStackTrace();
-				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "¼öÁ¤ Áß ¿À·ù ¹ß»ı");
+				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "ìˆ˜ì • ì¤‘ ì˜¤ë¥˜ ë°œìƒ");
 				return;
 			}
-			// »èÁ¦ ¶Ç´Â ¼öÁ¤ÀÌ ¾Æ´Ï¸é µî·ÏµÇ°Ô ÇÏ±â
+			// ì‚­ì œ ë˜ëŠ” ìˆ˜ì •ì´ ì•„ë‹ˆë©´ ë“±ë¡ë˜ê²Œ í•˜ê¸°
 		} else {
 			try {
-				// °¢ ÆÄ¶ó¹ÌÅÍ°ª °¡Á®¿À±â
+				// ê° íŒŒë¼ë¯¸í„°ê°’ ê°€ì ¸ì˜¤ê¸°
 				int productcount = Integer.parseInt(request.getParameter("p_sku"));
 				int productprice = Integer.parseInt(request.getParameter("p_sku1"));
 				String skutype = request.getParameter("p_sku2");
@@ -107,7 +107,7 @@ public class P_product_in_out1Controller extends HttpServlet {
 				int skuid = Integer.parseInt(request.getParameter("p_sku4"));
 				int empno = Integer.parseInt(request.getParameter("p_sku5"));
 
-				// DTO¿¡ °ª ¼³Á¤
+				// DTOì— ê°’ ì„¤ì •
 				P_product_in_out1DTO p_skuDTO = new P_product_in_out1DTO();
 				p_skuDTO.setProduct_count(productcount);
 				p_skuDTO.setProduct_price(productprice);
@@ -116,25 +116,25 @@ public class P_product_in_out1Controller extends HttpServlet {
 				p_skuDTO.setSku_id(skuid);
 				p_skuDTO.setEmpno(empno);
 
-				// DAO¸¦ ÅëÇØ µî·Ï ¸Ş¼­µå È£Ãâ
+				// DAOë¥¼ í†µí•´ ë“±ë¡ ë©”ì„œë“œ í˜¸ì¶œ
 				P_product_in_out1DAO p_skuDAO = new P_product_in_out1DAO();
 				p_skuDAO.insertsku(p_skuDTO);
-				System.out.println("µ¥ÀÌÅÍ µî·Ï ¼º°ø: " + p_skuDTO.getIb_id());
+				System.out.println("ë°ì´í„° ë“±ë¡ ì„±ê³µ: " + p_skuDTO.getIb_id());
 
-				// µî·Ï ÈÄ doGet() ¸Ş¼­µå È£ÃâÇÏ¿© Å×ÀÌºí ´Ù½Ã ·Îµå
+				// ë“±ë¡ í›„ doGet() ë©”ì„œë“œ í˜¸ì¶œí•˜ì—¬ í…Œì´ë¸” ë‹¤ì‹œ ë¡œë“œ
 				doGet(request, response);
 
 			} catch (NumberFormatException e) {
 				e.printStackTrace();
-				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Àß¸øµÈ °¡°İ Çü½Ä");
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ì˜ëª»ëœ ê°€ê²© í˜•ì‹");
 				return;
 			} catch (SQLException e) {
 				e.printStackTrace();
-				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "µî·Ï Áß ¿À·ù ¹ß»ı");
+				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "ë“±ë¡ ì¤‘ ì˜¤ë¥˜ ë°œìƒ");
 				return;
 			}
 		}
-		// µî·Ï ¿Ï·á ÈÄ ¸®´ÙÀÌ·ºÆ®
+		// ë“±ë¡ ì™„ë£Œ í›„ ë¦¬ë‹¤ì´ë ‰íŠ¸
 		response.sendRedirect("P_product_in_out1Controller");
 	}
 

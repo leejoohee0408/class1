@@ -171,11 +171,14 @@
     <p style="color: red;">${message}</p>
 		</c:if>
 		
+      
+      <!-- 작업자 및 관리자에 다뜹니다 -->
         <div>
             
             <input type="button" value="조회" class="buttons" onclick="searchSkus()"> 
             
         </div>
+        
         
     </form>
 		

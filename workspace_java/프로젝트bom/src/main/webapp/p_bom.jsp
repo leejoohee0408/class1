@@ -180,19 +180,32 @@
             
         </div>
         <div>
+        <!-- 작업자 -->
+          <c:if test="${user.grade == 2}">
+          <input type="button" value="조회" class="buttons" onclick="searchSkus()"> 
+          </c:if>
+        <!-- 관리자 -->
+        <c:if test="${user.grade == 1}">
+        
             <input type="submit" value="등록" class="buttons">
             <input type="button" value="조회" class="buttons" onclick="searchSkus()"> 
             <button type="button" class="buttons" id="editSelectedButton">수정</button> 
             <button type="button" class="buttons" id="updateButton" style="display: none;" onclick="updateSku()">수정 완료</button>
             <button type="button" class="buttons" id="cancelButton" style="display: none;">취소</button>
             <input type="submit" value="삭제" class="buttons" name="action">
+        </c:if>
         </div>
         
     </form>
+		<span>완제품 상품고유번호는 4번칫솔 입니다</span>
 		<div>
-        조회할것 입력해주세요
+        조회할 상품코드를 입력해주세요
         <input type="text" name="searchKeyword" id="searchKeyword">
         </div>
+        <!-- 검색결과가 없을때 나온다 -->
+        <c:if test="${not empty message}">
+    	<p style="color: red;">${message}</p>
+		</c:if>
     <table border=1>
         <thead>
         <tr>
@@ -204,6 +217,8 @@
             <th>소모량</th>
             <th>상품고유번호</th>
             <th>작업표준서</th>
+             <th>작업양식</th>
+            <th>작업양식사진</th> 
            
         </tr>
         </thead>
@@ -218,6 +233,8 @@
                 <td>${dto.consumption}</td>
                 <td>${dto.sku_id}</td>
                 <td>${dto.work_method}</td>
+               <td>${dto.work}</td>
+                <td>${dto.workfile}</td> 
                 
                 
             </tr>

@@ -1691,7 +1691,7 @@ SELECT *
 FROM P_SKU  PS
 LEFT JOIN P_BOM  PB ON PS.SKU_ID = PB.SKU_ID;
 
---이게 상품정보관리랑 bom 연결함 +  조회까지임
+--이게 작업표준서랑 bom 연결함 +  조회까지임
 SELECT *
 FROM P_WORK_METHOD  PWM
 LEFT JOIN P_BOM  PB ON PWM.WORK_METHOD = PB.WORK_METHOD;
@@ -1705,3 +1705,5 @@ START WITH 1 -- 시작 값
 INCREMENT BY 1; -- 증가 값
 
 commit;
+
+select * from p_work_method;

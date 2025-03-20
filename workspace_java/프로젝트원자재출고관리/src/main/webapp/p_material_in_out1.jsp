@@ -184,12 +184,20 @@
             </div>
         </div>
         <div>
+        <!-- 작업자 -->
+          <c:if test="${user.grade == 2}">
+          <input type="button" value="조회" class="buttons" onclick="searchSkus()"> 
+          </c:if>
+        <!-- 관리자 -->
+        <c:if test="${user.grade == 1}">
+        
             <input type="submit" value="등록" class="buttons">
             <input type="button" value="조회" class="buttons" onclick="searchSkus()"> 
             <button type="button" class="buttons" id="editSelectedButton">수정</button> 
             <button type="button" class="buttons" id="updateButton" style="display: none;" onclick="updateSku()">수정 완료</button>
             <button type="button" class="buttons" id="cancelButton" style="display: none;">취소</button>
             <input type="submit" value="삭제" class="buttons" name="action">
+        </c:if>
         </div>
         
     </form>

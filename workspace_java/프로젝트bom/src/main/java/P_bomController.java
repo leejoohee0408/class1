@@ -1,5 +1,4 @@
 
-
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -11,32 +10,34 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
+
 @WebServlet("/P_bomController")
 public class P_bomController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// ì¡°íšŒí• ë–„ ì“°ì´ëŠ” ì…ë ¥í•˜ëŠ”ê³³ ì´ë¦„
 		String searchKeyword = request.getParameter("searchKeyword");
 
-		if (searchKeyword != null) {
-			searchKeyword = searchKeyword.trim();
-		}
 		P_bomDAO p_skuDAO = new P_bomDAO();
 		List<P_bomDTO> resultList;
 		try {
 			if (searchKeyword != null && !searchKeyword.isEmpty()) {
+				// ê²€ìƒ‰ì–´ê°€ ìˆì„ ê²½ìš° ê²€ìƒ‰ ë©”ì„œë“œ í˜¸ì¶œ
 				resultList = p_skuDAO.searchP_skuList(searchKeyword);
 				if (resultList.isEmpty()) {
-					request.setAttribute("message", "°Ë»ö °á°ú°¡ ¾ø½À´Ï´Ù.");
-				}
+	                request.setAttribute("message", "ê²€ìƒ‰ ê²°ê³¼ê°€ ì—†ìŠµë‹ˆë‹¤.");
+	            }
 			} else {
+				// ê²€ìƒ‰ì–´ê°€ ì—†ì„ ê²½ìš° ì „ì²´ ëª©ë¡ ì¡°íšŒ
 				resultList = p_skuDAO.selectP_skuList();
 			}
+			// ì¡°íšŒ ê²°ê³¼ ì €ì¥
 			request.setAttribute("resultList", resultList);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "µ¥ÀÌÅÍº£ÀÌ½º ¿À·ù");
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "ë°ì´í„°ë² ì´ìŠ¤ ì˜¤ë¥˜");
 			return;
 		}
 		String url = "p_bom.jsp";
@@ -50,92 +51,87 @@ public class P_bomController extends HttpServlet {
 		String action = request.getParameter("action");
 		String action1 = request.getParameter("action1");
 
-		// »èÁ¦
-		if ("»èÁ¦".equals(action)) {
-			// check ÆÄ¶ó¹ÌÅÍ °ªÀ» checkParam¹Ù²åÀ½
-			String checkParam = request.getParameter("check");
-			// »èÁ¦ÇÒ²¨ Ã¼Å©µÈ°æ¿ì
-			if (checkParam != null && !checkParam.isEmpty()) {
-				// Ã¼Å©ÇÑ°Å ½°Ç¥¸¦ ±âÁØÀ¸·Î ºĞ¸®ÇÏ¿© ¹è¿­ »ı¼º
-				String[] skuIds = checkParam.split(",");
-				P_bomDAO p_skuDAO = new P_bomDAO();
-				try {
-					// ¹è¿­À» »ç¿ëÇØ¼­ Ã¼Å©µÈ°Å »èÁ¦ ¸Ş¼­µå¸¦ ºÎ¸§
-					p_skuDAO.deleteSkus(skuIds);
-				} catch (SQLException e) {
-					e.printStackTrace();
-					response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "»èÁ¦ Áß ¿À·ù ¹ß»ı");
-					return;
-				}
-			}
-			// ¼öÁ¤
-		} else if ("¼öÁ¤".equals(action1)) {
+		// ì‚­ì œ
+        if ("ì‚­ì œ".equals(action)) {
+        	// check íŒŒë¼ë¯¸í„° ê°’ì„ checkParamë°”ê¿¨ìŒ
+            String checkParam = request.getParameter("check");
+            // ì‚­ì œí• êº¼ ì²´í¬ëœê²½ìš°
+            if (checkParam != null && !checkParam.isEmpty()) {
+            	// ì²´í¬í•œê±° ì‰¼í‘œë¥¼ ê¸°ì¤€ìœ¼ë¡œ ë¶„ë¦¬í•˜ì—¬ ë°°ì—´ ìƒì„±
+                String[] skuIds = checkParam.split(",");
+                P_bomDAO p_skuDAO = new P_bomDAO();
+                try {
+                	// ë°°ì—´ì„ ì‚¬ìš©í•´ì„œ ì²´í¬ëœê±° ì‚­ì œ ë©”ì„œë“œë¥¼ ë¶€ë¦„
+                    p_skuDAO.deleteSkus(skuIds);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "ì‚­ì œ ì¤‘ ì˜¤ë¥˜ ë°œìƒ");
+                    return;
+                }
+            }
+         // ìˆ˜ì •
+		} else if ("ìˆ˜ì •".equals(action1)) {
 			try {
-				// °¢ ÆÄ¶ó¹ÌÅÍ °ªÀ» °¡Á®¿È
+				// ê° íŒŒë¼ë¯¸í„° ê°’ì„ ê°€ì ¸ì˜´
 				int bom_id = Integer.parseInt(request.getParameter("bom_id"));
-				String sku_id_material = request.getParameter("sku_id_material");
+				String sku_id_material = request.getParameter("p_sku");
 				int consumption = Integer.parseInt(request.getParameter("p_sku1"));
 //				
-				
-				
 
 				P_bomDTO p_skuDTO = new P_bomDTO();
-				// °¢ ÆÄ¶ó¹ÌÅÍ °ªÀ» p_skuDTO¿¡ ¼³Á¤
+				// ê° íŒŒë¼ë¯¸í„° ê°’ì„ p_skuDTOì— ì„¤ì •
 				p_skuDTO.setBom_id(bom_id);
 				p_skuDTO.setSku_id_material(sku_id_material);
 				p_skuDTO.setConsumption(consumption);
 //				
-				
+
 				P_bomDAO p_skuDAO = new P_bomDAO();
-				// P_skuDTO¸¦ »ç¿ëÇÏ¿© DB ¼öÁ¤ ¸Ş¼­µå¸¦ ºÎ¸§
+				// P_skuDTOë¥¼ ì‚¬ìš©í•˜ì—¬ DB ìˆ˜ì • ë©”ì„œë“œë¥¼ ë¶€ë¦„
 				p_skuDAO.updateSku(p_skuDTO);
 			} catch (NumberFormatException e) {
 				e.printStackTrace();
-				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Àß¸øµÈ °¡°İ Çü½Ä");
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ì˜ëª»ëœ ê°€ê²© í˜•ì‹");
 				return;
 			} catch (SQLException e) {
 				e.printStackTrace();
-				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "¼öÁ¤ Áß ¿À·ù ¹ß»ı");
+				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "ìˆ˜ì • ì¤‘ ì˜¤ë¥˜ ë°œìƒ");
 				return;
 			}
-			// »èÁ¦ ¶Ç´Â ¼öÁ¤ÀÌ ¾Æ´Ï¸é µî·ÏµÇ°Ô ÇÏ±â
+			// ì‚­ì œ ë˜ëŠ” ìˆ˜ì •ì´ ì•„ë‹ˆë©´ ë“±ë¡ë˜ê²Œ í•˜ê¸°
 		} else {
 			try {
-				// °¢ ÆÄ¶ó¹ÌÅÍ°ª °¡Á®¿À±â
+				//ê° íŒŒë¼ë¯¸í„°ê°’ ê°€ì ¸ì˜¤ê¸°
 				String skuidmaterial = request.getParameter("p_sku");
 				int consumption = Integer.parseInt(request.getParameter("p_sku1"));
 				int skuid = Integer.parseInt(request.getParameter("p_sku2"));
-				int work_method = Integer.parseInt(request.getParameter("p_sku3"));
-				
-				
-	            
-				// DTO¿¡ °ª ¼³Á¤
+				String work_method = request.getParameter("p_sku3");
+
+				// DTOì— ê°’ ì„¤ì •
 				P_bomDTO p_skuDTO = new P_bomDTO();
 				p_skuDTO.setSku_id_material(skuidmaterial);
 				p_skuDTO.setConsumption(consumption);
 				p_skuDTO.setSku_id(skuid);
-				p_skuDTO.setSku_id(work_method);
-				
+				p_skuDTO.setWork_method(work_method);
 
-				// DAO¸¦ ÅëÇØ µî·Ï ¸Ş¼­µå È£Ãâ
+				 // DAOë¥¼ í†µí•´ ë“±ë¡ ë©”ì„œë“œ í˜¸ì¶œ
 				P_bomDAO p_skuDAO = new P_bomDAO();
 				p_skuDAO.insertsku(p_skuDTO);
-				System.out.println("µ¥ÀÌÅÍ µî·Ï ¼º°ø: " + p_skuDTO.getBom_id());
+				System.out.println("ë°ì´í„° ë“±ë¡ ì„±ê³µ: " + p_skuDTO.getBom_id());
 
-				// µî·Ï ÈÄ doGet() ¸Ş¼­µå È£ÃâÇÏ¿© Å×ÀÌºí ´Ù½Ã ·Îµå
+				// ë“±ë¡ í›„ doGet() ë©”ì„œë“œ í˜¸ì¶œí•˜ì—¬ í…Œì´ë¸” ë‹¤ì‹œ ë¡œë“œ
 				doGet(request, response);
 
 			} catch (NumberFormatException e) {
 				e.printStackTrace();
-				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Àß¸øµÈ °¡°İ Çü½Ä");
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ì˜ëª»ëœ ê°€ê²© í˜•ì‹");
 				return;
 			} catch (SQLException e) {
 				e.printStackTrace();
-				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "µî·Ï Áß ¿À·ù ¹ß»ı");
+				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "ë“±ë¡ ì¤‘ ì˜¤ë¥˜ ë°œìƒ");
 				return;
 			}
 		}
-		// µî·Ï ¿Ï·á ÈÄ ¸®´ÙÀÌ·ºÆ®
+     // ë“±ë¡ ì™„ë£Œ í›„ ë¦¬ë‹¤ì´ë ‰íŠ¸
 		response.sendRedirect("P_bomController");
 	}
 }

@@ -13,7 +13,7 @@ import javax.sql.DataSource;
 public class P_skuDAO {
 	
 
-	// DB ¿¬°áÇÏ±â
+	// DB ì—°ê²°í•˜ê¸°
 	   public Connection getConnection() throws SQLException {
 	        try {
 	            Context ctx = new InitialContext();
@@ -21,11 +21,11 @@ public class P_skuDAO {
 	            return ds.getConnection();
 	        } catch (Exception e) {
 	            e.printStackTrace();
-	            throw new SQLException("µ¥ÀÌÅÍº£ÀÌ½º ¿¬°á ½ÇÆĞ");
+	            throw new SQLException("ë°ì´í„°ë² ì´ìŠ¤ ì—°ê²° ì‹¤íŒ¨");
 	        }
 	    }
-	   // ³»°¡ ÀÔ·ÂÇÑ°Å »ğÀÔ
-	   // id´Â 1¾¿ ¿À¸£°í SYSDATE·Î Áö±İ³¯Â¥¸¦ ³ª¿À°ÔÇß°í ¼öÁ¤³¯Â¥´Â ÀÏ´Ü null·Î ÇØ³ù´Ù 
+	   // ë‚´ê°€ ì…ë ¥í•œê±° ì‚½ì…
+	   // idëŠ” 1ì”© ì˜¤ë¥´ê³  SYSDATEë¡œ ì§€ê¸ˆë‚ ì§œë¥¼ ë‚˜ì˜¤ê²Œí–ˆê³  ìˆ˜ì •ë‚ ì§œëŠ” ì¼ë‹¨ nullë¡œ í•´ë†¨ë‹¤ 
 	    public int insertsku(P_skuDTO p_skuDTO) throws SQLException {
 	        int result = -1;
 	        Connection con = null;
@@ -48,7 +48,7 @@ public class P_skuDAO {
 	        return result;
 	    }
 	    
-	 // ³»°¡ µî·ÏÇÑ Å×ÀÌºí ÀüÃ¼ °¡Á®¿À±â
+	 // ë‚´ê°€ ë“±ë¡í•œ í…Œì´ë¸” ì „ì²´ ê°€ì ¸ì˜¤ê¸°
 	    public List<P_skuDTO> selectP_skuList() throws SQLException {
 	        List<P_skuDTO> list = new ArrayList<>();
 	        Connection con = null;
@@ -80,7 +80,7 @@ public class P_skuDAO {
 	        return list;
 	    }
 	    
-	    // »èÁ¦ÇÒ¶§ ¾²ÀÌ´Â °Í
+	    // ì‚­ì œí• ë•Œ ì“°ì´ëŠ” ê²ƒ
 	    public int deleteSkus(String[] skuIds) throws SQLException {
 	        int result = 0;
 	        Connection con = null;
@@ -99,7 +99,7 @@ public class P_skuDAO {
 	        }
 	        return result;
 	    }
-	    // ÀÌ°Ç ¼öÁ¤ÇÒ¶§ ¾²ÀÌ´Â ¾÷µ¥ÀÌÆ® 
+	    // ì´ê±´ ìˆ˜ì •í• ë•Œ ì“°ì´ëŠ” ì—…ë°ì´íŠ¸ 
 	    public int updateSku(P_skuDTO p_skuDTO) throws SQLException {
 	        int result = 0;
 	        Connection con = null;
@@ -123,7 +123,7 @@ public class P_skuDAO {
 	        return result;
 	    }
 	    
-	    // Á¶È¸ÇÒ¶§ ¾²ÀÌ´Â °Í
+	    // ì¡°íšŒí• ë•Œ ì“°ì´ëŠ” ê²ƒ
 	    public List<P_skuDTO> searchP_skuList(String searchKeyword) throws SQLException {
 	        List<P_skuDTO> list = new ArrayList<>();
 	        Connection con = null;
