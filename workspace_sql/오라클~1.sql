@@ -1707,3 +1707,7 @@ INCREMENT BY 1; -- 증가 값
 commit;
 
 select * from p_work_method;
+
+
+
+

@@ -138,7 +138,7 @@ public class P_bomDAO {
 		try {
 			con = getConnection();
 			String query = " SELECT pmio.*, ps.sku_code, ps.sku_name"
-					+ " FROM p_bom pmio LEFT JOIN P_SKU ps ON pmio.sku_id = ps.sku_id "					
+					+ " FROM p_bom pmio LEFT JOIN P_SKU ps ON pmio.sku_id = ps.sku_id "	
 					+ " WHERE UPPER(ps.sku_code) LIKE UPPER(?) OR UPPER(ps.sku_name) LIKE UPPER(?)";
 			ps = con.prepareStatement(query);
 			ps.setString(1, "%" + searchKeyword + "%");
@@ -156,6 +156,7 @@ public class P_bomDAO {
 //				dto.setWork(rs.getString("work") != null ? rs.getString("work") : "");
 //				dto.setWorkfile(rs.getString("workfile"));
 				list.add(dto);
+				
 			}
 		} finally {
 			if (rs != null)
