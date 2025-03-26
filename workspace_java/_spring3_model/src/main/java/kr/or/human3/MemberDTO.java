@@ -5,6 +5,7 @@ public class MemberDTO {
 	private String id;
 	private String pw;
 	private String name;
+	private int age;// 이거
 	
 	public String getId() {
 		return id;
@@ -27,6 +28,12 @@ public class MemberDTO {
 	
 	@Override
 	public String toString() {
-		return "MemberDTO [id=" + id + ", pw=" + pw + ", name=" + name + "]";
+		return "MemberDTO [id=" + id + ", pw=" + pw + ", name=" + name + ", age=" + age + "]";
+	} //이거
+	public int getAge() { //이거
+		return age;
+	}
+	public void setAge(int age) { //이거
+		this.age = age;
 	}
 }
