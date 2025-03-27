@@ -107,9 +107,9 @@
 					Note: The pattern used is equivalent to using pattern="common" -->
 				<Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
-				<Context docBase="_spring1_hello" path="/human" reloadable="true" source="org.eclipse.jst.jee.server:_spring1_hello"/>
-				<Context docBase="_spring2_ioc_di" path="/human2" reloadable="true" source="org.eclipse.jst.jee.server:_spring2_ioc_di"/>
-			<Context docBase="_spring3_model" path="/human3" reloadable="true" source="org.eclipse.jst.jee.server:_spring3_model"/></Host>
+				
+				
+			<Context docBase="_practice" path="/human0408" reloadable="true" source="org.eclipse.jst.jee.server:_practice"/></Host>
 		</Engine>
 	</Service>
 </Server>
