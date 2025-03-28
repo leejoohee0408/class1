@@ -1708,6 +1708,9 @@ commit;
 
 select * from p_work_method;
 
+--emp테이블 emp2에 복사했음
+create table emp2
+as select * from emp;
 
 
-
+select * from emp2;
