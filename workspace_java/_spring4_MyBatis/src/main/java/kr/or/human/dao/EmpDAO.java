@@ -7,5 +7,9 @@ import kr.or.human.dto.EmpDTO;
 public interface EmpDAO {
 
 	List<EmpDTO> selectEmpList(); 
+	public EmpDTO selectOneEmp();
+	public EmpDTO selectOneEmpno(int empno);
+	public EmpDTO selectEmpno3(int empno);
+	public EmpDTO selectEmpno4(EmpDTO empDTO);
 	
 }

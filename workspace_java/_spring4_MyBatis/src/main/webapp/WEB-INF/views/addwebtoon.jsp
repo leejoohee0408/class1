@@ -13,8 +13,11 @@
 제목 : <input type="text" name="title"><br>  
 작가 : <input type="text" name="author"><br> 
 내용 : <input type="text" name="detail"><br> 
+
 <input type="submit" value="확인">
 <input type="reset" value="취소"><!-- 타입에 reset이것은 form요소 초기화해준다-->
 </form>
+
+
 </body>
 </html>

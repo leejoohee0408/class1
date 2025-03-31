@@ -8,19 +8,22 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.or.human.dao.EmpDAO;
 import kr.or.human.dto.EmpDTO;
 
 
 @Controller
 public class EmpController {
-
-	
+	@Autowired
+	EmpDAO empdao; 
 
 	@RequestMapping(value = "/emp")
 	public ModelAndView listEmp() {
@@ -43,11 +46,14 @@ public class EmpController {
 	}
 	
 	 //추가누르면 이동
-	@RequestMapping(value = "/addwebtoon.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/addwebtoon.do2", method = RequestMethod.GET)
     public ModelAndView submitForm() {
         return new ModelAndView("addwebtoon");
     }
 	
+	
+	
+	//웹툰 내가 등록할때 쓰이는 입력하는거 리스트
 	private List<EmpDTO> webtoonList = new ArrayList<EmpDTO>();
 	 @RequestMapping(value = "/addwebtoon.do", method = RequestMethod.POST)
 	    public String addwebtoon(EmpDTO dto, Model model, HttpServletRequest request, HttpServletResponse response)
@@ -59,6 +65,110 @@ public class EmpController {
 	        model.addAttribute("webtoonList", webtoonList); // 리스트를 모델에 추가
 	        return "emp"; // 다 쓴 걸 처음 페이지로 보냄
 	    }
+	 
+	 
+	 
+//	 private List<EmpDTO> webtoonList1 = new ArrayList<EmpDTO>();
+//	 @RequestMapping(value = "/emp", method = RequestMethod.POST)
+//	    public String addwebtoon1(EmpDTO dto1, Model model1, HttpServletRequest request, HttpServletResponse response)
+//	            throws ServletException, IOException {
+//	        request.setCharacterEncoding("utf-8");
+//	        response.setContentType("text/html; charset=utf-8");
+//
+//	        webtoonList.add(dto1); // 리스트에 웹툰 정보 추가
+//	        model1.addAttribute("webtoonList1", webtoonList1); // 리스트를 모델에 추가
+//	        return "emp"; // 다 쓴 걸 처음 페이지로 보냄
+//	    }
+	 
+	 
+	 @RequestMapping(value = "/emp2", method= {RequestMethod.GET, RequestMethod.POST})
+		public String empOne(Model model, HttpServletRequest request, HttpServletResponse response)
+	            throws ServletException, IOException {
+	        request.setCharacterEncoding("utf-8");
+	        response.setContentType("text/html; charset=utf-8");
+	        
+	        EmpDTO select = empdao.selectOneEmp();
+	        model.addAttribute("select", select);
+//	        System.out.println(select);
+	        
+			return "emp";
+			
+
+		}
+	 
+	 @RequestMapping(value = "/emp3", method= {RequestMethod.GET, RequestMethod.POST})
+		public String empOne1(Model model, HttpServletRequest request, HttpServletResponse response)
+	            throws ServletException, IOException {
+	        request.setCharacterEncoding("utf-8");
+	        response.setContentType("text/html; charset=utf-8");
+	        
+	        EmpDTO select1 = empdao.selectOneEmpno(7839);
+	        model.addAttribute("select1", select1);
+	        System.out.println(select1);
+
+	        
+			return "emp";
+			
+
+		}
+	 // int로 내가 숫자입력한거 7902쓰는방법
+	 @RequestMapping(value = "/emp4", method= {RequestMethod.GET, RequestMethod.POST})
+		public String emp4(Model model, HttpServletRequest request, HttpServletResponse response)
+	            throws ServletException, IOException {
+	        request.setCharacterEncoding("utf-8");
+	        response.setContentType("text/html; charset=utf-8");
+	        
+	        EmpDTO select2 = empdao.selectEmpno3(7902);
+	        model.addAttribute("select2", select2);
+	        System.out.println(select2);
+
+	        
+			return "emp";
+			
+
+		}
+	 
+	 // 테이블 전체리스트
+	 @RequestMapping(value = "/emp5", method= {RequestMethod.GET, RequestMethod.POST})
+	 public String selectEmpList(Model model, HttpServletRequest request, HttpServletResponse response)
+			 throws ServletException, IOException {
+		 request.setCharacterEncoding("utf-8");
+		 response.setContentType("text/html; charset=utf-8");
+		 
+		 List<EmpDTO> list = empdao.selectEmpList(); 
+		 System.out.println("list.size:" + list.size());
+		 
+		 model.addAttribute("list" , list);
+		 
+	        
+		 return "emp";
+	 }
+	 
+	
+	 
+//	 @RequestMapping(value = "/emp6", method= RequestMethod.PUT)
+//	 public String modifyEmp(Model model) {
+//		 
+//	 }
+	 
+	 //emp99.jsp연결이랑 DAO에 selectEmpno4에 것을 쓰기
+	 @RequestMapping(value = "/emp99", method= {RequestMethod.GET, RequestMethod.POST})
+		public String empOne99(
+				@ModelAttribute
+				EmpDTO empDTO,
+				Model model
+			){
+		 
+	        EmpDTO select10 = empdao.selectEmpno4(empDTO);
+	        System.out.println("select10" + select10);
+	        model.addAttribute("select10" , select10);
+	        
+			return "emp99";
+			
+
+		}
+	
+	
 	
 
 }
