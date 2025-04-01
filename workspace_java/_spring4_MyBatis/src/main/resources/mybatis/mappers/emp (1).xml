@@ -53,7 +53,36 @@
 		where empno = #{empno}
 	</select>
 	
+	<!-- 업데이트타입에는 resultType이 안된다 -->
+	<update id="udpateEmp" parameterType="empDTO">
+		update emp2
+		set ename = #{ename},
+			job = #{job},
+			mgr = #{mgr}
+			where empno = #{empno}
+	</update> 
 	
+	<!-- 추가 -->
+	<select id="addition" parameterType="empDTO">
+		
+		insert into emp2
+		VALUES (#{empno},
+				#{ename},
+				#{job},
+				#{mgr},
+				#{hiredate},
+				#{sal},
+				#{comm},
+				#{deptno})
+		
+	</select>
+	
+	<!-- 삭제 -->
+	<delete id="delete" parameterType="empDTO">
+		
+		delete from emp2 where empno = #{empno}
+		
+	</delete>
 	
 
 </mapper>

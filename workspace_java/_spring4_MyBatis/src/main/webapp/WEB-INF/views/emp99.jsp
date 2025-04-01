@@ -28,5 +28,9 @@
 			</tr>
 		</thead>
 	</table>
+	
+<a href="emp00?empno=${select10.empno}"><button type="button">수정</button></a>
+<a href="emp8?empno=${select10.empno}"><button type="button">삭제</button></a>
+	
 </body>
 </html>

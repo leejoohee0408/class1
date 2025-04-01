@@ -146,10 +146,7 @@ public class EmpController {
 	 
 	
 	 
-//	 @RequestMapping(value = "/emp6", method= RequestMethod.PUT)
-//	 public String modifyEmp(Model model) {
-//		 
-//	 }
+
 	 
 	 //emp99.jsp연결이랑 DAO에 selectEmpno4에 것을 쓰기
 	 @RequestMapping(value = "/emp99", method= {RequestMethod.GET, RequestMethod.POST})
@@ -167,8 +164,67 @@ public class EmpController {
 			
 
 		}
-	
-	
-	
+	 
+	 @RequestMapping(value = "/emp00", method= {RequestMethod.GET, RequestMethod.POST})
+		public String empOne00(
+				@ModelAttribute
+				EmpDTO empDTO,
+				Model model
+			){
+		 
+	        EmpDTO select10 = empdao.selectEmpno4(empDTO);
+	        System.out.println("select10" + select10);
+	        model.addAttribute("select10" , select10);
+	        
+			return "emp00";
+			
 
+		}
+	 
+	 //수정을위한 업데이트
+	 @RequestMapping(value = "/emp6", method= {RequestMethod.GET, RequestMethod.POST})
+	 public String modifyEmp2(
+			 @ModelAttribute EmpDTO empDTO
+		) {
+		 // 실제 업데이트 
+		 // emp00에 있는거 잘왔는지 확인
+		 System.out.println(empDTO);
+		 	int select20 = empdao.udpateEmp(empDTO);
+	        System.out.println("select20" + select20);
+	        
+		 
+		 // 전체목록으로 리턴
+		 
+		 return "redirect:emp5";
+	 }
+	
+	 //테이블 추가하기위해 추가누르면 이동
+	 @RequestMapping(value = "addition3", method = RequestMethod.GET)
+	 public ModelAndView addition2() {
+		 return new ModelAndView("addition");
+	 }
+	 //dao에서 가져온 추가
+	 @RequestMapping(value = "/emp7", method= {RequestMethod.GET, RequestMethod.POST})
+	 public String addition1(
+			 @ModelAttribute EmpDTO empDTO
+			 ) {
+		 System.out.println(empDTO);
+		 int select20 = empdao.addition(empDTO); 
+		 
+		 
+		 return "redirect:emp5";
+	 }
+	 
+	 //dao에서 가져온 삭제
+	 @RequestMapping(value = "/emp8", method= {RequestMethod.GET, RequestMethod.POST})
+	 public String delete1(
+			 @ModelAttribute EmpDTO empDTO
+			 ) {
+		 System.out.println("emp1 : "+ empDTO);
+		 int select30 = empdao.delete(empDTO); 
+		 
+		 
+		 return "redirect:emp5";
+	 }
+	 
 }

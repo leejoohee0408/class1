@@ -11,5 +11,8 @@ public interface EmpDAO {
 	public EmpDTO selectOneEmpno(int empno);
 	public EmpDTO selectEmpno3(int empno);
 	public EmpDTO selectEmpno4(EmpDTO empDTO);
+	public int udpateEmp(EmpDTO empDTO);
+	public int addition(EmpDTO empDTO);
+	public int delete(EmpDTO empDTO);
 	
 }

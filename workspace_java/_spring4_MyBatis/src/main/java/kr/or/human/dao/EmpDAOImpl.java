@@ -15,7 +15,8 @@ public class EmpDAOImpl implements EmpDAO {
 
 	@Autowired
 	SqlSession sqlSession;
-
+	
+	// emp.xml에서 가져온 테이블리스트
 	@Override
 	public List<EmpDTO> selectEmpList() {
 		List<EmpDTO> result = sqlSession.selectList("mapper.emp.selectEmp");
@@ -50,7 +51,24 @@ public class EmpDAOImpl implements EmpDAO {
 		System.out.println("dto : " + dto);
 		return dto;
 	}
+	// emp.xml에서 가져온 수정을위한 업데이트
+	@Override
+	public int udpateEmp(EmpDTO empDTO) {
+		int countUpdate = sqlSession.update("mapper.emp.udpateEmp", empDTO);
+		return countUpdate;
+	}
+	// emp.xml에서 가져온 추가
+	@Override
+	public int addition(EmpDTO empDTO) {
+		int dto = sqlSession.insert("mapper.emp.addition", empDTO);
+		return dto;
+	}
 	
-	
+	// emp.xml에서 가져온 삭제
+	@Override
+	public int delete(EmpDTO empDTO) {
+		int dto = sqlSession.delete("mapper.emp.delete", empDTO);
+		return dto;
+	}
 
 }

@@ -1714,3 +1714,10 @@ as select * from emp;
 
 
 select * from emp2;
+
+insert into emp2
+VALUES (7999,'text','text',7999,DATE '2023-10-27',9999,0,99);
+
+commit;
+
+delete from emp2 where empno = 123;

@@ -153,7 +153,16 @@
             })
 
         }
-
+        if(screen.orientation){
+		screen.orientation.addEventListener('change', ()=>{
+			document.querySelector('#view').innerHTML = `
+			type: \${screen.orientation.type}<br>
+			angle: \${screen.orientation.angle}
+			`
+		})
+	}else{
+		alert('방향 지원 안함')
+	}
     </script>
 </head>
 
@@ -179,6 +188,8 @@
     <input type="button" class="btn" id="btn2" value="버튼2">
     <input type="button" class="btn" id="btn3" value="확장">
     <div id="section" style="border: 1px solid black; background: yellow; height: 100px;"></div>
+
+   
 </body>
 
 </html>
