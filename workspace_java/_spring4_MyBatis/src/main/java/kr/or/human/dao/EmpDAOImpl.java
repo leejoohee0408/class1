@@ -70,5 +70,26 @@ public class EmpDAOImpl implements EmpDAO {
 		int dto = sqlSession.delete("mapper.emp.delete", empDTO);
 		return dto;
 	}
+	
+	//검색
+	@Override
+	public List<EmpDTO> like(EmpDTO empDTO) {
+		List<EmpDTO> dto = sqlSession.selectList("mapper.emp.like", empDTO);
+		return dto;
+	}
+	
+	
+	
+	
+	void getSeq() {
+	int seq = 	sqlSession.selectOne("mapper.emp.getSeq");
+	EmpDTO dto = new EmpDTO();
+	dto.setEmpno(seq);
+	dto.setEname("임의");
+	// insert에 보내서 테이블 a에서 seq 사용
+	// insert에 보내서 테이블 b에서 seq 사용
+	}
+	
+	
 
 }

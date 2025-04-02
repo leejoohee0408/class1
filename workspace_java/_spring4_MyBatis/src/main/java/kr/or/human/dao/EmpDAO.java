@@ -14,5 +14,6 @@ public interface EmpDAO {
 	public int udpateEmp(EmpDTO empDTO);
 	public int addition(EmpDTO empDTO);
 	public int delete(EmpDTO empDTO);
+	public List<EmpDTO> like(EmpDTO empDTO);
 	
 }

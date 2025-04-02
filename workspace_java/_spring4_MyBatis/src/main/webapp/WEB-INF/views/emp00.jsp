@@ -29,7 +29,7 @@
 		</thead>
 	</table>
 <input type="hidden" name="empno" value="${select10.empno}">
-<input type="submit" value="수정하기1">
+<input type="submit" value="수정하기1"> 
 </form>	
 	
 </body>

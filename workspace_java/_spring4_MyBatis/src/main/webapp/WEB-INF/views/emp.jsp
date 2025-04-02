@@ -24,7 +24,17 @@
 	</form>
 
 	<form method="get" action="addition3">
-		<input type="submit" value="추가">
+		<input type="submit" value="등록하기">
+	</form>
+	
+	<form method="get" action="emp9">
+		<select name="type">
+			<option value="ename" >ename</option>
+			<option value="sal" >sal(이상)</option>		
+			<option value="ej" >ename + job</option>		
+		</select>
+		<input type="text" name="keyword"> 
+		<input type="submit" value="검색하기"> 
 	</form>
 
 	<h1>웹툰 추가 결과</h1>
@@ -71,6 +81,12 @@
 				<th>No.</th>
 				<th>empno</th>
 				<th>ename</th>
+				<th>job</th>
+				<th>mgr</th>
+				<th>hiredate</th>
+				<th>sal</th>
+				<th>comm</th>
+				<th>deptno</th>
 			</tr>
 		</thead>
 		<tbody></tbody>
@@ -80,134 +96,72 @@
 				<td>${dto.empno}</td>
 				<!-- 클릭으로 empno의 줄에 내가emp99.jsp에 적었던거
 				가져오기위한 것 <a href="emp99?empno=${dto.empno}">-->
-				<td><a href="emp99?empno=${dto.empno}">${dto.ename}</td>
+				<td><a href="emp99?empno=${dto.empno}">${dto.ename}</a></td>
+				<td>${dto.job}</td>
+				<td>${dto.mgr}</td>
+				<td>${dto.hiredate}</td>
+				<td>${dto.sal}</td>
+				<td>${dto.comm}</td>
+				<td>${dto.deptno}</td>
 			</tr>
 		</c:forEach>
 		</tbody>
 	</table>
 
-	<button type="button" id="btn">진동</button>
-	<div id='view'></div>
-
-	<style>
-#popup {
-	border: 1px solid red;
-	width: 300px;
-	height: 500px;
+<script>
+fatch('joinEmp',{
+	method: 'POST',
+	headers: {
+		'Content-Type' : 'application/json'
+	},
+	body : JSON.stringify( param )
+	}).then(function(resp){
+		return resp.json()
+	}).then((data)=>{
+		console.log(data)
+	}).catch((err)=>{
+		console.error('ERROR joinEmp fetch', err)
+	})
 	
-	position: absolute;
-	top: 50px;
-	left: 550px;
-}
+	let a = 10
+	setTimeout( function(){
+		a = 20
+	},  1000)
+	console.log(a) //10
+	// 20이 출력되게 하려면?
+		
+	// Promise는 resolve() 또는 reject()가 실행될때 까지 기다려준다		
+	let p = new Promise( function(resolve, reject) {
+		setTimeout( function(){
+			if(a == 10){
+				a = 20
+				resolve(a)
+			}else{
+			resolve('ERRRRR')
+			}
+		},  1000)
+	})
+	p.then( function(data){
+		console.log(data)
+	})p.catch(function(data){
+		console.log(data))	
+})
 
-#popup .title {
-	background: blue;
-	color: white
-}
-#popup .title:hover{
-	/* cursor: all-scroll; */
-	cursor: grab;
-}
-#popup .title:active{
-	/* cursor: all-scroll; */
-	cursor: grabbing;
-}
-
-#popup .content {
-	background: white;
-}
-#idm{
-	position: absolute;
-	top: 0;
-	left: 0;
-	
-	width: 100vw;
-	height: 100vh;
-	background: rgba(172,172,172,1)
-}
-</style>
-	<div id='dim'>
-		<div id='popup'>
-			<div class='title'>
-				<div>제목</div>
-			</div>
-			<div class='content'>
-				<div>
-					내용<br> 내용
-				</div>
-			</div>
-		</div>
-	</div>
-	<script>
-	document.querySelector('#btn').addEventListener('click', ()=>{
-		/* navigator.vibrate(500) */ //ms
-		if(navigator.vibrate){}
-		navigator.vibrate([300,100,500,100,300]) //ms, 진동, 쉬기, 진동...
+asyns function async_await(){
+	await new Promise( function(resolve, reject){
+	setTimeout( function(){
+		if(a == 10){
+			a = 20
+			resolve(a)
 		}else{
-			alert('navigator.vibrate 없음')
-		}
-	})
-	
-	if(screen.orientation){
-        screen.orientation.addEventListener('change',()=>{
-            document.querySelector('#view').innerHTML = 
-            type: \${screen.orientation.type}<br>
-            angle:\${screen.orientation.angle}
-            orientation: \${window.orientation}
-        
-    })
-		}else{
-    	alert('방향 지원 안함')
-	}
-	
-	
-	/* 
-		타이틀에서 왼쪽 버튼을 누르면
-		- 왼쪽 버튼이 눌렸 다는걸 저장
-		타이틀에서 왼쪽 버튼을 떼면
-		- 왼쪽 버튼이 떨어졌 다는걸 저장
-		
-		마우스 최초 눌렀을 때
-		- 그때 마우스 위치값 저장
-	
-	*/
-	
-	let istDragable = false;
-	let offsetX = 0;
-	let offsetY = 0;
-	
-	document.querySelector('.title').addEventListener('mousedown', (event)=>{
-		istDragable = true;
-		
-		document.querySelector('#view').innerHTML = `
-			x: \${event.clientX}<br>
-			y: \${event.clientY}<br>
-		`
-		
-		offsetX = event.clientX
-		offsetY = event.clientY
-	})
-	document.querySelector('.title').addEventListener('mouseup', ()=>{
-		istDragable = false;
-	})
-	document.querySelector('.title').addEventListener('mousemove', ()=>{
-		if(istDragable){
-			let diff_X = event.clientX - offsetX
-			let diff_Y = event.clientY - offsetY
-			
-			let popup = document.querySelector('#popup')
-			
-/* 			console.log(popup.style.top) */
-			console.log(popup.offsetTop)
-			
-			popup.style.top = (popup.offsetTop + diff_Y)+'px'
-			popup.style.left = (popup.offsetLeft + diff_X)+'px'
-			
-			
-			offsetX = event.clientX
-			offsetX = event.clientX
-		}
-	})
+			reject('ERRRRR')
+		}		
+	}, 2000)
+})
+	// 위에꺼 끝날때 까지 기다렸다가
+	// 이거 실행함
+	console.log(1)
+}	
 </script>
 
 </body>

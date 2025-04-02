@@ -1721,3 +1721,13 @@ VALUES (7999,'text','text',7999,DATE '2023-10-27',9999,0,99);
 commit;
 
 delete from emp2 where empno = 123;
+
+CREATE SEQUENCE seq_emp2
+start with 8000;
+
+select * from emp2
+where upper(ename) like upper('%a%');
+
+select * from emp2
+where upper(ename) like upper('%a%')
+and upper(job) like upper('%a%')
