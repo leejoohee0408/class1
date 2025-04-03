@@ -8,128 +8,107 @@
 		select * from emp2
 	</select>
 	
+	<!-- 현재페이지몇줄인지보기 -->
+	<select id="selectPageEmp" resultType="kr.or.human.dto.EmpDTO">
+		select rnum, ename from(
+		select rownum as rnum, ename from (
+		select ename from emp2
+		order by ename
+		)
+		)
+		where rnum <![CDATA[ >= ]]> #{indexStart} and rnum <![CDATA[ <= ]]>#{indexEnd}
+	</select>
+
 	<select id="selectOneEmp" resultType="kr.or.human.dto.EmpDTO">
 		select * from emp2
-		where empno = 7788
+		where
+		empno = 7788
 	</select>
-	
+
 	<!-- <select id="selectOneEmpMap" resultType="java.util.HashMap"> -->
 	<select id="selectOneEmpMap" resultType="hashmap">
 		select * from emp2
-		where empno = 7788
+		where
+		empno = 7788
 	</select>
-	
-		<!-- parameterType="java.long.Integer"> -->
-	<select id="selectEmpno" 
-		resultType="EmpDTO"
-		parameterType="int">
-		
+
+	<!-- parameterType="java.long.Integer"> -->
+	<select id="selectEmpno" resultType="EmpDTO" parameterType="int">
+
 		select * from emp2
 		where empno = #{_parameter}
 	</select>
-	
-	<select id="selectEmpno2" 
-		resultType="EmpDTO"
+
+	<select id="selectEmpno2" resultType="EmpDTO"
 		parameterType="string">
-		
+
 		select * from emp2
 		where ename = #{_parameter}
-		<!-- 
-			#{} : ''를 자동으로 붙여줌
-			where ename = 'KING'
-			where empno = 123
-			
-			${} : ''를 안붙임
-			where ename = KING
-			where ename = '${_parameter}'
-		 -->
+		<!-- #{} : ''를 자동으로 붙여줌 where ename = 'KING' where empno = 123 ${} : ''를 
+			안붙임 where ename = KING where ename = '${_parameter}' -->
 	</select>
-	
-	<select id="selectEmpno3" 
-		resultType="empDTO"
+
+	<select id="selectEmpno3" resultType="empDTO"
 		parameterType="empDTO">
-		
+
 		select * from emp2
 		where empno = #{empno}
 	</select>
-	
+
 	<!-- 업데이트타입에는 resultType이 안된다 -->
 	<update id="udpateEmp" parameterType="empDTO">
 		update emp2
-		set ename = #{ename},
-			job = #{job},
-			mgr = #{mgr}
-			where empno = #{empno}
-	</update> 
-	
+		set ename =
+		#{ename},
+		job = #{job},
+		mgr = #{mgr}
+		where empno = #{empno}
+	</update>
+
 	<!-- 추가 -->
 	<select id="addition" parameterType="empDTO">
-		
+
 		insert into emp2
 		VALUES (#{empno},
-				#{ename},
-				#{job},
-				#{mgr},
-				#{hiredate},
-				#{sal},
-				#{comm},
-				#{deptno})
-		
+		#{ename},
+		#{job},
+		#{mgr},
+		#{hiredate},
+		#{sal},
+		#{comm},
+		#{deptno})
+
 	</select>
-	
+
 	<!-- 삭제 -->
 	<delete id="delete" parameterType="empDTO">
-		
+
 		delete from emp2 where empno = #{empno}
-		
+
 	</delete>
-	
-	<!-- 검색 -->
-	<select id="like" resultType="empDTO" parameterType="empDTO">
-	select * from emp2
-	
-	<if test="ename != null and ename != ''  ">
-	where upper(ename) like upper('%' || #{ename} || '%')
-	</if>
-	<if test="sal != -1">
-	where sal <![CDATA[ >= ]]>#{sal}
-	</if>	
-	</select>
-	
-	<!-- 검색 -->
-<!-- 	<select id="like" resultType="empDTO" parameterType="empDTO">
-	select * from emp2
-	<where>
-	<if test="ename != null and ename != ''  ">
-	and upper(ename) like upper('%' || #{ename} || '%')
-	</if>
-	<if test="sal != -1">
-	and sal <![CDATA[ >= ]]>#{sal}
-	</if>
-	<if test="type != ename and keyword != '' and keyword != null">
-	and upper(ename) like upper('%' || #{keyword} || '%')
-	</if>
-	<if test="type == ej">
-	and upper(job) like upper('%' || #{keyword} || '%')
-	</if>
-	</where> 
-	</select> -->
-	
-	
-	
-	
+
+
+
+
+
+
+
+
 	<select id="getSeq" resultType="int">
 		select seq_emp2.nextval from dual
 	</select>
-	
+
 	<insert id="insertEmp2" parameterType="empDTO">
-	
-	<selectKey keyProperty="empno" resultType="int" order="BEFORE">
-		select seq_emp2.nextval from dual
-	</selectKey>insertEmp2
-	
-	insert into emp2 (empno, ename, job, mgr, hiredate, sal, comm, deptno)
-    values (#{empno} ,#{ename},#{job},#{mgr},#{hiredate},#{sal},#{comm},#{deptno})
+
+		<selectKey keyProperty="empno" resultType="int"
+			order="BEFORE">
+			select seq_emp2.nextval from dual
+		</selectKey>
+		insertEmp2
+
+		insert into emp2 (empno, ename, job, mgr, hiredate, sal, comm, deptno)
+		values (#{empno}
+		,#{ename},#{job},#{mgr},#{hiredate},#{sal},#{comm},#{deptno})
 	</insert>
 
 </mapper>

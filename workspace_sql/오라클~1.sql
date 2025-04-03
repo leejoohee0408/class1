@@ -1730,4 +1730,28 @@ where upper(ename) like upper('%a%');
 
 select * from emp2
 where upper(ename) like upper('%a%')
-and upper(job) like upper('%a%')
+and upper(job) like upper('%a%');
+
+select rnum, ename from(
+select rownum as rnum, ename from (
+select ename from emp2
+order by ename
+)
+)
+where rnum >= 1 and rnum <=10
+;
+
+--카운트써서 테이블안에 몇줄이 있는지 봤음
+select count(*) from emp2;
+--지금있는 테이블을 1번할때마다 2의제곱으로 증가 그래서 240개가 있음
+insert into emp2
+select * from emp2;
+
+select * from emp2;
+
+commit;
+
+
+
+
+

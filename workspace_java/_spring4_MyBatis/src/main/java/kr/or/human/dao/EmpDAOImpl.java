@@ -5,8 +5,6 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 import kr.or.human.dto.EmpDTO;
 
@@ -18,8 +16,18 @@ public class EmpDAOImpl implements EmpDAO {
 	
 	// emp.xml에서 가져온 테이블리스트
 	@Override
-	public List<EmpDTO> selectEmpList() {
-		List<EmpDTO> result = sqlSession.selectList("mapper.emp.selectEmp");
+	public List<EmpDTO> selectEmpList(EmpDTO empDTO) {
+		
+		int page = empDTO.getPage();
+		int viewCount = empDTO.getViewCount();
+		int indexStart = (viewCount * (page-1)) + 1;
+		int indexEnd = page * viewCount;
+		empDTO.setIndexStart(indexStart);
+		empDTO.setIndexEnd(indexEnd);
+		
+		// 이건 전체페이지
+//		List<EmpDTO> result = sqlSession.selectList("mapper.emp.selectEmp");
+		List<EmpDTO> result = sqlSession.selectList("mapper.emp.page.selectPageEmp",empDTO);
 		System.out.println("result : " + result);
 		return result;
 	}
@@ -74,7 +82,7 @@ public class EmpDAOImpl implements EmpDAO {
 	//검색
 	@Override
 	public List<EmpDTO> like(EmpDTO empDTO) {
-		List<EmpDTO> dto = sqlSession.selectList("mapper.emp.like", empDTO);
+		List<EmpDTO> dto = sqlSession.selectList("mapper.emp.dynamic.like", empDTO);
 		return dto;
 	}
 	

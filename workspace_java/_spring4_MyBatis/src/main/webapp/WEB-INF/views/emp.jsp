@@ -31,7 +31,7 @@
 		<select name="type">
 			<option value="ename" >ename</option>
 			<option value="sal" >sal(이상)</option>		
-			<option value="ej" >ename + job</option>		
+			<option value="ej" >Ename + Job</option><!-- ename + job -->		
 		</select>
 		<input type="text" name="keyword"> 
 		<input type="submit" value="검색하기"> 
@@ -74,11 +74,13 @@
 
 	${select1.empno} ${select2.empno}
 
-
+	 <form method="get" action="emp5">
+	<input type="submit" value="선택된 것만 조회"> 
 	<table border="1">
 		<thead>
 			<tr>
 				<th>No.</th>
+				<th>checkbox</th>
 				<th>empno</th>
 				<th>ename</th>
 				<th>job</th>
@@ -93,6 +95,7 @@
 		<c:forEach var="dto" items="${list}" varStatus="loop">
 			<tr>
 				<td>${loop.count}</td>
+				<td><input type="checkbox" name="empnos" value="${dto.empno}"></td>
 				<td>${dto.empno}</td>
 				<!-- 클릭으로 empno의 줄에 내가emp99.jsp에 적었던거
 				가져오기위한 것 <a href="emp99?empno=${dto.empno}">-->
@@ -107,7 +110,7 @@
 		</c:forEach>
 		</tbody>
 	</table>
-
+</form> 
 <script>
 fatch('joinEmp',{
 	method: 'POST',
