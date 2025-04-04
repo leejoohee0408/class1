@@ -99,5 +99,12 @@ public class EmpDAOImpl implements EmpDAO {
 	}
 	
 	
+	
+		@Override
+		public int totalEmp() {			
+			int result = sqlSession.selectOne("mapper.emp.page.totalEmp");
+			System.out.println("count(*) : " + result);
+			return result;
+		}
 
 }

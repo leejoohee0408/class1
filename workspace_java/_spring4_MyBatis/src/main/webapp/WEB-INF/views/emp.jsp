@@ -76,6 +76,7 @@
 
 	 <form method="get" action="emp5">
 	<input type="submit" value="선택된 것만 조회"> 
+	<input type="submit" value="테이블 총개수" name="count"> 
 	<table border="1">
 		<thead>
 			<tr>
@@ -111,6 +112,15 @@
 		</tbody>
 	</table>
 </form> 
+
+<div>
+	<a href="emp5?page=1">1</a>
+	<a href="emp5?page=2"><strong>2</strong></a>
+	<a href="emp5?page=3">3</a>
+</div>
+
+
+
 <script>
 fatch('joinEmp',{
 	method: 'POST',

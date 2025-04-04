@@ -16,6 +16,8 @@
 		where rnum <![CDATA[ >= ]]> #{indexStart} and rnum <![CDATA[ <= ]]>#{indexEnd}
 	</select>
 
-	
+	<select id="totalEmp" resultType="int">
+		select count(*) from emp2
+	</select>
 
 </mapper>

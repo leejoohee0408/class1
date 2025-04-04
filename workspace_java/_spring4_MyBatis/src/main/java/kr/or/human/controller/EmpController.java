@@ -120,23 +120,30 @@ public class EmpController {
 
 	// 테이블 전체리스트
 	@RequestMapping(value = "/emp5", method = { RequestMethod.GET, RequestMethod.POST })
-	public String selectEmpList(EmpDTO dto, Model model, HttpServletRequest request, HttpServletResponse response)
+	public String selectEmpList(@ModelAttribute EmpDTO dto, Model model, HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		response.setContentType("text/html; charset=utf-8");
+		
 
 		System.out.println(dto);
 		
-		int page = 1;
-		int viewCount = 10;
-		dto.setPage(page);
-		dto.setViewCount(viewCount);
+//		int page = 1;
+//		String strPage = request.getParameter("page");
+//		if(strPage != null) {
+//			page = Integer.parseInt(strPage);
+//		}
+//		
+//		int viewCount = 3;
+//		dto.setPage(page);
+//		dto.setViewCount(viewCount);
 		
 		List<EmpDTO> list = empdao.selectEmpList(dto);
 		System.out.println("list.size:" + list.size());
+		int count = empdao.totalEmp();
+		System.out.println("count :" + count);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("dto", dto);
+		model.addAttribute("count", count);
 
 		return "emp";
 	}
