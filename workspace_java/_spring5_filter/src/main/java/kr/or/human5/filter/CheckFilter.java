@@ -27,7 +27,7 @@ public class CheckFilter implements Filter{
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		
+
 		long before = System.currentTimeMillis();
 		
 		// utf-8 세팅
@@ -41,19 +41,19 @@ public class CheckFilter implements Filter{
 		String servletPath = req.getServletPath();
 		System.out.println("servletPath : "+ servletPath);
 		
-		if(isExclude(servletPath)) {
+		if(	isExclude(servletPath) ) {
 			System.out.println("세션 없이 진행");
 			
 			// 기존 흐름대로 이어가시게
 			chain.doFilter(request, response);
-		}else {
+		} else {
 			HttpSession session = req.getSession();
 			MemberDTO memberDTO = (MemberDTO)session.getAttribute("dto");
 			
 			if(memberDTO != null) {
 				System.out.println("로그인 되어 있어서 통과!");
 				chain.doFilter(request, response);
-			}else {
+			} else {
 				System.out.println("로그인 필수");
 				resp.sendRedirect(req.getContextPath() + "/login");
 			}
@@ -61,8 +61,7 @@ public class CheckFilter implements Filter{
 		
 		System.out.println("doFilter 실행 후");
 		long after = System.currentTimeMillis();
-		System.out.println("걸린시간 : " + (after - before));
-		
+		System.out.println("걸린시간 : "+ (after - before));
 	}
 
 	@Override
@@ -70,18 +69,24 @@ public class CheckFilter implements Filter{
 		// TODO Auto-generated method stub
 		
 	}
+
 	// 무조건 통과 시켜야 하나?
 	private boolean isExclude(String servletPath) {
 		if(		"/login".equals(servletPath)
-			||	"/loginCheck".equals(servletPath)
-				
-			||	servletPath.indexOf("/resources/") != -1
-			||	servletPath.startsWith("/resources/")
+			|| 	"/loginCheck".equals(servletPath)
+			
+			|| 	servletPath.indexOf("/resources/") != -1
+			|| 	servletPath.startsWith("/resources/")
 		) {
+			
 			return true;
-		}else {
+			
+		} else {
+			
 			return false;
+			
 		}
 	}
+	
 	
 }

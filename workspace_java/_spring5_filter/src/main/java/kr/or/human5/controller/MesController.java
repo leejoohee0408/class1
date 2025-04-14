@@ -33,15 +33,15 @@ public class MesController {
 			// 세션에 담기
 			HttpSession session = req.getSession();
 			session.setAttribute("dto", dto);
+			
 			// main으로 이동
-			return "redirect:main";	
-		}else {
+			return "redirect:main";
+		} else {
 			// 실패 시 login으로 이동
-			return "redirect:login?msg=2";	
+			return "redirect:login?msg=2";
 		}
 	}
-	
-	
+
 	@RequestMapping("/main")
 	public String main(HttpServletRequest req) {
 		// 로그인 한 사람만 보기
@@ -52,12 +52,13 @@ public class MesController {
 //		
 //		if(dto == null) {
 //			return "redirect:login?msg=2";
-//		}else {
+//		} else {
 //			return "main";
 //		}
+
 		return "main";
 	}
-	
+
 	@RequestMapping("/main2")
 	public String main2(HttpServletRequest req) {
 		// 로그인 한 사람만 보기
@@ -68,9 +69,10 @@ public class MesController {
 //		
 //		if(dto == null) {
 //			return "redirect:login?msg=2";
-//		}else {
+//		} else {
 //			return "main2";
 //		}
+
 		return "main2";
 	}
 	
