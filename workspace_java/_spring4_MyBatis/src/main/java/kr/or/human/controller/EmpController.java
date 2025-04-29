@@ -126,15 +126,15 @@ public class EmpController {
 
 		System.out.println(dto);
 		
-//		int page = 1;
-//		String strPage = request.getParameter("page");
-//		if(strPage != null) {
-//			page = Integer.parseInt(strPage);
-//		}
-//		
-//		int viewCount = 3;
-//		dto.setPage(page);
-//		dto.setViewCount(viewCount);
+		int page = 1;
+		String strPage = request.getParameter("page");
+		if(strPage != null) {
+			page = Integer.parseInt(strPage);
+		}
+		
+		int viewCount = 3;
+		dto.setPage(page);
+		dto.setViewCount(viewCount);
 		
 		List<EmpDTO> list = empdao.selectEmpList(dto);
 		System.out.println("list.size:" + list.size());

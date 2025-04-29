@@ -1,4 +1,4 @@
-package kr.or.GKBM;
+package kr.or.GKBM.sku;
 
 import java.io.IOException;
 import java.util.List;
@@ -27,9 +27,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 
 @Controller
-public class EmpController {
+public class P_skuController {
 	@Autowired
-	EmpDAO empdao;
+	P_skuDAO empdao;
 
 	
 //	// 테이블 전체리스트
@@ -50,30 +50,30 @@ public class EmpController {
 //		return "emp";
 //	}
 	// 테이블 전체리스트
-	@RequestMapping(value = "/emp5", method = { RequestMethod.GET, RequestMethod.POST })
-	public String selectEmpList(@ModelAttribute EmpDTO dto, Model model, HttpServletRequest request, HttpServletResponse response)
+	@RequestMapping(value = "/p_sku2", method = { RequestMethod.GET, RequestMethod.POST })
+	public String selectEmpList(@ModelAttribute P_skuDTO skuDTO, Model model, HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
 
-		System.out.println(dto);
+		System.out.println(skuDTO);
 		
-		List<EmpDTO> list = empdao.selectEmpList();
+		List<P_skuDTO> list = empdao.selectEmpList();
 
 		
 		model.addAttribute("list", list);
-		model.addAttribute("dto", dto);
+		model.addAttribute("skuDTO", skuDTO);
 
 
-		return "emp";
+		return "P_sku";
 	}
 
 	// dao에서 가져온 추가
 		@RequestMapping(value = "/p_sku", method = { RequestMethod.GET, RequestMethod.POST })
-		public String addition1(@ModelAttribute EmpDTO empDTO) {
-			System.out.println(empDTO);
-			int select20 = empdao.addition(empDTO);
+		public String addition1(@ModelAttribute P_skuDTO skuDTO) {
+			System.out.println(skuDTO);
+			int select20 = empdao.addition(skuDTO);
 
-			return "redirect:emp5";
+			return "redirect:p_sku2";
 		}
 		
 		// dao에서 가져온 삭제
@@ -84,22 +84,22 @@ public class EmpController {
 			if (skuIds != null) {
 				for (String idStr : skuIds) {
 					int id = Integer.parseInt(idStr);
-					EmpDTO delDto = new EmpDTO();
+					P_skuDTO delDto = new P_skuDTO();
 					delDto.setSku_id(id);
 					empdao.delete(delDto); 
 				}
 			}
-			return "redirect:emp5";
+			return "redirect:p_sku2";
 		}
 
 		// sku_code로 조회
 		@RequestMapping(value = "/searchBySkuCode", method = { RequestMethod.GET, RequestMethod.POST })
-		public String searchBySkuCode(@ModelAttribute EmpDTO empDTO, Model model) {
-		    List<EmpDTO> list = empdao.like(empDTO);
+		public String searchBySkuCode(@ModelAttribute P_skuDTO skuDTO, Model model) {
+		    List<P_skuDTO> list = empdao.like(skuDTO);
 		    model.addAttribute("list", list);
-		    model.addAttribute("dto", empDTO);
+		    model.addAttribute("skuDTO", skuDTO);
 		    
-		    return "emp"; // 기존 JSP로 리다이렉트
+		    return "redirect:p_sku2"; // 기존 JSP로 리다이렉트
 		}
 		
 

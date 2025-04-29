@@ -1,4 +1,4 @@
-package kr.or.GKBM;
+package kr.or.GKBM.sku;
 import java.sql.Date;
 //import java.util.List;
 
@@ -6,7 +6,7 @@ import lombok.Data;
 
 
 @Data
-public class EmpDTO {
+public class P_skuDTO {
 
 	
 	int sku_id;

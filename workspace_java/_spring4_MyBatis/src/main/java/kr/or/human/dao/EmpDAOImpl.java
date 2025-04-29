@@ -20,7 +20,8 @@ public class EmpDAOImpl implements EmpDAO {
 		
 		int page = empDTO.getPage();
 		int viewCount = empDTO.getViewCount();
-		int indexStart = (viewCount * (page-1)) + 1;
+//		int indexStart = (viewCount * (page-1)) + 1;
+		int indexStart = (viewCount * (page-4)) + 2;
 		int indexEnd = page * viewCount;
 		empDTO.setIndexStart(indexStart);
 		empDTO.setIndexEnd(indexEnd);

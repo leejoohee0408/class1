@@ -100,7 +100,7 @@
 				<td>${dto.empno}</td>
 				<!-- 클릭으로 empno의 줄에 내가emp99.jsp에 적었던거
 				가져오기위한 것 <a href="emp99?empno=${dto.empno}">-->
-				<td><a href="emp99?empno=${dto.empno}">${dto.ename}</a></td>
+				<td><a href="emp99?">${dto.ename}</a></td>
 				<td>${dto.job}</td>
 				<td>${dto.mgr}</td>
 				<td>${dto.hiredate}</td>

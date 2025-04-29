@@ -1751,7 +1751,23 @@ select * from emp2;
 
 commit;
 
+select * from p_sku;
 
 
+delete from p_sku where sku_id = 0;
 
+SELECT * FROM p_sku WHERE sku_code = 'SKU101';
 
+select * from p_material_in_out;
+
+SELECT pmio.*, ps.sku_code, ps.sku_name, ps.sku_size
+FROM P_MATERIAL_IN_OUT pmio LEFT JOIN P_SKU ps ON pmio.sku_id = ps.sku_id;
+
+select * from P_work_method;
+
+insert into P_work_method
+VALUES (1,1,1,101,1,SYSDATE,SYSDATE);
+--P_work_method에다 시퀀스했음
+CREATE SEQUENCE work_method_seq START WITH 1 INCREMENT BY 1 NOCACHE NOCYCLE;
+
+delete from P_work_method where work_method = 1;

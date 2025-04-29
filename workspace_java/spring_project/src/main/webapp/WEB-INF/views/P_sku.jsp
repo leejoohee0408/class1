@@ -197,7 +197,7 @@ span {
 
 	
 
-	<form method="get" action="emp5">
+	<form method="get" action="p_sku2">
 		<table border="1">
 			<thead>
 				<tr>
@@ -215,19 +215,19 @@ span {
 				</tr>
 			</thead>
 			<tbody></tbody>
-			<c:forEach var="dto" items="${list}" varStatus="loop">
+			<c:forEach var="skuDTO" items="${list}" varStatus="loop">
 				<tr>
 					<td>${loop.count}</td>
-					<td><input type="checkbox" name="empnos" value="${dto.sku_id}"></td>
-					<td>${dto.sku_id}</td>
-					<td>${dto.sku_code}</td>
-					<td>${dto.sku_name}</td>
-					<td>${dto.sku_size}</td>
-					<td>${dto.vendor_name}</td>
-					<td>${dto.price}</td>
-					<td>${dto.create_date}</td>
-					<td>${dto.modify_date}</td>
-					<td>${dto.sku_category}</td>
+					<td><input type="checkbox" name="empnos" value="${skuDTO.sku_id}"></td>
+					<td>${skuDTO.sku_id}</td>
+					<td>${skuDTO.sku_code}</td>
+					<td>${skuDTO.sku_name}</td>
+					<td>${skuDTO.sku_size}</td>
+					<td>${skuDTO.vendor_name}</td>
+					<td>${skuDTO.price}</td>
+					<td>${skuDTO.create_date}</td>
+					<td>${skuDTO.modify_date}</td>
+					<td>${skuDTO.sku_category}</td>
 
 
 				</tr>
@@ -271,15 +271,8 @@ span {
         form.submit();
     }
 	
-	// 조회
-   <%--  function searchBySkuCode() {
-    	const form = document.querySelector('form.form');
-        form.action = contextPath + '/searchBySkuCode';
-        form.method = 'post';
-        form.submit();
-    }
 	
-    const contextPath = '<%= request.getContextPath() %>'; --%>
+   
 </script>
 
 
